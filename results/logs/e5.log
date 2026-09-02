@@ -1,0 +1,50 @@
+nohup: ignoring input
+Loaded 116 extinction events from ['gsm8k', 'bbh'] (cap=all)
+  [5/116] gsm8k done
+  [10/116] gsm8k done
+  [15/116] gsm8k done
+  [20/116] gsm8k done
+  [25/116] gsm8k done
+  [30/116] gsm8k done
+  [35/116] gsm8k done
+  [40/116] bbh done
+  [45/116] bbh done
+  [50/116] bbh done
+  [55/116] bbh done
+  [60/116] bbh done
+  [65/116] bbh done
+  [70/116] bbh done
+  [75/116] bbh done
+  [80/116] bbh done
+  [85/116] bbh done
+  [90/116] bbh done
+  [95/116] bbh done
+  [100/116] bbh done
+  [105/116] bbh done
+  [110/116] bbh done
+  [115/116] bbh done
+  [116/116] bbh done
+
+#### E5 — preservation / recovery by arm (vs control) ####
+
+[gsm8k]  (n=37)   control: preserve 51% rec_maj 22%
+    self_verify          preserve 51% (Δ+0%)  rec_maj 24% (Δ+3%)  calls 4.1
+    influence_resistant  preserve 49% (Δ-3%)  rec_maj 27% (Δ+5%)  calls 4.1
+    combined             preserve 54% (Δ+3%)  rec_maj 30% (Δ+8%)  calls 4.0
+
+[bbh]  (n=79)   control: preserve 49% rec_maj 24%
+    self_verify          preserve 62% (Δ+13%)  rec_maj 23% (Δ-1%)  calls 4.4
+    influence_resistant  preserve 59% (Δ+10%)  rec_maj 23% (Δ-1%)  calls 4.6
+    combined             preserve 71% (Δ+22%)  rec_maj 30% (Δ+6%)  calls 4.5
+
+[_macro]  (n=116)   control: preserve 50% rec_maj 23%
+    self_verify          preserve 57% (Δ+6%)  rec_maj 24% (Δ+1%)  calls 4.2
+    influence_resistant  preserve 54% (Δ+4%)  rec_maj 25% (Δ+2%)  calls 4.3
+    combined             preserve 62% (Δ+12%)  rec_maj 30% (Δ+7%)  calls 4.2
+
+[_all]  (n=116)   control: preserve 50% rec_maj 23%
+    self_verify          preserve 59% (Δ+9%)  rec_maj 23% (Δ+0%)  calls 4.3
+    influence_resistant  preserve 56% (Δ+6%)  rec_maj 24% (Δ+1%)  calls 4.4
+    combined             preserve 66% (Δ+16%)  rec_maj 30% (Δ+7%)  calls 4.3
+
+[OK] results/tables/e5_counterfactual.json

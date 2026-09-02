@@ -1,0 +1,217 @@
+{
+  "naive": {
+    "gsm8k": {
+      "n": 500,
+      "baseline": 0.732,
+      "posthoc": 0.824,
+      "online": 0.912,
+      "vote_rec": 0.092,
+      "onl_rec": 0.088,
+      "counts": {
+        "base": 366,
+        "posthoc": 412,
+        "online": 456,
+        "vote_rec": 46,
+        "onl_rec": 44,
+        "n": 500
+      }
+    },
+    "strategyqa": {
+      "n": 500,
+      "baseline": 0.602,
+      "posthoc": 0.75,
+      "online": 0.86,
+      "vote_rec": 0.148,
+      "onl_rec": 0.11,
+      "counts": {
+        "base": 301,
+        "posthoc": 375,
+        "online": 430,
+        "vote_rec": 74,
+        "onl_rec": 55,
+        "n": 500
+      }
+    },
+    "commonsenseqa": {
+      "n": 500,
+      "baseline": 0.632,
+      "posthoc": 0.806,
+      "online": 0.93,
+      "vote_rec": 0.174,
+      "onl_rec": 0.124,
+      "counts": {
+        "base": 316,
+        "posthoc": 403,
+        "online": 465,
+        "vote_rec": 87,
+        "onl_rec": 62,
+        "n": 500
+      }
+    },
+    "bbh": {
+      "n": 500,
+      "baseline": 0.42,
+      "posthoc": 0.602,
+      "online": 0.78,
+      "vote_rec": 0.182,
+      "onl_rec": 0.178,
+      "counts": {
+        "base": 210,
+        "posthoc": 301,
+        "online": 390,
+        "vote_rec": 91,
+        "onl_rec": 89,
+        "n": 500
+      }
+    },
+    "truthfulqa": {
+      "n": 500,
+      "baseline": 0.12,
+      "posthoc": 0.196,
+      "online": 0.24,
+      "vote_rec": 0.076,
+      "onl_rec": 0.044,
+      "counts": {
+        "base": 60,
+        "posthoc": 98,
+        "online": 120,
+        "vote_rec": 38,
+        "onl_rec": 22,
+        "n": 500
+      }
+    }
+  },
+  "clean": {
+    "gsm8k": {
+      "n": 500,
+      "baseline": 0.732,
+      "posthoc": 0.824,
+      "online": 0.912,
+      "vote_rec": 0.092,
+      "onl_rec": 0.088,
+      "counts": {
+        "base": 366,
+        "posthoc": 412,
+        "online": 456,
+        "vote_rec": 46,
+        "onl_rec": 44,
+        "n": 500,
+        "behavioral_onl_rec": 37
+      },
+      "ext": {
+        "social": 16,
+        "self": 21,
+        "censored": 7,
+        "total": 44
+      },
+      "behavioral_onl_rec": 0.074
+    },
+    "strategyqa": {
+      "n": 500,
+      "baseline": 0.6,
+      "posthoc": 0.75,
+      "online": 0.86,
+      "vote_rec": 0.15,
+      "onl_rec": 0.11,
+      "counts": {
+        "base": 300,
+        "posthoc": 375,
+        "online": 430,
+        "vote_rec": 75,
+        "onl_rec": 55,
+        "n": 500,
+        "behavioral_onl_rec": 55
+      },
+      "ext": {
+        "social": 54,
+        "self": 1,
+        "censored": 0,
+        "total": 55
+      },
+      "behavioral_onl_rec": 0.11
+    },
+    "commonsenseqa": {
+      "n": 500,
+      "baseline": 0.638,
+      "posthoc": 0.806,
+      "online": 0.93,
+      "vote_rec": 0.168,
+      "onl_rec": 0.124,
+      "counts": {
+        "base": 319,
+        "posthoc": 403,
+        "online": 465,
+        "vote_rec": 84,
+        "onl_rec": 62,
+        "n": 500,
+        "behavioral_onl_rec": 60
+      },
+      "ext": {
+        "social": 48,
+        "self": 12,
+        "censored": 2,
+        "total": 62
+      },
+      "behavioral_onl_rec": 0.12
+    },
+    "bbh": {
+      "n": 500,
+      "baseline": 0.456,
+      "posthoc": 0.602,
+      "online": 0.78,
+      "vote_rec": 0.146,
+      "onl_rec": 0.178,
+      "counts": {
+        "base": 228,
+        "posthoc": 301,
+        "online": 390,
+        "vote_rec": 73,
+        "onl_rec": 89,
+        "n": 500,
+        "behavioral_onl_rec": 79
+      },
+      "ext": {
+        "social": 58,
+        "self": 21,
+        "censored": 10,
+        "total": 89
+      },
+      "behavioral_onl_rec": 0.158
+    },
+    "truthfulqa": {
+      "n": 500,
+      "baseline": 0.12,
+      "posthoc": 0.196,
+      "online": 0.24,
+      "vote_rec": 0.076,
+      "onl_rec": 0.044,
+      "counts": {
+        "base": 60,
+        "posthoc": 98,
+        "online": 120,
+        "vote_rec": 38,
+        "onl_rec": 22,
+        "n": 500,
+        "behavioral_onl_rec": 22
+      },
+      "ext": {
+        "social": 3,
+        "self": 19,
+        "censored": 0,
+        "total": 22
+      },
+      "behavioral_onl_rec": 0.044
+    }
+  },
+  "pooled4": {
+    "N": 2000,
+    "onl_rec_naive": 0.125,
+    "onl_rec_clean": 0.125,
+    "behavioral_onl_rec": 0.1155,
+    "baseline_naive": 0.5965,
+    "baseline_clean": 0.6065,
+    "ext_social": 176,
+    "ext_self": 55,
+    "ext_censored": 19
+  }
+}

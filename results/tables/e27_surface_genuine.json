@@ -1,0 +1,184 @@
+{
+  "n_candidates": 23239,
+  "n_events": 17651,
+  "surface_fraction": 0.7968387060223217,
+  "reasoning_words_by_config": {
+    "E_orig": 162.03010081115778,
+    "E_7b": 120.32096965452848,
+    "E_mixed": 147.48451563958918,
+    "E_strong": 162.17654563492064,
+    "E_n5": 149.2063472915973
+  },
+  "event_contrast": {
+    "pooled": {
+      "p_genuine": 0.3558282208588957,
+      "n_genuine": 3586,
+      "p_surface": 0.29164592961251334,
+      "n_surface": 14065,
+      "delta": 0.06418229124638236,
+      "lo": 0.04402215823509278,
+      "hi": 0.08383501823157943,
+      "p_le0": 0.0
+    },
+    "per_bench": {
+      "gsm8k": {
+        "p_genuine": 0.40794979079497906,
+        "n_genuine": 478,
+        "p_surface": 0.38167509836987074,
+        "n_surface": 1779,
+        "delta": 0.026274692425108326,
+        "lo": -0.02755014632886221,
+        "hi": 0.07935711307439819,
+        "p_le0": 0.19
+      },
+      "strategyqa": {
+        "p_genuine": 0.4935897435897436,
+        "n_genuine": 312,
+        "p_surface": 0.4904904904904905,
+        "n_surface": 999,
+        "delta": 0.0030992530992531298,
+        "lo": -0.06381153898075231,
+        "hi": 0.07680030577568633,
+        "p_le0": 0.476
+      },
+      "commonsenseqa": {
+        "p_genuine": 0.3630229419703104,
+        "n_genuine": 741,
+        "p_surface": 0.35525797558093736,
+        "n_surface": 2539,
+        "delta": 0.007764966389373018,
+        "lo": -0.044082351829664856,
+        "hi": 0.05644788091509093,
+        "p_le0": 0.33
+      },
+      "bbh": {
+        "p_genuine": 0.35224274406332456,
+        "n_genuine": 758,
+        "p_surface": 0.31670362158167037,
+        "n_surface": 2706,
+        "delta": 0.035539122481654195,
+        "lo": -0.004162345032543577,
+        "hi": 0.08114232290977615,
+        "p_le0": 0.042
+      },
+      "truthfulqa": {
+        "p_genuine": 0.13612565445026178,
+        "n_genuine": 573,
+        "p_surface": 0.05286713286713287,
+        "n_surface": 3575,
+        "delta": 0.08325852158312891,
+        "lo": 0.04834608091367883,
+        "hi": 0.1187061476309596,
+        "p_le0": 0.0
+      },
+      "aqua": {
+        "p_genuine": 0.3407079646017699,
+        "n_genuine": 226,
+        "p_surface": 0.34045801526717556,
+        "n_surface": 655,
+        "delta": 0.0002499493345943238,
+        "lo": -0.08243747092970499,
+        "hi": 0.07950880486488777,
+        "p_le0": 0.52
+      },
+      "mmlu": {
+        "p_genuine": 0.3663003663003663,
+        "n_genuine": 273,
+        "p_surface": 0.3162901307966706,
+        "n_surface": 841,
+        "delta": 0.050010235503695655,
+        "lo": -0.010593818601317142,
+        "hi": 0.119973156102435,
+        "p_le0": 0.068
+      },
+      "arc": {
+        "p_genuine": 0.6044444444444445,
+        "n_genuine": 225,
+        "p_surface": 0.5108135942327497,
+        "n_surface": 971,
+        "delta": 0.0936308502116947,
+        "lo": 0.01696396936972836,
+        "hi": 0.1659486868608694,
+        "p_le0": 0.008
+      }
+    },
+    "per_config": {
+      "E_orig": {
+        "p_genuine": 0.3310344827586207,
+        "n_genuine": 1160,
+        "p_surface": 0.23691301000769824,
+        "n_surface": 5196,
+        "delta": 0.09412147275092245,
+        "lo": 0.06112856251534969,
+        "hi": 0.1309712109441181,
+        "p_le0": 0.0
+      },
+      "E_7b": {
+        "p_genuine": 0.38839285714285715,
+        "n_genuine": 672,
+        "p_surface": 0.3509771986970684,
+        "n_surface": 2456,
+        "delta": 0.03741565844578876,
+        "lo": -0.011640765951591655,
+        "hi": 0.08135166106928943,
+        "p_le0": 0.066
+      },
+      "E_mixed": {
+        "p_genuine": 0.3157051282051282,
+        "n_genuine": 624,
+        "p_surface": 0.3037383177570093,
+        "n_surface": 2996,
+        "delta": 0.01196681044811887,
+        "lo": -0.03211359246409041,
+        "hi": 0.05664819764413993,
+        "p_le0": 0.346
+      },
+      "E_strong": {
+        "p_genuine": 0.35353535353535354,
+        "n_genuine": 297,
+        "p_surface": 0.3201267828843106,
+        "n_surface": 1262,
+        "delta": 0.03340857065104291,
+        "lo": -0.030395427651251004,
+        "hi": 0.09838262588785937,
+        "p_le0": 0.176
+      },
+      "E_n5": {
+        "p_genuine": 0.3949579831932773,
+        "n_genuine": 833,
+        "p_surface": 0.3225058004640371,
+        "n_surface": 2155,
+        "delta": 0.0724521827292402,
+        "lo": 0.028067564048262654,
+        "hi": 0.11273699978908734,
+        "p_le0": 0.0
+      }
+    }
+  },
+  "decomposition": {
+    "n_independent": {
+      "beta": 1.5464840915229132,
+      "lo": 1.4694333037983034,
+      "hi": 1.6209884025401975
+    },
+    "n_genuine_adopt": {
+      "beta": 0.4805214392852303,
+      "lo": 0.390192807584723,
+      "hi": 0.5559782264061707
+    },
+    "n_surface_adopt": {
+      "beta": 0.49453542067844247,
+      "lo": 0.4364122699866007,
+      "hi": 0.5486373179540619
+    },
+    "_genuine_minus_surface": {
+      "beta": -0.014013981393212194,
+      "lo": -0.11108566034020242,
+      "hi": 0.08034310566380337,
+      "p_le0": 0.62
+    }
+  },
+  "figure": "results/figures/e27_surface_genuine.png",
+  "verdict": "NOT clean \u2014 report in appendix/robustness, do NOT promote; E26/H3 unaffected",
+  "_note": "SECONDARY mechanism extension; E26/H3 frozen independently. Convergence = lexical reasoning-jaccard residualized vs debate baseline (E24 machinery); genuine iff per-event residual>0. Promote to a contribution ONLY if both the event-level \u0394 and the decomposition genuine\u2212surface contrast are CI-lo>0."
+}

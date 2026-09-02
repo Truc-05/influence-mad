@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvidia-smi --query-gpu=index,name,memory.used,memory.total,utilization.gpu --format=csv)",
+      "Bash(nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_memory --format=csv)",
+      "Bash(nvidia-smi)"
+    ]
+  }
+}

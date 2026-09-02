@@ -1,0 +1,42 @@
+[2026-08-31 12:02:40] === E25 new-bench pilot gen: 10 cells, seed42 n=100, url=http://localhost:11435 ===
+[2026-08-31 12:02:40] >>> (1/10) E_7b/aqua
+[gen ] E_7b/aqua_seed42: 11 done, 89 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_7b/aqua_seed42: data/debate_logs/gen/E_7b/aqua_seed42.jsonl
+[2026-08-31 12:51:28] <<< DONE E_7b/aqua
+[2026-08-31 12:51:28] >>> (2/10) E_7b/math
+[gen ] E_7b/math_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_7b/math_seed42: data/debate_logs/gen/E_7b/math_seed42.jsonl
+[2026-08-31 13:51:57] <<< DONE E_7b/math
+[2026-08-31 13:51:57] >>> (3/10) E_7b/mmlu
+[gen ] E_7b/mmlu_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_7b/mmlu_seed42: data/debate_logs/gen/E_7b/mmlu_seed42.jsonl
+[2026-08-31 14:30:34] <<< DONE E_7b/mmlu
+[2026-08-31 14:30:34] >>> (4/10) E_7b/arc
+[gen ] E_7b/arc_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_7b/arc_seed42: data/debate_logs/gen/E_7b/arc_seed42.jsonl
+[2026-08-31 15:03:43] <<< DONE E_7b/arc
+[2026-08-31 15:03:43] >>> (5/10) E_mixed/aqua
+[gen ] E_mixed/aqua_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_mixed/aqua_seed42: data/debate_logs/gen/E_mixed/aqua_seed42.jsonl
+[2026-08-31 15:49:08] <<< DONE E_mixed/aqua
+[2026-08-31 15:49:08] >>> (6/10) E_mixed/math
+[gen ] E_mixed/math_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_mixed/math_seed42: data/debate_logs/gen/E_mixed/math_seed42.jsonl
+[2026-08-31 16:38:23] <<< DONE E_mixed/math
+[2026-08-31 16:38:23] >>> (7/10) E_mixed/mmlu
+[gen ] E_mixed/mmlu_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_mixed/mmlu_seed42: data/debate_logs/gen/E_mixed/mmlu_seed42.jsonl
+[2026-08-31 17:16:05] <<< DONE E_mixed/mmlu
+[2026-08-31 17:16:05] >>> (8/10) E_mixed/arc
+[gen ] E_mixed/arc_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_mixed/arc_seed42: data/debate_logs/gen/E_mixed/arc_seed42.jsonl
+[2026-08-31 17:48:27] <<< DONE E_mixed/arc
+[2026-08-31 17:48:27] >>> (9/10) E_orig3b/mmlu
+[gen ] E_orig3b/mmlu_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_orig3b/mmlu_seed42: data/debate_logs/gen/E_orig3b/mmlu_seed42.jsonl
+[2026-08-31 18:19:50] <<< DONE E_orig3b/mmlu
+[2026-08-31 18:19:50] >>> (10/10) E_orig3b/arc
+[gen ] E_orig3b/arc_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_orig3b/arc_seed42: data/debate_logs/gen/E_orig3b/arc_seed42.jsonl
+[2026-08-31 18:46:42] <<< DONE E_orig3b/arc
+[2026-08-31 18:46:42] === ALL PILOT GEN DONE ===

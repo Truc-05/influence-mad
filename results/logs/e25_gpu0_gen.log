@@ -1,0 +1,74 @@
+[2026-08-31 12:41:59] === E25 gpu0 gen (E_strong + E_n5): 18 cells, seed42 n=100, url=http://localhost:11436 ===
+[2026-08-31 12:41:59] >>> (1/18) E_strong/gsm8k
+[gen ] E_strong/gsm8k_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/gsm8k_seed42: data/debate_logs/gen/E_strong/gsm8k_seed42.jsonl
+[2026-08-31 13:25:30] <<< DONE E_strong/gsm8k
+[2026-08-31 13:25:30] >>> (2/18) E_strong/strategyqa
+[gen ] E_strong/strategyqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/strategyqa_seed42: data/debate_logs/gen/E_strong/strategyqa_seed42.jsonl
+[2026-08-31 14:00:18] <<< DONE E_strong/strategyqa
+[2026-08-31 14:00:18] >>> (3/18) E_strong/commonsenseqa
+[gen ] E_strong/commonsenseqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/commonsenseqa_seed42: data/debate_logs/gen/E_strong/commonsenseqa_seed42.jsonl
+[2026-08-31 14:39:02] <<< DONE E_strong/commonsenseqa
+[2026-08-31 14:39:02] >>> (4/18) E_strong/bbh
+[gen ] E_strong/bbh_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/bbh_seed42: data/debate_logs/gen/E_strong/bbh_seed42.jsonl
+[2026-08-31 15:30:16] <<< DONE E_strong/bbh
+[2026-08-31 15:30:16] >>> (5/18) E_strong/truthfulqa
+[gen ] E_strong/truthfulqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/truthfulqa_seed42: data/debate_logs/gen/E_strong/truthfulqa_seed42.jsonl
+[2026-08-31 16:08:06] <<< DONE E_strong/truthfulqa
+[2026-08-31 16:08:06] >>> (6/18) E_strong/aqua
+[gen ] E_strong/aqua_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/aqua_seed42: data/debate_logs/gen/E_strong/aqua_seed42.jsonl
+[2026-08-31 17:11:03] <<< DONE E_strong/aqua
+[2026-08-31 17:11:03] >>> (7/18) E_strong/arc
+[gen ] E_strong/arc_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/arc_seed42: data/debate_logs/gen/E_strong/arc_seed42.jsonl
+[2026-08-31 17:52:01] <<< DONE E_strong/arc
+[2026-08-31 17:52:01] >>> (8/18) E_strong/mmlu
+[gen ] E_strong/mmlu_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/mmlu_seed42: data/debate_logs/gen/E_strong/mmlu_seed42.jsonl
+[2026-08-31 18:39:09] <<< DONE E_strong/mmlu
+[2026-08-31 18:39:09] >>> (9/18) E_strong/math
+[gen ] E_strong/math_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong/math_seed42: data/debate_logs/gen/E_strong/math_seed42.jsonl
+[2026-08-31 19:43:09] <<< DONE E_strong/math
+[2026-08-31 19:43:09] >>> (10/18) E_n5/gsm8k
+[gen ] E_n5/gsm8k_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/gsm8k_seed42: data/debate_logs/gen/E_n5/gsm8k_seed42.jsonl
+[2026-08-31 22:06:06] <<< DONE E_n5/gsm8k
+[2026-08-31 22:06:06] >>> (11/18) E_n5/strategyqa
+[gen ] E_n5/strategyqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/strategyqa_seed42: data/debate_logs/gen/E_n5/strategyqa_seed42.jsonl
+[2026-09-01 00:17:49] <<< DONE E_n5/strategyqa
+[2026-09-01 00:17:49] >>> (12/18) E_n5/commonsenseqa
+[gen ] E_n5/commonsenseqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/commonsenseqa_seed42: data/debate_logs/gen/E_n5/commonsenseqa_seed42.jsonl
+[2026-09-01 02:32:11] <<< DONE E_n5/commonsenseqa
+[2026-09-01 02:32:11] >>> (13/18) E_n5/bbh
+[gen ] E_n5/bbh_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/bbh_seed42: data/debate_logs/gen/E_n5/bbh_seed42.jsonl
+[2026-09-01 05:04:41] <<< DONE E_n5/bbh
+[2026-09-01 05:04:41] >>> (14/18) E_n5/truthfulqa
+[gen ] E_n5/truthfulqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/truthfulqa_seed42: data/debate_logs/gen/E_n5/truthfulqa_seed42.jsonl
+[2026-09-01 07:19:58] <<< DONE E_n5/truthfulqa
+[2026-09-01 07:19:58] >>> (15/18) E_n5/aqua
+[gen ] E_n5/aqua_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/aqua_seed42: data/debate_logs/gen/E_n5/aqua_seed42.jsonl
+[2026-09-01 10:06:01] <<< DONE E_n5/aqua
+[2026-09-01 10:06:01] >>> (16/18) E_n5/arc
+[gen ] E_n5/arc_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/arc_seed42: data/debate_logs/gen/E_n5/arc_seed42.jsonl
+[2026-09-01 12:28:38] <<< DONE E_n5/arc
+[2026-09-01 12:28:38] >>> (17/18) E_n5/mmlu
+[gen ] E_n5/mmlu_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/mmlu_seed42: data/debate_logs/gen/E_n5/mmlu_seed42.jsonl
+[2026-09-01 15:04:45] <<< DONE E_n5/mmlu
+[2026-09-01 15:04:45] >>> (18/18) E_n5/math
+[gen ] E_n5/math_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_n5/math_seed42: data/debate_logs/gen/E_n5/math_seed42.jsonl
+[2026-09-01 18:08:38] <<< DONE E_n5/math
+[2026-09-01 18:08:38] === ALL gpu0 PILOT GEN DONE ===

@@ -1,0 +1,309 @@
+{
+  "gsm8k": {
+    "final_majority": 0.76,
+    "round0_majority": 0.81,
+    "CR_history": 0.92,
+    "prov_logistic_xfit": {
+      "acc": 0.808,
+      "d_round0": -0.0020000000000000018,
+      "ci_round0": [
+        -0.010000000000000009,
+        0.006000000000000005
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.04800000000000004,
+      "ci_finalmaj": [
+        0.02199999999999991,
+        0.07599999999999996
+      ],
+      "beats_finalmaj": true
+    },
+    "convgate_hand": {
+      "acc": 0.778,
+      "d_round0": -0.03200000000000003,
+      "ci_round0": [
+        -0.05799999999999994,
+        -0.008000000000000007
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.018000000000000016,
+      "ci_finalmaj": [
+        -0.014000000000000012,
+        0.050000000000000044
+      ],
+      "beats_finalmaj": false
+    },
+    "provconv_logistic_xfit": {
+      "acc": 0.806,
+      "d_round0": -0.0040000000000000036,
+      "ci_round0": [
+        -0.018000000000000016,
+        0.010000000000000009
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.04600000000000004,
+      "ci_finalmaj": [
+        0.018000000000000016,
+        0.07399999999999995
+      ],
+      "beats_finalmaj": true
+    }
+  },
+  "bbh": {
+    "final_majority": 0.466,
+    "round0_majority": 0.494,
+    "CR_history": 0.798,
+    "prov_logistic_xfit": {
+      "acc": 0.502,
+      "d_round0": 0.008000000000000007,
+      "ci_round0": [
+        -0.01799999999999996,
+        0.03399999999999992
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.035999999999999976,
+      "ci_finalmaj": [
+        0.0020000000000000018,
+        0.07
+      ],
+      "beats_finalmaj": true
+    },
+    "convgate_hand": {
+      "acc": 0.468,
+      "d_round0": -0.025999999999999968,
+      "ci_round0": [
+        -0.06000000000000005,
+        0.009999999999999955
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.0020000000000000018,
+      "ci_finalmaj": [
+        -0.03200000000000003,
+        0.035999999999999976
+      ],
+      "beats_finalmaj": false
+    },
+    "provconv_logistic_xfit": {
+      "acc": 0.502,
+      "d_round0": 0.008000000000000007,
+      "ci_round0": [
+        -0.01799999999999996,
+        0.033999999999999975
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.035999999999999976,
+      "ci_finalmaj": [
+        0.0020000000000000018,
+        0.07
+      ],
+      "beats_finalmaj": true
+    }
+  },
+  "strategyqa": {
+    "final_majority": 0.604,
+    "round0_majority": 0.58,
+    "CR_history": 0.908,
+    "prov_logistic_xfit": {
+      "acc": 0.59,
+      "d_round0": 0.010000000000000009,
+      "ci_round0": [
+        -0.0079999999999999,
+        0.030000000000000027
+      ],
+      "beats_round0": false,
+      "d_finalmaj": -0.014000000000000012,
+      "ci_finalmaj": [
+        -0.04400000000000004,
+        0.018000000000000016
+      ],
+      "beats_finalmaj": false
+    },
+    "convgate_hand": {
+      "acc": 0.604,
+      "d_round0": 0.02400000000000002,
+      "ci_round0": [
+        -0.0020000000000000018,
+        0.051999999999999935
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.0,
+      "ci_finalmaj": [
+        -0.030000000000000027,
+        0.03200000000000003
+      ],
+      "beats_finalmaj": false
+    },
+    "provconv_logistic_xfit": {
+      "acc": 0.59,
+      "d_round0": 0.010000000000000009,
+      "ci_round0": [
+        -0.008000000000000007,
+        0.030000000000000027
+      ],
+      "beats_round0": false,
+      "d_finalmaj": -0.014000000000000012,
+      "ci_finalmaj": [
+        -0.04599999999999993,
+        0.018000000000000016
+      ],
+      "beats_finalmaj": false
+    }
+  },
+  "commonsenseqa": {
+    "final_majority": 0.664,
+    "round0_majority": 0.75,
+    "CR_history": 0.936,
+    "prov_logistic_xfit": {
+      "acc": 0.75,
+      "d_round0": 0.0,
+      "ci_round0": [
+        -0.020000000000000018,
+        0.020000000000000018
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.08599999999999997,
+      "ci_finalmaj": [
+        0.04799999999999993,
+        0.124
+      ],
+      "beats_finalmaj": true
+    },
+    "convgate_hand": {
+      "acc": 0.73,
+      "d_round0": -0.020000000000000018,
+      "ci_round0": [
+        -0.05400000000000005,
+        0.014000000000000012
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.06599999999999995,
+      "ci_finalmaj": [
+        0.026000000000000023,
+        0.10399999999999998
+      ],
+      "beats_finalmaj": true
+    },
+    "provconv_logistic_xfit": {
+      "acc": 0.758,
+      "d_round0": 0.008000000000000007,
+      "ci_round0": [
+        -0.014000000000000012,
+        0.028000000000000025
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.09399999999999997,
+      "ci_finalmaj": [
+        0.05599999999999994,
+        0.134
+      ],
+      "beats_finalmaj": true
+    }
+  },
+  "truthfulqa": {
+    "final_majority": 0.148,
+    "round0_majority": 0.166,
+    "CR_history": 0.24,
+    "prov_logistic_xfit": {
+      "acc": 0.168,
+      "d_round0": 0.0020000000000000018,
+      "ci_round0": [
+        0.0,
+        0.006000000000000005
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.020000000000000018,
+      "ci_finalmaj": [
+        0.0,
+        0.04000000000000001
+      ],
+      "beats_finalmaj": false
+    },
+    "convgate_hand": {
+      "acc": 0.168,
+      "d_round0": 0.0020000000000000018,
+      "ci_round0": [
+        -0.011999999999999983,
+        0.016000000000000014
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.020000000000000018,
+      "ci_finalmaj": [
+        0.0,
+        0.04200000000000001
+      ],
+      "beats_finalmaj": false
+    },
+    "provconv_logistic_xfit": {
+      "acc": 0.174,
+      "d_round0": 0.00799999999999998,
+      "ci_round0": [
+        0.0,
+        0.018000000000000016
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.025999999999999995,
+      "ci_finalmaj": [
+        0.00799999999999998,
+        0.048000000000000015
+      ],
+      "beats_finalmaj": true
+    }
+  },
+  "pooled": {
+    "final_majority": 0.5284,
+    "round0_majority": 0.56,
+    "CR_history": 0.7604,
+    "prov_logistic_xfit": {
+      "acc": 0.5636,
+      "d_round0": 0.0035999999999999366,
+      "ci_round0": [
+        -0.0040000000000000036,
+        0.011599999999999944
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.03520000000000001,
+      "ci_finalmaj": [
+        0.021599999999999953,
+        0.048810000000000096
+      ],
+      "beats_finalmaj": true,
+      "GO_vs_round0": false,
+      "benches_beat_round0": 3
+    },
+    "convgate_hand": {
+      "acc": 0.5496,
+      "d_round0": -0.010400000000000076,
+      "ci_round0": [
+        -0.0232,
+        0.0023999999999999577
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.021199999999999997,
+      "ci_finalmaj": [
+        0.007189999999999989,
+        0.03599999999999992
+      ],
+      "beats_finalmaj": true,
+      "GO_vs_round0": false,
+      "benches_beat_round0": 2
+    },
+    "provconv_logistic_xfit": {
+      "acc": 0.566,
+      "d_round0": 0.005999999999999894,
+      "ci_round0": [
+        -0.0023999999999999577,
+        0.014000000000000012
+      ],
+      "beats_round0": false,
+      "d_finalmaj": 0.03759999999999997,
+      "ci_finalmaj": [
+        0.02400000000000002,
+        0.051999999999999935
+      ],
+      "beats_finalmaj": true,
+      "GO_vs_round0": false,
+      "benches_beat_round0": 4
+    }
+  },
+  "_note": "Convergence-gated provenance: credit late consensus only when reasoning genuinely converges (jaccard residualized vs debate baseline, per E3b surface-adoption). Primary = beat round0_majority pooled (CI>0, >=3/5 benches) AND fix StrategyQA."
+}

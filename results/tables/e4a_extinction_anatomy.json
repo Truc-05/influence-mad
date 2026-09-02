@@ -1,0 +1,128 @@
+{
+  "benchmarks": {
+    "gsm8k": {
+      "n": 44,
+      "correct_holder_before": 1.0,
+      "holders_actually_revised": 1.0,
+      "t_star_1": 0.38636363636363635,
+      "t_star_2": 0.6136363636363636,
+      "single_holder": 0.7272727272727273,
+      "death_by_adoption": 0.3409090909090909,
+      "minority_detectable_nogold": 0.11363636363636363,
+      "herd_onto_maj_wrong": 0.1590909090909091,
+      "social_and_detectable": 0.022727272727272728,
+      "dtype": {
+        "social_adoption": 0.3409090909090909,
+        "self_error_value": 0.4772727272727273,
+        "self_error_parsefail": 0.18181818181818182
+      },
+      "answer_space_cardinality": 68
+    },
+    "strategyqa": {
+      "n": 55,
+      "correct_holder_before": 1.0,
+      "holders_actually_revised": 1.0,
+      "t_star_1": 0.5272727272727272,
+      "t_star_2": 0.4727272727272727,
+      "single_holder": 0.8545454545454545,
+      "death_by_adoption": 0.9818181818181818,
+      "minority_detectable_nogold": 0.8545454545454545,
+      "herd_onto_maj_wrong": 0.9818181818181818,
+      "social_and_detectable": 0.8545454545454545,
+      "dtype": {
+        "social_adoption": 0.9818181818181818,
+        "self_error_value": 0.01818181818181818,
+        "self_error_parsefail": 0.0
+      },
+      "answer_space_cardinality": 2
+    },
+    "commonsenseqa": {
+      "n": 62,
+      "correct_holder_before": 1.0,
+      "holders_actually_revised": 1.0,
+      "t_star_1": 0.3709677419354839,
+      "t_star_2": 0.6290322580645161,
+      "single_holder": 0.7419354838709677,
+      "death_by_adoption": 0.7741935483870968,
+      "minority_detectable_nogold": 0.45161290322580644,
+      "herd_onto_maj_wrong": 0.532258064516129,
+      "social_and_detectable": 0.3709677419354839,
+      "dtype": {
+        "social_adoption": 0.7741935483870968,
+        "self_error_value": 0.22580645161290322,
+        "self_error_parsefail": 0.0
+      },
+      "answer_space_cardinality": 5
+    },
+    "bbh": {
+      "n": 89,
+      "correct_holder_before": 1.0,
+      "holders_actually_revised": 1.0,
+      "t_star_1": 0.5168539325842697,
+      "t_star_2": 0.48314606741573035,
+      "single_holder": 0.7865168539325843,
+      "death_by_adoption": 0.7078651685393258,
+      "minority_detectable_nogold": 0.3146067415730337,
+      "herd_onto_maj_wrong": 0.34831460674157305,
+      "social_and_detectable": 0.2247191011235955,
+      "dtype": {
+        "social_adoption": 0.7078651685393258,
+        "self_error_value": 0.29213483146067415,
+        "self_error_parsefail": 0.0
+      },
+      "answer_space_cardinality": 10
+    },
+    "truthfulqa": {
+      "n": 22,
+      "correct_holder_before": 1.0,
+      "holders_actually_revised": 1.0,
+      "t_star_1": 0.5454545454545454,
+      "t_star_2": 0.45454545454545453,
+      "single_holder": 0.9090909090909091,
+      "death_by_adoption": 0.13636363636363635,
+      "minority_detectable_nogold": 0.0,
+      "herd_onto_maj_wrong": 0.0,
+      "social_and_detectable": 0.0,
+      "dtype": {
+        "social_adoption": 0.13636363636363635,
+        "self_error_value": 0.8636363636363636,
+        "self_error_parsefail": 0.0
+      },
+      "answer_space_cardinality": 93
+    }
+  },
+  "pooled_main_4bench": {
+    "n": 250,
+    "correct_holder_before": 1.0,
+    "holders_actually_revised": 1.0,
+    "t_star_1": 0.46,
+    "t_star_2": 0.54,
+    "single_holder": 0.78,
+    "death_by_adoption": 0.72,
+    "minority_detectable_nogold": 0.432,
+    "herd_onto_maj_wrong": 0.5,
+    "social_and_detectable": 0.364,
+    "dtype": {
+      "social_adoption": 0.72,
+      "self_error_value": 0.248,
+      "self_error_parsefail": 0.032
+    }
+  },
+  "pooled_all_5bench": {
+    "n": 272,
+    "correct_holder_before": 1.0,
+    "holders_actually_revised": 1.0,
+    "t_star_1": 0.46691176470588236,
+    "t_star_2": 0.5330882352941176,
+    "single_holder": 0.7904411764705882,
+    "death_by_adoption": 0.6727941176470589,
+    "minority_detectable_nogold": 0.39705882352941174,
+    "herd_onto_maj_wrong": 0.45955882352941174,
+    "social_and_detectable": 0.33455882352941174,
+    "dtype": {
+      "social_adoption": 0.6727941176470589,
+      "self_error_value": 0.2977941176470588,
+      "self_error_parsefail": 0.029411764705882353
+    }
+  }
+}

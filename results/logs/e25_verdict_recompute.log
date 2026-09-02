@@ -1,0 +1,297 @@
+
+=== H1 E_orig/gsm8k  (n=500, 100 qid) ===
+  current maj-acc (mode)          0.732
+  CR_final   (oracle | final)     0.824
+  CR_history (oracle | HP pool)   0.920
+  ΔCR = forgotten-correct         +0.096  [+0.070,+0.128]  GO
+  extinction rate                 0.096
+  pool size hist / final          2.40 / 1.49  (+0.92 candidates)
+
+=== H2 E_orig/gsm8k  (candidates=1201, base P(correct)=0.383) ===
+  n_independent  dirAUC 0.879 [0.843,0.909]*  mono=True
+      P(correct|·): 0:0.08(n340) 1:0.20(n499) 2:0.84(n161) 3:0.99(n201)
+  n_persist      dirAUC 0.852 [0.828,0.874]*  mono=True
+      P(correct|·): 1:0.05(n468) 2:0.35(n307) 3:0.77(n426)
+  n_support      dirAUC 0.932 [0.909,0.951]*  mono=False
+      P(correct|·): 1:0.04(n453) 2:0.16(n202) 3:0.27(n128) 4:0.77(n66) 5:0.76(n68) 6:0.93(n99) 7:0.95(n63) 8:0.97(n59) 9:1.00(n63)
+  first_round    dirAUC 0.685 [0.659,0.710]*  mono=True
+      P(correct|·): 0:0.50(n861) 1:0.11(n215) 2:0.03(n125)
+  n_late_adopt   dirAUC 0.516 [0.477,0.556]   mono=False
+      P(correct|·): 0:0.41(n571) 1:0.33(n527) 2:0.49(n91)
+  resurrected    dirAUC 0.508 [0.500,0.515]*  mono=True
+      P(correct|·): 0:0.39(n1179) 1:0.18(n22)
+  [combo]        untuned equal-weight z-sum AUC = 0.898  (preview, NOT tuned)
+
+=== H3 E_orig/gsm8k  (n=500, 100 qid, final-maj 0.760, CR_history 0.920) ===
+  final_majority        0.760   (baseline)
+  round0_majority       0.810   Δ +0.050 [+0.020,+0.080]*  cap 31%
+  prov_equalweight      0.806   Δ +0.046 [+0.022,+0.072]*  cap 29%
+  prov_eq_-independent  0.798   Δ +0.038 [+0.014,+0.062]*  cap 24%
+  prov_eq_-persist      0.808   Δ +0.048 [+0.020,+0.078]*  cap 30%
+  prov_eq_-support      0.802   Δ +0.042 [+0.016,+0.068]*  cap 26%
+  prov_logistic_xfit    0.814   Δ +0.054 [+0.030,+0.080]*  cap 34%
+
+=== H1 E_orig/strategyqa  (n=500, 100 qid) ===
+  current maj-acc (mode)          0.600
+  CR_final   (oracle | final)     0.750
+  CR_history (oracle | HP pool)   0.908
+  ΔCR = forgotten-correct         +0.158  [+0.112,+0.206]  GO
+  extinction rate                 0.158
+  pool size hist / final          1.64 / 1.32  (+0.32 candidates)
+
+=== H2 E_orig/strategyqa  (candidates=818, base P(correct)=0.555) ===
+  n_independent  dirAUC 0.607 [0.509,0.701]*  mono=False
+      P(correct|·): 0:0.38(n169) 1:0.67(n150) 2:0.34(n155) 3:0.69(n344)
+  n_persist      dirAUC 0.550 [0.475,0.625]   mono=True
+      P(correct|·): 1:0.43(n149) 2:0.57(n202) 3:0.59(n467)
+  n_support      dirAUC 0.588 [0.494,0.684]   mono=False
+      P(correct|·): 1:0.42(n128) 2:0.56(n87) 3:0.58(n53) 4:0.44(n59) 5:0.54(n69) 6:0.57(n107) 7:0.44(n81) 8:0.64(n118) 9:0.73(n116)
+  first_round    dirAUC 0.572 [0.513,0.632]*  mono=True
+      P(correct|·): 0:0.60(n649) 1:0.40(n137) 2:0.31(n32)
+  n_late_adopt   dirAUC 0.589 [0.536,0.646]*  mono=False
+      P(correct|·): 0:0.68(n298) 1:0.48(n338) 2:0.49(n154) 3:0.50(n28)
+  resurrected    dirAUC 0.498 [0.487,0.509]   mono=None
+      P(correct|·): 0:0.55(n800)
+  [combo]        untuned equal-weight z-sum AUC = 0.610  (preview, NOT tuned)
+
+=== H3 E_orig/strategyqa  (n=500, 100 qid, final-maj 0.604, CR_history 0.908) ===
+  final_majority        0.604   (baseline)
+  round0_majority       0.580   Δ -0.024 [-0.060,+0.014]   cap -8%
+  prov_equalweight      0.592   Δ -0.012 [-0.038,+0.018]   cap -4%
+  prov_eq_-independent  0.598   Δ -0.006 [-0.030,+0.018]   cap -2%
+  prov_eq_-persist      0.584   Δ -0.020 [-0.052,+0.014]   cap -7%
+  prov_eq_-support      0.592   Δ -0.012 [-0.038,+0.018]   cap -4%
+  prov_logistic_xfit    0.584   Δ -0.020 [-0.058,+0.022]   cap -7%
+
+=== H1 E_orig/commonsenseqa  (n=500, 100 qid) ===
+  current maj-acc (mode)          0.638
+  CR_final   (oracle | final)     0.806
+  CR_history (oracle | HP pool)   0.936
+  ΔCR = forgotten-correct         +0.130  [+0.100,+0.162]  GO
+  extinction rate                 0.130
+  pool size hist / final          2.26 / 1.66  (+0.59 candidates)
+
+=== H2 E_orig/commonsenseqa  (candidates=1129, base P(correct)=0.415) ===
+  n_independent  dirAUC 0.867 [0.819,0.911]*  mono=True
+      P(correct|·): 0:0.05(n326) 1:0.27(n353) 2:0.65(n205) 3:0.90(n245)
+  n_persist      dirAUC 0.753 [0.714,0.790]*  mono=True
+      P(correct|·): 1:0.10(n313) 2:0.35(n300) 3:0.64(n516)
+  n_support      dirAUC 0.848 [0.801,0.890]*  mono=False
+      P(correct|·): 1:0.08(n287) 2:0.16(n166) 3:0.32(n145) 4:0.44(n103) 5:0.59(n108) 6:0.80(n121) 7:0.77(n83) 8:0.88(n68) 9:0.90(n48)
+  first_round    dirAUC 0.715 [0.683,0.751]*  mono=False
+      P(correct|·): 0:0.56(n803) 1:0.05(n221) 2:0.06(n105)
+  n_late_adopt   dirAUC 0.611 [0.568,0.655]*  mono=True
+      P(correct|·): 0:0.57(n363) 1:0.35(n499) 2:0.33(n214) 3:0.28(n53)
+  resurrected    dirAUC 0.500 [0.489,0.511]   mono=True
+      P(correct|·): 0:0.41(n1097) 1:0.41(n32)
+  [combo]        untuned equal-weight z-sum AUC = 0.855  (preview, NOT tuned)
+
+=== H3 E_orig/commonsenseqa  (n=500, 100 qid, final-maj 0.664, CR_history 0.936) ===
+  final_majority        0.664   (baseline)
+  round0_majority       0.750   Δ +0.086 [+0.042,+0.130]*  cap 32%
+  prov_equalweight      0.748   Δ +0.084 [+0.048,+0.120]*  cap 31%
+  prov_eq_-independent  0.730   Δ +0.066 [+0.034,+0.100]*  cap 24%
+  prov_eq_-persist      0.756   Δ +0.092 [+0.050,+0.134]*  cap 34%
+  prov_eq_-support      0.748   Δ +0.084 [+0.048,+0.120]*  cap 31%
+  prov_logistic_xfit    0.752   Δ +0.088 [+0.044,+0.132]*  cap 32%
+
+=== H1 E_7b/gsm8k  (n=400, 100 qid) ===
+  current maj-acc (mode)          0.818
+  CR_final   (oracle | final)     0.873
+  CR_history (oracle | HP pool)   0.938
+  ΔCR = forgotten-correct         +0.065  [+0.040,+0.095]  GO
+  extinction rate                 0.065
+  pool size hist / final          2.48 / 1.55  (+0.92 candidates)
+
+=== H2 E_7b/gsm8k  (candidates=991, base P(correct)=0.378) ===
+  n_independent  dirAUC 0.901 [0.869,0.929]*  mono=True
+      P(correct|·): 0:0.04(n270) 1:0.20(n411) 2:0.86(n179) 3:0.98(n131)
+  n_persist      dirAUC 0.859 [0.825,0.891]*  mono=True
+      P(correct|·): 1:0.05(n399) 2:0.27(n182) 3:0.75(n410)
+  n_support      dirAUC 0.934 [0.904,0.959]*  mono=False
+      P(correct|·): 1:0.05(n393) 2:0.07(n129) 3:0.24(n100) 4:0.74(n50) 5:0.72(n50) 6:0.91(n99) 7:0.90(n63) 8:0.96(n52) 9:0.98(n55)
+  first_round    dirAUC 0.699 [0.675,0.722]*  mono=True
+      P(correct|·): 0:0.51(n721) 1:0.05(n174) 2:0.02(n96)
+  n_late_adopt   dirAUC 0.526 [0.484,0.568]   mono=False
+      P(correct|·): 0:0.42(n465) 1:0.31(n449) 2:0.50(n72)
+  resurrected    dirAUC 0.509 [0.504,0.514]*  mono=None
+      P(correct|·): 0:0.38(n977)
+  [combo]        untuned equal-weight z-sum AUC = 0.917  (preview, NOT tuned)
+
+=== H3 E_7b/gsm8k  (n=400, 100 qid, final-maj 0.818, CR_history 0.938) ===
+  final_majority        0.818   (baseline)
+  round0_majority       0.818   Δ +0.000 [-0.023,+0.023]   cap 0%
+  prov_equalweight      0.833   Δ +0.015 [-0.005,+0.035]   cap 13%
+  prov_eq_-independent  0.833   Δ +0.015 [-0.005,+0.035]   cap 13%
+  prov_eq_-persist      0.828   Δ +0.010 [-0.012,+0.032]   cap 8%
+  prov_eq_-support      0.833   Δ +0.015 [-0.005,+0.035]   cap 13%
+  prov_logistic_xfit    0.828   Δ +0.010 [-0.010,+0.030]   cap 8%
+
+=== H1 E_7b/strategyqa  (n=100, 100 qid) ===
+  current maj-acc (mode)          0.690
+  CR_final   (oracle | final)     0.760
+  CR_history (oracle | HP pool)   0.810
+  ΔCR = forgotten-correct         +0.050  [+0.010,+0.090]  GO
+  extinction rate                 0.050
+  pool size hist / final          1.39 / 1.21  (+0.18 candidates)
+
+=== H2 E_7b/strategyqa  (candidates=139, base P(correct)=0.583) ===
+  n_independent  dirAUC 0.582 [0.488,0.678]   mono=False
+      P(correct|·): 1:0.54(n24) 2:0.46(n24) 3:0.66(n76)
+  n_persist      dirAUC 0.599 [0.524,0.681]*  mono=True
+      P(correct|·): 2:0.55(n20) 3:0.64(n103)
+  n_support      dirAUC 0.649 [0.565,0.740]*  mono=None
+      P(correct|·): 9:0.68(n57)
+  first_round    dirAUC 0.526 [0.470,0.586]   mono=None
+      P(correct|·): 0:0.60(n124)
+  n_late_adopt   dirAUC 0.519 [0.442,0.597]   mono=False
+      P(correct|·): 0:0.61(n75) 1:0.50(n38) 2:0.57(n21)
+  resurrected    dirAUC 0.502 [0.481,0.527]   mono=None
+      P(correct|·): 0:0.58(n137)
+  [combo]        untuned equal-weight z-sum AUC = 0.619  (preview, NOT tuned)
+
+=== H3 E_7b/strategyqa  (n=100, 100 qid, final-maj 0.690, CR_history 0.810) ===
+  final_majority        0.690   (baseline)
+  round0_majority       0.610   Δ -0.080 [-0.150,-0.020]-  cap -67%
+  prov_equalweight      0.640   Δ -0.050 [-0.100,+0.000]   cap -42%
+  prov_eq_-independent  0.660   Δ -0.030 [-0.080,+0.010]   cap -25%
+  prov_eq_-persist      0.650   Δ -0.040 [-0.100,+0.010]   cap -33%
+  prov_eq_-support      0.640   Δ -0.050 [-0.100,+0.000]   cap -42%
+  prov_logistic_xfit    0.670   Δ -0.020 [-0.060,+0.020]   cap -17%
+
+=== H1 E_7b/commonsenseqa  (n=400, 100 qid) ===
+  current maj-acc (mode)          0.740
+  CR_final   (oracle | final)     0.838
+  CR_history (oracle | HP pool)   0.932
+  ΔCR = forgotten-correct         +0.095  [+0.060,+0.132]  GO
+  extinction rate                 0.095
+  pool size hist / final          2.11 / 1.45  (+0.66 candidates)
+
+=== H2 E_7b/commonsenseqa  (candidates=845, base P(correct)=0.441) ===
+  n_independent  dirAUC 0.870 [0.825,0.914]*  mono=True
+      P(correct|·): 0:0.06(n179) 1:0.20(n306) 2:0.78(n186) 3:0.89(n174)
+  n_persist      dirAUC 0.820 [0.778,0.863]*  mono=True
+      P(correct|·): 1:0.06(n269) 2:0.36(n170) 3:0.73(n406)
+  n_support      dirAUC 0.890 [0.844,0.930]*  mono=False
+      P(correct|·): 1:0.04(n259) 2:0.19(n97) 3:0.26(n57) 4:0.47(n70) 5:0.67(n61) 6:0.85(n67) 7:0.73(n56) 8:0.91(n78) 9:0.86(n100)
+  first_round    dirAUC 0.664 [0.636,0.694]*  mono=True
+      P(correct|·): 0:0.54(n666) 1:0.07(n113) 2:0.05(n66)
+  n_late_adopt   dirAUC 0.529 [0.482,0.577]   mono=True
+      P(correct|·): 0:0.46(n364) 1:0.45(n336) 2:0.42(n119) 3:0.19(n26)
+  resurrected    dirAUC 0.507 [0.497,0.517]   mono=None
+      P(correct|·): 0:0.44(n827)
+  [combo]        untuned equal-weight z-sum AUC = 0.879  (preview, NOT tuned)
+
+=== H3 E_7b/commonsenseqa  (n=400, 100 qid, final-maj 0.757, CR_history 0.932) ===
+  final_majority        0.757   (baseline)
+  round0_majority       0.810   Δ +0.053 [+0.015,+0.090]*  cap 30%
+  prov_equalweight      0.800   Δ +0.043 [+0.012,+0.075]*  cap 24%
+  prov_eq_-independent  0.792   Δ +0.035 [+0.005,+0.065]*  cap 20%
+  prov_eq_-persist      0.810   Δ +0.053 [+0.017,+0.090]*  cap 30%
+  prov_eq_-support      0.800   Δ +0.043 [+0.012,+0.075]*  cap 24%
+  prov_logistic_xfit    0.805   Δ +0.048 [+0.013,+0.083]*  cap 27%
+
+=== H1 E_mixed/gsm8k  (n=100, 100 qid) ===
+  current maj-acc (mode)          0.750
+  CR_final   (oracle | final)     0.850
+  CR_history (oracle | HP pool)   0.950
+  ΔCR = forgotten-correct         +0.100  [+0.050,+0.160]  GO
+  extinction rate                 0.100
+  pool size hist / final          2.21 / 1.48  (+0.73 candidates)
+
+=== H2 E_mixed/gsm8k  (candidates=221, base P(correct)=0.430) ===
+  n_independent  dirAUC 0.913 [0.867,0.950]*  mono=True
+      P(correct|·): 0:0.06(n64) 1:0.22(n79) 2:0.89(n35) 3:1.00(n43)
+  n_persist      dirAUC 0.831 [0.781,0.878]*  mono=True
+      P(correct|·): 1:0.09(n87) 2:0.41(n44) 3:0.77(n90)
+  n_support      dirAUC 0.923 [0.881,0.960]*  mono=True
+      P(correct|·): 1:0.06(n81) 2:0.16(n31) 3:0.39(n23) 6:0.95(n21)
+  first_round    dirAUC 0.717 [0.667,0.764]*  mono=False
+      P(correct|·): 0:0.58(n157) 1:0.06(n35) 2:0.07(n29)
+  n_late_adopt   dirAUC 0.589 [0.507,0.665]*  mono=True
+      P(correct|·): 0:0.53(n105) 1:0.32(n95)
+  resurrected    dirAUC 0.499 [0.484,0.512]   mono=None
+      P(correct|·): 0:0.43(n219)
+  [combo]        untuned equal-weight z-sum AUC = 0.903  (preview, NOT tuned)
+
+=== H3 E_mixed/gsm8k  (n=100, 100 qid, final-maj 0.760, CR_history 0.950) ===
+  final_majority        0.760   (baseline)
+  round0_majority       0.840   Δ +0.080 [+0.020,+0.150]*  cap 42%
+  prov_equalweight      0.810   Δ +0.050 [-0.010,+0.110]   cap 26%
+  prov_eq_-independent  0.820   Δ +0.060 [+0.010,+0.110]*  cap 32%
+  prov_eq_-persist      0.840   Δ +0.080 [+0.020,+0.150]*  cap 42%
+  prov_eq_-support      0.810   Δ +0.050 [-0.010,+0.110]   cap 26%
+  prov_logistic_xfit    0.840   Δ +0.080 [+0.020,+0.150]*  cap 42%
+
+=== H1 E_mixed/strategyqa  (n=100, 100 qid) ===
+  current maj-acc (mode)          0.610
+  CR_final   (oracle | final)     0.760
+  CR_history (oracle | HP pool)   0.920
+  ΔCR = forgotten-correct         +0.160  [+0.090,+0.240]  GO
+  extinction rate                 0.160
+  pool size hist / final          1.62 / 1.37  (+0.25 candidates)
+
+=== H2 E_mixed/strategyqa  (candidates=162, base P(correct)=0.568) ===
+  n_independent  dirAUC 0.653 [0.547,0.755]*  mono=False
+      P(correct|·): 0:0.35(n34) 1:0.57(n28) 2:0.43(n28) 3:0.72(n72)
+  n_persist      dirAUC 0.567 [0.476,0.655]   mono=False
+      P(correct|·): 1:0.48(n31) 2:0.43(n21) 3:0.62(n110)
+  n_support      dirAUC 0.624 [0.526,0.721]*  mono=True
+      P(correct|·): 1:0.46(n26) 8:0.56(n27) 9:0.81(n36)
+  first_round    dirAUC 0.597 [0.526,0.671]*  mono=True
+      P(correct|·): 0:0.62(n128) 1:0.43(n23)
+  n_late_adopt   dirAUC 0.681 [0.606,0.753]*  mono=True
+      P(correct|·): 0:0.79(n63) 1:0.43(n65) 2:0.39(n28)
+  resurrected    dirAUC 0.495 [0.483,0.495]   mono=None
+      P(correct|·): 0:0.57(n161)
+  [combo]        untuned equal-weight z-sum AUC = 0.664  (preview, NOT tuned)
+
+=== H3 E_mixed/strategyqa  (n=100, 100 qid, final-maj 0.610, CR_history 0.920) ===
+  final_majority        0.610   (baseline)
+  round0_majority       0.640   Δ +0.030 [-0.050,+0.110]   cap 10%
+  prov_equalweight      0.620   Δ +0.010 [-0.060,+0.080]   cap 3%
+  prov_eq_-independent  0.600   Δ -0.010 [-0.060,+0.040]   cap -3%
+  prov_eq_-persist      0.620   Δ +0.010 [-0.060,+0.080]   cap 3%
+  prov_eq_-support      0.620   Δ +0.010 [-0.060,+0.080]   cap 3%
+  prov_logistic_xfit    0.660   Δ +0.050 [-0.040,+0.150]   cap 16%
+
+=== H1 E_mixed/commonsenseqa  (n=100, 100 qid) ===
+  current maj-acc (mode)          0.560
+  CR_final   (oracle | final)     0.760
+  CR_history (oracle | HP pool)   0.950
+  ΔCR = forgotten-correct         +0.190  [+0.120,+0.270]  GO
+  extinction rate                 0.190
+  pool size hist / final          2.29 / 1.64  (+0.65 candidates)
+
+=== H2 E_mixed/commonsenseqa  (candidates=229, base P(correct)=0.415) ===
+  n_independent  dirAUC 0.851 [0.791,0.910]*  mono=True
+      P(correct|·): 0:0.07(n70) 1:0.26(n65) 2:0.71(n49) 3:0.84(n45)
+  n_persist      dirAUC 0.744 [0.688,0.801]*  mono=True
+      P(correct|·): 1:0.08(n61) 2:0.39(n64) 3:0.62(n104)
+  n_support      dirAUC 0.805 [0.738,0.866]*  mono=False
+      P(correct|·): 1:0.04(n51) 2:0.26(n27) 3:0.47(n32) 4:0.32(n37) 5:0.61(n31)
+  first_round    dirAUC 0.717 [0.670,0.767]*  mono=True
+      P(correct|·): 0:0.57(n159) 1:0.08(n50) 2:0.05(n20)
+  n_late_adopt   dirAUC 0.613 [0.545,0.681]*  mono=False
+      P(correct|·): 0:0.58(n62) 1:0.37(n86) 2:0.39(n51) 3:0.23(n30)
+  resurrected    dirAUC 0.497 [0.477,0.514]   mono=None
+      P(correct|·): 0:0.41(n225)
+  [combo]        untuned equal-weight z-sum AUC = 0.845  (preview, NOT tuned)
+
+=== H3 E_mixed/commonsenseqa  (n=100, 100 qid, final-maj 0.550, CR_history 0.950) ===
+  final_majority        0.550   (baseline)
+  round0_majority       0.750   Δ +0.200 [+0.100,+0.300]*  cap 50%
+  prov_equalweight      0.730   Δ +0.180 [+0.090,+0.280]*  cap 45%
+  prov_eq_-independent  0.740   Δ +0.190 [+0.110,+0.280]*  cap 48%
+  prov_eq_-persist      0.740   Δ +0.190 [+0.090,+0.290]*  cap 48%
+  prov_eq_-support      0.730   Δ +0.180 [+0.090,+0.280]*  cap 45%
+  prov_logistic_xfit    0.740   Δ +0.190 [+0.090,+0.290]*  cap 48%
+
+========================================================================
+E25 GENERALIZATION — cross-cell sign summary
+========================================================================
+  H1: 9/9 cells hold  — extinction generalizes (ΔCR>0)
+  H2: 8/9 cells hold  — provenance->correctness (n_indep dirAUC-lo>0.5)   (fails: E_7b/strategyqa)
+  H3: 5/9 cells hold  — prov selector beats final-majority (ΔAcc CI-lo>0)   (fails: E_orig/strategyqa, E_7b/gsm8k, E_7b/strategyqa, E_mixed/strategyqa)
+
+[OK] results/tables/e25_generalization.json

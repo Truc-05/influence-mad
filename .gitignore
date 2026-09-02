@@ -1,0 +1,34 @@
+# =============================================================================
+# Push EVERYTHING (code, data, debate logs, results, figures, tables, caches)
+# EXCEPT the virtual environment and machine-generated junk.
+# =============================================================================
+
+# --- Virtual environments (the big thing we deliberately drop) ---
+venv/
+.venv/
+env/
+
+# --- Python bytecode / build junk ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- Secrets / local env ---
+.env
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Oversized raw server logs -----------------------------------------------
+# results/logs/ollama_gpu0.log is a ~239 MB Ollama server stdout dump; it
+# exceeds GitHub's 100 MB per-file hard limit and is operational noise, not
+# research data. Excluded so `git push` succeeds. (Use Git LFS if you must
+# version it.) All other (small) run logs in results/logs/ ARE kept.
+results/logs/ollama_*.log
+
+# NOTE: data/raw, data/processed, data/debate_logs, results/{tables,figures,
+# cache,logs} are intentionally NOT ignored — they are pushed in full.

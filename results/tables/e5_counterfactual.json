@@ -1,0 +1,125 @@
+{
+  "summary": {
+    "gsm8k": {
+      "control": {
+        "n": 37,
+        "preservation": 0.5135135135135135,
+        "recovery_maj": 0.21621621621621623,
+        "recovery_any": 0.40540540540540543,
+        "mean_calls": 3.972972972972973
+      },
+      "self_verify": {
+        "n": 37,
+        "preservation": 0.5135135135135135,
+        "recovery_maj": 0.24324324324324326,
+        "recovery_any": 0.4594594594594595,
+        "mean_calls": 4.054054054054054
+      },
+      "influence_resistant": {
+        "n": 37,
+        "preservation": 0.4864864864864865,
+        "recovery_maj": 0.2702702702702703,
+        "recovery_any": 0.43243243243243246,
+        "mean_calls": 4.054054054054054
+      },
+      "combined": {
+        "n": 37,
+        "preservation": 0.5405405405405406,
+        "recovery_maj": 0.2972972972972973,
+        "recovery_any": 0.4864864864864865,
+        "mean_calls": 3.972972972972973
+      }
+    },
+    "bbh": {
+      "control": {
+        "n": 79,
+        "preservation": 0.4936708860759494,
+        "recovery_maj": 0.24050632911392406,
+        "recovery_any": 0.5316455696202531,
+        "mean_calls": 4.556962025316456
+      },
+      "self_verify": {
+        "n": 79,
+        "preservation": 0.620253164556962,
+        "recovery_maj": 0.22784810126582278,
+        "recovery_any": 0.5189873417721519,
+        "mean_calls": 4.443037974683544
+      },
+      "influence_resistant": {
+        "n": 79,
+        "preservation": 0.5949367088607594,
+        "recovery_maj": 0.22784810126582278,
+        "recovery_any": 0.569620253164557,
+        "mean_calls": 4.556962025316456
+      },
+      "combined": {
+        "n": 79,
+        "preservation": 0.7088607594936709,
+        "recovery_maj": 0.3037974683544304,
+        "recovery_any": 0.6962025316455697,
+        "mean_calls": 4.481012658227848
+      }
+    },
+    "_all": {
+      "control": {
+        "n": 116,
+        "preservation": 0.5,
+        "recovery_maj": 0.23275862068965517,
+        "recovery_any": 0.49137931034482757,
+        "mean_calls": 4.370689655172414
+      },
+      "self_verify": {
+        "n": 116,
+        "preservation": 0.5862068965517241,
+        "recovery_maj": 0.23275862068965517,
+        "recovery_any": 0.5,
+        "mean_calls": 4.318965517241379
+      },
+      "influence_resistant": {
+        "n": 116,
+        "preservation": 0.5603448275862069,
+        "recovery_maj": 0.2413793103448276,
+        "recovery_any": 0.5258620689655172,
+        "mean_calls": 4.396551724137931
+      },
+      "combined": {
+        "n": 116,
+        "preservation": 0.6551724137931034,
+        "recovery_maj": 0.3017241379310345,
+        "recovery_any": 0.6293103448275862,
+        "mean_calls": 4.318965517241379
+      }
+    },
+    "_macro": {
+      "control": {
+        "n": 116,
+        "preservation": 0.5035921997947315,
+        "recovery_maj": 0.22836127266507014,
+        "recovery_any": 0.4685254875128293,
+        "mean_calls": 4.264967499144714
+      },
+      "self_verify": {
+        "n": 116,
+        "preservation": 0.5668833390352377,
+        "recovery_maj": 0.23554567225453302,
+        "recovery_any": 0.4892234006158057,
+        "mean_calls": 4.248546014368799
+      },
+      "influence_resistant": {
+        "n": 116,
+        "preservation": 0.540711597673623,
+        "recovery_maj": 0.24905918576804653,
+        "recovery_any": 0.5010263427984947,
+        "mean_calls": 4.305508039685256
+      },
+      "combined": {
+        "n": 116,
+        "preservation": 0.6247006500171057,
+        "recovery_maj": 0.30054738282586385,
+        "recovery_any": 0.5913445090660281,
+        "mean_calls": 4.22699281560041
+      }
+    }
+  },
+  "n_events": 116
+}

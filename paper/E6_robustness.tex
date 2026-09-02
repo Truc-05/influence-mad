@@ -1,0 +1,162 @@
+% E7-E9, E12 — robustness battery for the hazard-guided controller. All ZERO-GPU,
+% built on the frozen E6 precompute cache via experiments/e6_offline.py.
+% Figures: results/figures/{e7_baselines,e8_ablation,e9_stats,e12_threshold}.png
+% Tables : results/tables/{e7_baselines,e8_ablation,e9_stats,e12_threshold}.json
+%
+% HONESTY CONTRACT (do not soften back into overclaims):
+%   * controller MATCHES always-on (not "beats"); hazard-always is within noise.
+%   * detector edge over random is BORDERLINE and gsm8k-driven; bbh shows nothing.
+%   * the significant result is rescue >> harm asymmetry.
+%   * effective n = 184 questions (seed-collapse in the per-qid cache).
+
+\subsection{Is the controller real? Baselines and ablation}
+\label{sec:rq7}
+
+A hazard-guided controller is only worth its complexity if it beats trivial policies
+and if its gain is a genuine per-task signal rather than an artifact. We test both on
+the same $n=516$ offline population, comparing every policy at a \emph{matched}
+intervention budget (apply the safeguard to the top-$r$ debates by risk score, ties
+broken at random).
+
+\paragraph{Baselines (E7).}
+Figure~\ref{fig:e7} pits the learned hazard against five deployable heuristics. The
+round-0 \emph{disagreement} geometry is a strong baseline: intervening where agents
+disagree, where answer-entropy is high, or where the majority margin is small all reach
+$\approx\!61.3\%$ accuracy at a $40\%$ budget, versus $60.1\%$ for random. The learned
+hazard is the \emph{best} single signal --- highest at every budget ($62.2\%$ at $40\%$)
+and, more tellingly, the best ranker of true extinctions (AUPRC $0.375$ vs.\ $\le0.33$
+for any heuristic and $0.225$ for random) --- but the margin over the structural
+heuristics is small in the operating band and widens only at higher budget. Two
+negative controls sharpen the story: an \emph{influence-only} detector (the F3
+PageRank/stub\-bornness block) \emph{underperforms} the structural heuristics
+(AUPRC $0.300$), and a \emph{revision} trigger is not even evaluable at the $g=0$ gate
+--- no agent has revised yet --- so it coincides with random. The controller's power is
+round-0 behavioral geometry, not influence and not revision dynamics.
+
+\paragraph{Ablation (E8).}
+Figure~\ref{fig:e8} decomposes the detector. Pooled (Fig.~\ref{fig:e8}A), no single
+feature group dominates and \emph{influence is not required}: dropping the F3 block
+actually raises AUPRC ($0.375\!\to\!0.415$), while text-surface features (F4) carry the
+most unique pooled signal. But the pooled view is confounded --- GSM8K and BBH differ in
+both extinction prevalence and verbosity --- so we validate \emph{within} each benchmark
+(Fig.~\ref{fig:e8}B). Here the honest picture emerges: the detector \emph{ranks}
+extinctions within GSM8K (the full detector attains AUPRC lift $1.98\times$; influence
+alone $2.46\times$), yet \emph{targeting} those debates yields essentially no accuracy
+edge over a random budget at a $40\%$ intervention rate --- $+0.0$ points within GSM8K,
+$-1.2$ points within BBH, and only $+2.1$ points pooled. (An earlier per-question cache
+that shared one outcome across a question's five seeds had inflated the GSM8K figure;
+the numbers here use the corrected per-seed outcomes.) Ranking ability does not convert
+into a controller advantage because the safeguard's rescue rate is modest and it harms
+would-live debates (\S\ref{sec:rq9}). Influence remains benchmark-dependent (best ranker
+in GSM8K, $\approx$random in BBH). For contrast, the pooled multi-observation-time E3a
+detector, where the F2 dynamics block \emph{is} observable, improves monotonically
+(AUPRC $0.19\!\to\!0.22\!\to\!0.24$ as dynamics then influence are added); dynamics help
+\emph{when} available, but the controller's early gate cannot see them. The robust
+reading: combine all channels for ranking, but the controller currently matches --- does
+not beat --- a random budget on accuracy in either benchmark.
+
+\subsection{Statistical robustness}
+\label{sec:rq9}
+
+Each debate now carries its own \emph{per-seed} counterfactual outcome (an earlier cache
+that shared one outcome across a question's five seeds has been corrected). The five
+seeds of a question are still correlated repeats of the same question, so the resampling
+unit is the question, not the debate: the $516$ debates form $184$ clusters. We report a
+cluster-bootstrap (resampling questions, $B=4000$, the deployed detector held fixed);
+Figure~\ref{fig:e9} shows the intervals. Three conclusions follow. (i)~The controller
+\emph{matches} always-on: the hazard$-$always accuracy gap at the peak operating point is
+$+0.0$~points, CI $[-1.6,+1.2]$ --- squarely within noise. (ii)~The detector's edge over
+a matched-random budget is \emph{suggestive but not conclusive}: the area under the
+policy curve in the $20$--$40\%$ band is $+0.020$, CI $[-0.003,+0.042]$; every per-budget
+interval includes zero, pooled and within each benchmark (no benchmark reaches
+significance individually). (iii)~The one robustly significant effect is the
+\emph{asymmetry} of intervention: applied everywhere, the safeguard rescues $39.5\%$ of
+would-die debates (CI $[32.4,46.8]$) while harming $20.6\%$ of would-live debates
+(CI $[15.5,26.1]$) --- non-overlapping intervals (and likewise within GSM8K). The
+\emph{principle} of selective intervention is thus on firm ground; the current detector
+ranks extinctions but does not yet convert that into a significant accuracy edge over a
+random budget --- an honest gap for the mechanism, not the principle.
+
+\subsection{Threshold and budget robustness}
+\label{sec:rq12}
+
+Finally we rule out the natural objection that $\tau^\star=0.52$ was chosen on the test
+set (Figure~\ref{fig:e12}). Our recommended headline is not a threshold at all but the
+\emph{budget-conditioned frontier} (Fig.~\ref{fig:e12}A): ``given an intervention budget
+$r$, apply the safeguard to the $r$ highest-hazard debates.'' A budget is fixed a priori,
+so nothing is tuned on test, and the frontier itself is the deliverable. To test whether
+a \emph{data-chosen} threshold would generalize, we cross-fit it (GroupKFold-$5$ over
+questions; on each training split pick $\tau^\star=\arg\max_\tau$ train accuracy and apply
+it to the held-out split). The selected threshold is unstable across folds
+($\tau^\star\in[0.004,0.52]$) and the pooled held-out accuracy is $61.4\%$,
+CI $[56.2,66.7]$, at a mean $67\%$ intervention rate --- below the in-sample peak
+($63.2\%$) and indistinguishable from always-on ($62.8\%$). The peak is therefore mildly
+selection-optimistic, and a properly cross-validated policy simply matches always-on ---
+exactly consistent with \S\ref{sec:rq9}.
+
+\paragraph{Limitations and next steps.}
+Three honest limitations bound these claims. \emph{First}, on aggregate accuracy the
+controller \emph{matches} both always-on and a matched-random budget --- the edge over
+random is not significant on either benchmark. Its demonstrated value is doing the job of
+always-on at roughly half the interventions while avoiding a statistically significant
+collateral harm; the accuracy payoff of \emph{targeting} (over random targeting) is a
+real, open gap. \emph{Second}, only two benchmarks are covered here; a separate
+detectability sweep (E11) shows extinction is even more predictable on StrategyQA
+(hazard ROC $0.87$) than GSM8K, so a benchmark expansion is the natural next test of
+whether targeting ever converts into accuracy. \emph{Third}, the three-agent ensemble is
+fixed; whether the phenomenon survives other model families and $N>3$ is untested (E10).
+(The per-question seed-collapse present in an earlier draft has been fixed here: every
+seed now carries its own counterfactual outcome, which is what shrank the apparent
+always-on headroom from $8.5$ to $4.5$ points and removed a spurious GSM8K advantage.) We
+regard the mechanism --- predict-then-target, justified by the significant rescue/harm
+asymmetry and a detector that ranks extinctions at $\sim\!2\times$ prevalence --- as the
+contribution, and converting that ranking into a significant accuracy edge as the main
+open problem, which \S\ref{sec:rq13} localizes precisely: the treatment \emph{benefit},
+unlike the failure, is not predictable from round-0 features.
+
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.82\linewidth]{results/figures/e7_baselines.png}
+  \caption{\textbf{E7 --- controller baselines at matched budget.} The learned hazard is
+  the best single signal at every budget and the best extinction ranker (AUPRC $0.375$),
+  but round-0 disagreement/entropy/margin heuristics are strong; \emph{influence-only}
+  trails them and a \emph{revision} trigger is degenerate at the $g=0$ gate
+  ($\equiv$ random). Bands are within-run random CIs.}
+  \label{fig:e7}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{results/figures/e8_ablation.png}
+  \caption{\textbf{E8 --- ablation.} \textbf{(A)} Pooled, no group dominates and influence
+  (F3) is not required (dropping it raises AUPRC). \textbf{(B)} Within-benchmark accuracy
+  edge over a random budget at a $40\%$ intervention rate is near zero everywhere
+  ($+0.0$ on GSM8K, $-1.2$ on BBH, $+2.1$ pooled): the detector ranks extinctions but
+  targeting them barely beats random. Influence is benchmark-dependent (best on GSM8K,
+  $\approx$random on BBH).}
+  \label{fig:e8}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{results/figures/e9_stats.png}
+  \caption{\textbf{E9 --- cluster-bootstrap over $184$ questions.} \textbf{(A)}
+  hazard$-$random is borderline (every interval includes zero, pooled and within each
+  benchmark); hazard$-$always is within noise ($+0.0$ points). \textbf{(B)} the
+  rescue$\gg$harm asymmetry is significant (non-overlapping intervals, pooled and GSM8K).
+  The principle is solid; converting the detector's ranking into an accuracy edge is the
+  open gap.}
+  \label{fig:e9}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{results/figures/e12_threshold.png}
+  \caption{\textbf{E12 --- threshold/budget robustness.} \textbf{(A)} We report the
+  budget-conditioned frontier (top-$r$ by hazard), which needs no test-time tuning.
+  \textbf{(B)} A cross-fitted, data-chosen threshold yields $61.4\%$ held-out accuracy ---
+  below the $63.2\%$ in-sample peak and $\approx$ always-on ($62.8\%$): the peak is mildly
+  selection-optimistic, no cherry-pick advantage survives.}
+  \label{fig:e12}
+\end{figure}

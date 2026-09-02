@@ -1,0 +1,253 @@
+{
+  "benchmark": "bbh",
+  "backend": "ollama",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "agent_names": [
+    "careful",
+    "skeptic",
+    "bigpicture"
+  ],
+  "influence_scores": {
+    "careful": {
+      "mean": 0.33487800414541097,
+      "std": 0.028673252932504733
+    },
+    "skeptic": {
+      "mean": 0.26152529812066205,
+      "std": 0.021899890910350814
+    },
+    "bigpicture": {
+      "mean": 0.40359669773392676,
+      "std": 0.012199640135439343
+    }
+  },
+  "accuracy_per_agent": {
+    "careful": {
+      "mean": 0.398,
+      "std": 0.033105890714493685
+    },
+    "skeptic": {
+      "mean": 0.31399999999999995,
+      "std": 0.03136877428271624
+    },
+    "bigpicture": {
+      "mean": 0.38,
+      "std": 0.04816637831516917
+    }
+  },
+  "voting_accuracy": {
+    "majority": {
+      "mean": 0.41,
+      "std": 0.026076809620810597
+    },
+    "influence_based": {
+      "mean": 0.39,
+      "std": 0.038987177379235856
+    },
+    "influence_aware": {
+      "mean": 0.386,
+      "std": 0.039799497484264805
+    }
+  },
+  "influence_matrix_mean": [
+    [
+      0.0,
+      0.059648848528604616,
+      0.11269914312344394
+    ],
+    [
+      0.0716347257094623,
+      0.0,
+      0.07840244851670428
+    ],
+    [
+      0.21576197427747798,
+      0.09951671185016846,
+      0.0
+    ]
+  ],
+  "influence_matrix_std": [
+    [
+      0.0,
+      0.01253732099410671,
+      0.019496605212413465
+    ],
+    [
+      0.014961875458034814,
+      0.0,
+      0.01860104120950992
+    ],
+    [
+      0.02676222636068938,
+      0.014902022422553262,
+      0.0
+    ]
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "influence_scores": {
+        "careful": 0.32607998377192293,
+        "skeptic": 0.2697066042775965,
+        "bigpicture": 0.4042134119504801
+      },
+      "accuracy_per_agent": {
+        "careful": 0.39,
+        "skeptic": 0.33,
+        "bigpicture": 0.47
+      },
+      "voting": {
+        "majority": 0.42,
+        "influence_based": 0.46,
+        "influence_aware": 0.46
+      },
+      "classification": {
+        "careful": "good_influence",
+        "skeptic": "low_influence",
+        "bigpicture": "good_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.9999412564293778,
+        "pearson_p": 0.006900450061280819,
+        "spearman_r": 1.0,
+        "spearman_p": 0.0,
+        "n_agents": 3,
+        "note": ""
+      }
+    },
+    {
+      "seed": 43,
+      "influence_scores": {
+        "careful": 0.32118147124622926,
+        "skeptic": 0.2789127317220729,
+        "bigpicture": 0.39990579703169743
+      },
+      "accuracy_per_agent": {
+        "careful": 0.41,
+        "skeptic": 0.33,
+        "bigpicture": 0.38
+      },
+      "voting": {
+        "majority": 0.4,
+        "influence_based": 0.38,
+        "influence_aware": 0.38
+      },
+      "classification": {
+        "careful": "good_influence",
+        "skeptic": "low_influence",
+        "bigpicture": "good_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.47477859492275043,
+        "pearson_p": 0.6850562739306401,
+        "spearman_r": 0.5,
+        "spearman_p": 0.6666666666666667,
+        "n_agents": 3,
+        "note": ""
+      }
+    },
+    {
+      "seed": 44,
+      "influence_scores": {
+        "careful": 0.3775885301488305,
+        "skeptic": 0.22077882544806687,
+        "bigpicture": 0.4016326444031023
+      },
+      "accuracy_per_agent": {
+        "careful": 0.41,
+        "skeptic": 0.26,
+        "bigpicture": 0.35
+      },
+      "voting": {
+        "majority": 0.41,
+        "influence_based": 0.34,
+        "influence_aware": 0.34
+      },
+      "classification": {
+        "careful": "good_influence",
+        "skeptic": "low_influence",
+        "bigpicture": "good_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.8621223807772452,
+        "pearson_p": 0.33826971735921313,
+        "spearman_r": 0.5,
+        "spearman_p": 0.6666666666666667,
+        "n_agents": 3,
+        "note": ""
+      }
+    },
+    {
+      "seed": 45,
+      "influence_scores": {
+        "careful": 0.35491338508108833,
+        "skeptic": 0.2578599949442094,
+        "bigpicture": 0.38722661997470187
+      },
+      "accuracy_per_agent": {
+        "careful": 0.44,
+        "skeptic": 0.3,
+        "bigpicture": 0.33
+      },
+      "voting": {
+        "majority": 0.45,
+        "influence_based": 0.38,
+        "influence_aware": 0.38
+      },
+      "classification": {
+        "careful": "good_influence",
+        "skeptic": "low_influence",
+        "bigpicture": "good_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.46726736133803615,
+        "pearson_p": 0.6904771027502989,
+        "spearman_r": 0.5,
+        "spearman_p": 0.6666666666666667,
+        "n_agents": 3,
+        "note": ""
+      }
+    },
+    {
+      "seed": 46,
+      "influence_scores": {
+        "careful": 0.2946266504789838,
+        "skeptic": 0.28036833421136426,
+        "bigpicture": 0.42500501530965196
+      },
+      "accuracy_per_agent": {
+        "careful": 0.34,
+        "skeptic": 0.35,
+        "bigpicture": 0.37
+      },
+      "voting": {
+        "majority": 0.37,
+        "influence_based": 0.39,
+        "influence_aware": 0.37
+      },
+      "classification": {
+        "careful": "bad_influence",
+        "skeptic": "low_influence",
+        "bigpicture": "good_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.9118483556365603,
+        "pearson_p": 0.2693106283640287,
+        "spearman_r": 0.5,
+        "spearman_p": 0.6666666666666667,
+        "n_agents": 3,
+        "note": ""
+      }
+    }
+  ],
+  "figures": {
+    "influence": "results/figures\\bbh_influence_meanstd.png",
+    "voting": "results/figures\\bbh_voting_meanstd.png"
+  }
+}

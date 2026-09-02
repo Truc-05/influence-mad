@@ -1,0 +1,125 @@
+{
+  "benchmark": "aqua",
+  "backend": "ollama",
+  "seeds": [
+    42
+  ],
+  "agent_names": [
+    "careful",
+    "skeptic",
+    "bigpicture"
+  ],
+  "influence_scores": {
+    "careful": {
+      "mean": 0.34373663753160943,
+      "std": 0.0
+    },
+    "skeptic": {
+      "mean": 0.3710448366430384,
+      "std": 0.0
+    },
+    "bigpicture": {
+      "mean": 0.285218525825352,
+      "std": 0.0
+    }
+  },
+  "accuracy_per_agent": {
+    "careful": {
+      "mean": 0.7,
+      "std": 0.0
+    },
+    "skeptic": {
+      "mean": 0.35,
+      "std": 0.0
+    },
+    "bigpicture": {
+      "mean": 0.4,
+      "std": 0.0
+    }
+  },
+  "voting_accuracy": {
+    "majority": {
+      "mean": 0.7,
+      "std": 0.0
+    },
+    "influence_based": {
+      "mean": 0.45,
+      "std": 0.0
+    },
+    "influence_aware": {
+      "mean": 0.7,
+      "std": 0.0
+    }
+  },
+  "influence_matrix_mean": [
+    [
+      0.0,
+      0.05555555555555555,
+      0.16666666666666666
+    ],
+    [
+      0.1111111111111111,
+      0.0,
+      0.13513513513513514
+    ],
+    [
+      0.041666666666666664,
+      0.05405405405405406,
+      0.0
+    ]
+  ],
+  "influence_matrix_std": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "influence_scores": {
+        "careful": 0.34373663753160943,
+        "skeptic": 0.3710448366430384,
+        "bigpicture": 0.285218525825352
+      },
+      "accuracy_per_agent": {
+        "careful": 0.7,
+        "skeptic": 0.35,
+        "bigpicture": 0.4
+      },
+      "voting": {
+        "majority": 0.7,
+        "influence_based": 0.45,
+        "influence_aware": 0.7
+      },
+      "classification": {
+        "careful": "good_influence",
+        "skeptic": "bad_influence",
+        "bigpicture": "low_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.0744188080369068,
+        "pearson_p": 0.9525796762743052,
+        "spearman_r": -0.5,
+        "spearman_p": 0.6666666666666666,
+        "n_agents": 3,
+        "note": ""
+      }
+    }
+  ],
+  "figures": {
+    "influence": "results/figures/aqua_influence_meanstd.png",
+    "voting": "results/figures/aqua_voting_meanstd.png"
+  }
+}

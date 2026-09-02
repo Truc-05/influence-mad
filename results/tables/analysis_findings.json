@@ -1,0 +1,292 @@
+{
+  "benchmarks": {
+    "gsm8k": {
+      "agents": [
+        "careful",
+        "skeptic",
+        "bigpicture"
+      ],
+      "influence": {
+        "careful": 0.37567711119553776,
+        "skeptic": 0.24510783933827454,
+        "bigpicture": 0.3792150494661876
+      },
+      "accuracy": {
+        "careful": 0.712,
+        "skeptic": 0.6020000000000001,
+        "bigpicture": 0.552
+      },
+      "role": {
+        "careful": "good",
+        "skeptic": "low",
+        "bigpicture": "bad"
+      },
+      "independent_acc": {
+        "careful": 0.722,
+        "skeptic": 0.57,
+        "bigpicture": 0.636
+      },
+      "stubbornness": {
+        "careful": 0.7507987220447284,
+        "skeptic": 0.3961661341853035,
+        "bigpicture": 0.5154419595314164
+      },
+      "pearson_inf_acc": 0.18580353807818956,
+      "cascade": {
+        "total": 500,
+        "broke": 72,
+        "fixed": 56,
+        "net_fixed": -16,
+        "consensus_to_wrong": 44
+      },
+      "voting": {
+        "majority": {
+          "mean": 0.7080000000000001,
+          "std": 0.017204650534085233
+        },
+        "influence_based": {
+          "mean": 0.632,
+          "std": 0.05741080037762931
+        },
+        "influence_aware": {
+          "mean": 0.712,
+          "std": 0.01720465053408523
+        }
+      }
+    },
+    "strategyqa": {
+      "agents": [
+        "careful",
+        "skeptic",
+        "bigpicture"
+      ],
+      "influence": {
+        "careful": 0.42617606268391367,
+        "skeptic": 0.1437319365613609,
+        "bigpicture": 0.43009200075472503
+      },
+      "accuracy": {
+        "careful": 0.596,
+        "skeptic": 0.5740000000000001,
+        "bigpicture": 0.61
+      },
+      "role": {
+        "careful": "good",
+        "skeptic": "low",
+        "bigpicture": "good"
+      },
+      "independent_acc": {
+        "careful": 0.61,
+        "skeptic": 0.556,
+        "bigpicture": 0.67
+      },
+      "stubbornness": {
+        "careful": 0.6413867822318526,
+        "skeptic": 0.19609967497291442,
+        "bigpicture": 0.5579631635969664
+      },
+      "pearson_inf_acc": 0.2395716999381163,
+      "cascade": {
+        "total": 500,
+        "broke": 29,
+        "fixed": 41,
+        "net_fixed": 12,
+        "consensus_to_wrong": 55
+      },
+      "voting": {
+        "majority": {
+          "mean": 0.592,
+          "std": 0.027856776554368235
+        },
+        "influence_based": {
+          "mean": 0.606,
+          "std": 0.044988887516807984
+        },
+        "influence_aware": {
+          "mean": 0.6119999999999999,
+          "std": 0.0401995024844836
+        }
+      }
+    },
+    "commonsenseqa": {
+      "agents": [
+        "careful",
+        "skeptic",
+        "bigpicture"
+      ],
+      "influence": {
+        "careful": 0.40485844553815686,
+        "skeptic": 0.19999789044822225,
+        "bigpicture": 0.3951436640136206
+      },
+      "accuracy": {
+        "careful": 0.592,
+        "skeptic": 0.538,
+        "bigpicture": 0.548
+      },
+      "role": {
+        "careful": "good",
+        "skeptic": "low",
+        "bigpicture": "good"
+      },
+      "independent_acc": {
+        "careful": 0.724,
+        "skeptic": 0.658,
+        "bigpicture": 0.666
+      },
+      "stubbornness": {
+        "careful": 0.6016859852476291,
+        "skeptic": 0.35932560590094836,
+        "bigpicture": 0.44257112750263433
+      },
+      "pearson_inf_acc": 0.46665350737484296,
+      "cascade": {
+        "total": 500,
+        "broke": 107,
+        "fixed": 45,
+        "net_fixed": -62,
+        "consensus_to_wrong": 62
+      },
+      "voting": {
+        "majority": {
+          "mean": 0.596,
+          "std": 0.0512249938994628
+        },
+        "influence_based": {
+          "mean": 0.5800000000000001,
+          "std": 0.05215361924162119
+        },
+        "influence_aware": {
+          "mean": 0.598,
+          "std": 0.05306599664568641
+        }
+      }
+    },
+    "bbh": {
+      "agents": [
+        "careful",
+        "skeptic",
+        "bigpicture"
+      ],
+      "influence": {
+        "careful": 0.33487800414541097,
+        "skeptic": 0.26152529812066205,
+        "bigpicture": 0.40359669773392676
+      },
+      "accuracy": {
+        "careful": 0.398,
+        "skeptic": 0.31399999999999995,
+        "bigpicture": 0.38
+      },
+      "role": {
+        "careful": "good",
+        "skeptic": "low",
+        "bigpicture": "good"
+      },
+      "independent_acc": {
+        "careful": 0.424,
+        "skeptic": 0.368,
+        "bigpicture": 0.41
+      },
+      "stubbornness": {
+        "careful": 0.45454545454545453,
+        "skeptic": 0.32954545454545453,
+        "bigpicture": 0.4607438016528926
+      },
+      "pearson_inf_acc": 0.743191589820794,
+      "cascade": {
+        "total": 500,
+        "broke": 86,
+        "fixed": 69,
+        "net_fixed": -17,
+        "consensus_to_wrong": 89
+      },
+      "voting": {
+        "majority": {
+          "mean": 0.41,
+          "std": 0.026076809620810597
+        },
+        "influence_based": {
+          "mean": 0.39,
+          "std": 0.038987177379235856
+        },
+        "influence_aware": {
+          "mean": 0.386,
+          "std": 0.039799497484264805
+        }
+      }
+    },
+    "truthfulqa": {
+      "agents": [
+        "careful",
+        "skeptic",
+        "bigpicture"
+      ],
+      "influence": {
+        "careful": 0.34695615933391144,
+        "skeptic": 0.2644532140311588,
+        "bigpicture": 0.3885906266349294
+      },
+      "accuracy": {
+        "careful": 0.15399999999999997,
+        "skeptic": 0.072,
+        "bigpicture": 0.184
+      },
+      "role": {
+        "careful": "good",
+        "skeptic": "low",
+        "bigpicture": "good"
+      },
+      "independent_acc": {
+        "careful": 0.112,
+        "skeptic": 0.054,
+        "bigpicture": 0.172
+      },
+      "stubbornness": {
+        "careful": 0.305668016194332,
+        "skeptic": 0.10121457489878542,
+        "bigpicture": 0.3441295546558704
+      },
+      "pearson_inf_acc": 0.7950678906755079,
+      "cascade": {
+        "total": 500,
+        "broke": 19,
+        "fixed": 24,
+        "net_fixed": 5,
+        "consensus_to_wrong": 22
+      },
+      "voting": {
+        "majority": {
+          "mean": 0.15199999999999997,
+          "std": 0.0342928563989645
+        },
+        "influence_based": {
+          "mean": 0.174,
+          "std": 0.0332264954516723
+        },
+        "influence_aware": {
+          "mean": 0.174,
+          "std": 0.0332264954516723
+        }
+      }
+    }
+  },
+  "stability": {
+    "pairwise_spearman_mean": 0.8,
+    "pairwise_spearman_min": 0.5
+  },
+  "influence_source": {
+    "influence_vs_independent_acc": {
+      "r": 0.14706887534886304,
+      "p": 0.6009468496054371
+    },
+    "influence_vs_stubbornness": {
+      "r": 0.6860247843110998,
+      "p": 0.004745682957744976
+    },
+    "pooled_influence_vs_final_acc": {
+      "r": 0.10114878461657564,
+      "p": 0.7198316789162813
+    }
+  }
+}

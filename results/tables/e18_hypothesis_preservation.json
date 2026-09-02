@@ -1,0 +1,99 @@
+{
+  "gsm8k": {
+    "n": 500,
+    "n_qid": 100,
+    "maj_acc_mode": 0.732,
+    "CR_final": 0.824,
+    "CR_history": 0.92,
+    "dCR": 0.09600000000000009,
+    "dCR_ci": [
+      0.07000000000000006,
+      0.128
+    ],
+    "gate_lo_gt_0": true,
+    "extinction_rate": 0.096,
+    "pool_hist": 2.402,
+    "pool_final": 1.486
+  },
+  "bbh": {
+    "n": 500,
+    "n_qid": 100,
+    "maj_acc_mode": 0.456,
+    "CR_final": 0.602,
+    "CR_history": 0.798,
+    "dCR": 0.19600000000000006,
+    "dCR_ci": [
+      0.15600000000000003,
+      0.23604999999999982
+    ],
+    "gate_lo_gt_0": true,
+    "extinction_rate": 0.196,
+    "pool_hist": 2.836,
+    "pool_final": 1.698
+  },
+  "strategyqa": {
+    "n": 500,
+    "n_qid": 100,
+    "maj_acc_mode": 0.6,
+    "CR_final": 0.75,
+    "CR_history": 0.908,
+    "dCR": 0.15800000000000003,
+    "dCR_ci": [
+      0.11199999999999999,
+      0.20600000000000007
+    ],
+    "gate_lo_gt_0": true,
+    "extinction_rate": 0.158,
+    "pool_hist": 1.636,
+    "pool_final": 1.318
+  },
+  "commonsenseqa": {
+    "n": 500,
+    "n_qid": 100,
+    "maj_acc_mode": 0.638,
+    "CR_final": 0.806,
+    "CR_history": 0.936,
+    "dCR": 0.13,
+    "dCR_ci": [
+      0.10000000000000009,
+      0.16200000000000003
+    ],
+    "gate_lo_gt_0": true,
+    "extinction_rate": 0.13,
+    "pool_hist": 2.258,
+    "pool_final": 1.664
+  },
+  "truthfulqa": {
+    "n": 500,
+    "n_qid": 100,
+    "maj_acc_mode": 0.12,
+    "CR_final": 0.196,
+    "CR_history": 0.24,
+    "dCR": 0.043999999999999984,
+    "dCR_ci": [
+      0.02200000000000002,
+      0.068
+    ],
+    "gate_lo_gt_0": true,
+    "extinction_rate": 0.044,
+    "pool_hist": 6.31,
+    "pool_final": 2.552
+  },
+  "pooled": {
+    "n": 2500,
+    "n_qid": 500,
+    "maj_acc_mode": 0.5092,
+    "CR_final": 0.6356,
+    "CR_history": 0.7604,
+    "dCR": 0.12479999999999991,
+    "dCR_ci": [
+      0.1080000000000001,
+      0.14161
+    ],
+    "gate_lo_gt_0": true,
+    "extinction_rate": 0.1248,
+    "pool_hist": 3.0884,
+    "pool_final": 1.7436
+  },
+  "_note": "\u0394CR = P(correct appeared across rounds) - P(correct in final round) = the oracle accuracy a perfect selector over the preserved pool recovers over the final round. GO iff \u0394CR CI lo > 0 (and practically \u2273 +0.05). Selector/verifier and GPU come AFTER a GO; this only tests the preservation ceiling."
+}

@@ -1,0 +1,53 @@
+[PILOT] 400 debates, model=qwen2.5:7b @ http://localhost:11435
+  [50/400] judge calls so far=135
+  [100/400] judge calls so far=249
+  [150/400] judge calls so far=383
+  [200/400] judge calls so far=507
+  [250/400] judge calls so far=630
+  [300/400] judge calls so far=743
+  [350/400] judge calls so far=869
+  [400/400] judge calls so far=980
+
+=== gsm8k  (n=100, 70 qid) ===
+  final_majority 0.720 | J(final) 0.720 | J(history) 0.540 | J(q) 0.330
+  CR_final 0.820 | CR_history 0.880  (ceiling)
+  PRIMARY  Δ_HP = J(hist)-J(final) = -0.180 [-0.283,-0.075]  fail
+  sec  J(hist)-final_maj -0.180 [-0.289,-0.071] | capture -112%
+  sec  J(hist)-J(q)      +0.210 [+0.069,+0.355]  (pool adds value)
+  pools differ 0.59 | resurrection rate 0.54 acc 0.09 | parse-fail f/h/q 0.02/0.01/0.00
+
+=== bbh  (n=100, 69 qid) ===
+  final_majority 0.490 | J(final) 0.430 | J(history) 0.380 | J(q) 0.400
+  CR_final 0.660 | CR_history 0.870  (ceiling)
+  PRIMARY  Δ_HP = J(hist)-J(final) = -0.050 [-0.163,+0.062]  fail
+  sec  J(hist)-final_maj -0.110 [-0.229,+0.010] | capture -29%
+  sec  J(hist)-J(q)      -0.020 [-0.179,+0.140]  
+  pools differ 0.72 | resurrection rate 0.46 acc 0.21 | parse-fail f/h/q 0.04/0.00/0.00
+
+=== strategyqa  (n=100, 68 qid) ===
+  final_majority 0.490 | J(final) 0.500 | J(history) 0.540 | J(q) 0.510
+  CR_final 0.650 | CR_history 0.880  (ceiling)
+  PRIMARY  Δ_HP = J(hist)-J(final) = +0.040 [-0.022,+0.104]  fail
+  sec  J(hist)-final_maj +0.050 [-0.032,+0.133] | capture 13%
+  sec  J(hist)-J(q)      +0.030 [-0.057,+0.117]  
+  pools differ 0.41 | resurrection rate 0.24 acc 0.60 | parse-fail f/h/q 0.00/0.00/0.00
+
+=== commonsenseqa  (n=100, 69 qid) ===
+  final_majority 0.680 | J(final) 0.640 | J(history) 0.640 | J(q) 0.830
+  CR_final 0.850 | CR_history 0.960  (ceiling)
+  PRIMARY  Δ_HP = J(hist)-J(final) = +0.000 [-0.118,+0.117]  fail
+  sec  J(hist)-final_maj -0.040 [-0.178,+0.101] | capture -14%
+  sec  J(hist)-J(q)      -0.190 [-0.316,-0.070]  
+  pools differ 0.39 | resurrection rate 0.46 acc 0.44 | parse-fail f/h/q 0.03/0.02/0.00
+
+=== POOLED  (n=400, 276 qid) ===
+  final_majority 0.595 | J(final) 0.573 | J(history) 0.525 | J(q) 0.517
+  CR_final 0.745 | CR_history 0.897  (ceiling)
+  PRIMARY  Δ_HP = J(hist)-J(final) = -0.047 [-0.099,+0.003]  fail
+  sec  J(hist)-final_maj -0.070 [-0.127,-0.012] | capture -23%
+  sec  J(hist)-J(q)      +0.008 [-0.059,+0.075]  
+  pools differ 0.53 | resurrection rate 0.44 acc 0.26 | parse-fail f/h/q 0.02/0.01/0.00
+
+  PILOT GATES: {"1_dHP_sign_positive": false, "2_Jhist_gt_finalmaj": false, "3_no_catastrophic_bench": false, "4_uses_recovered": false, "catastrophic_benches": ["gsm8k", "bbh", "commonsenseqa"], "PILOT_VERDICT": "STOP"}
+
+[OK] results/tables/e21_semantic_selector.json  (980 judge calls)

@@ -1,0 +1,357 @@
+{
+  "gsm8k": {
+    "final_majority": {
+      "acc": 0.762
+    },
+    "round0_majority": {
+      "acc": 0.812,
+      "delta": 0.050000000000000044,
+      "ci": [
+        0.021949999999999914,
+        0.08000000000000007
+      ],
+      "sig": true,
+      "pct_headroom": 31.645569620253188
+    },
+    "hist_frequency": {
+      "acc": 0.808,
+      "delta": 0.04600000000000004,
+      "ci": [
+        0.026000000000000023,
+        0.06799999999999995
+      ],
+      "sig": true,
+      "pct_headroom": 29.11392405063293
+    },
+    "persistence": {
+      "acc": 0.796,
+      "delta": 0.03400000000000003,
+      "ci": [
+        0.01200000000000001,
+        0.05799999999999994
+      ],
+      "sig": true,
+      "pct_headroom": 21.518987341772167
+    },
+    "recency": {
+      "acc": 0.784,
+      "delta": 0.02200000000000002,
+      "ci": [
+        0.006000000000000005,
+        0.040000000000000036
+      ],
+      "sig": true,
+      "pct_headroom": 13.924050632911403
+    },
+    "antirecency": {
+      "acc": 0.806,
+      "delta": 0.04400000000000004,
+      "ci": [
+        0.018000000000000016,
+        0.07000000000000006
+      ],
+      "sig": true,
+      "pct_headroom": 27.848101265822805
+    },
+    "oracle_final": 0.824,
+    "oracle_history": 0.92,
+    "headroom": 0.15800000000000003,
+    "pool_mean": 2.402
+  },
+  "bbh": {
+    "final_majority": {
+      "acc": 0.466
+    },
+    "round0_majority": {
+      "acc": 0.494,
+      "delta": 0.02799999999999997,
+      "ci": [
+        -0.016000000000000014,
+        0.07400000000000001
+      ],
+      "sig": false,
+      "pct_headroom": 8.433734939759026
+    },
+    "hist_frequency": {
+      "acc": 0.482,
+      "delta": 0.01599999999999996,
+      "ci": [
+        -0.006000000000000005,
+        0.038000000000000034
+      ],
+      "sig": false,
+      "pct_headroom": 4.819277108433722
+    },
+    "persistence": {
+      "acc": 0.478,
+      "delta": 0.011999999999999955,
+      "ci": [
+        -0.008000000000000007,
+        0.03200000000000003
+      ],
+      "sig": false,
+      "pct_headroom": 3.614457831325287
+    },
+    "recency": {
+      "acc": 0.484,
+      "delta": 0.01799999999999996,
+      "ci": [
+        0.0,
+        0.03400000000000003
+      ],
+      "sig": false,
+      "pct_headroom": 5.421686746987939
+    },
+    "antirecency": {
+      "acc": 0.49,
+      "delta": 0.023999999999999966,
+      "ci": [
+        -0.010000000000000009,
+        0.057999999999999996
+      ],
+      "sig": false,
+      "pct_headroom": 7.228915662650593
+    },
+    "oracle_final": 0.602,
+    "oracle_history": 0.798,
+    "headroom": 0.332,
+    "pool_mean": 2.836
+  },
+  "strategyqa": {
+    "final_majority": {
+      "acc": 0.604
+    },
+    "round0_majority": {
+      "acc": 0.58,
+      "delta": -0.02400000000000002,
+      "ci": [
+        -0.05999999999999994,
+        0.013999999999999905
+      ],
+      "sig": false,
+      "pct_headroom": -7.894736842105268
+    },
+    "hist_frequency": {
+      "acc": 0.602,
+      "delta": -0.0020000000000000018,
+      "ci": [
+        -0.024050000000000016,
+        0.02200000000000002
+      ],
+      "sig": false,
+      "pct_headroom": -0.6578947368421058
+    },
+    "persistence": {
+      "acc": 0.598,
+      "delta": -0.006000000000000005,
+      "ci": [
+        -0.026000000000000023,
+        0.016000000000000014
+      ],
+      "sig": false,
+      "pct_headroom": -1.973684210526317
+    },
+    "recency": {
+      "acc": 0.588,
+      "delta": -0.016000000000000014,
+      "ci": [
+        -0.03400000000000003,
+        0.0020000000000000018
+      ],
+      "sig": false,
+      "pct_headroom": -5.263157894736846
+    },
+    "antirecency": {
+      "acc": 0.59,
+      "delta": -0.014000000000000012,
+      "ci": [
+        -0.040000000000000036,
+        0.014049999999999736
+      ],
+      "sig": false,
+      "pct_headroom": -4.60526315789474
+    },
+    "oracle_final": 0.75,
+    "oracle_history": 0.908,
+    "headroom": 0.30400000000000005,
+    "pool_mean": 1.636
+  },
+  "commonsenseqa": {
+    "final_majority": {
+      "acc": 0.664
+    },
+    "round0_majority": {
+      "acc": 0.75,
+      "delta": 0.08599999999999997,
+      "ci": [
+        0.041999999999999926,
+        0.13
+      ],
+      "sig": true,
+      "pct_headroom": 31.61764705882352
+    },
+    "hist_frequency": {
+      "acc": 0.71,
+      "delta": 0.04599999999999993,
+      "ci": [
+        0.017999999999999905,
+        0.07599999999999996
+      ],
+      "sig": true,
+      "pct_headroom": 16.911764705882327
+    },
+    "persistence": {
+      "acc": 0.714,
+      "delta": 0.04999999999999993,
+      "ci": [
+        0.020000000000000018,
+        0.07999999999999996
+      ],
+      "sig": true,
+      "pct_headroom": 18.382352941176443
+    },
+    "recency": {
+      "acc": 0.692,
+      "delta": 0.027999999999999914,
+      "ci": [
+        0.0040000000000000036,
+        0.051999999999999935
+      ],
+      "sig": true,
+      "pct_headroom": 10.29411764705879
+    },
+    "antirecency": {
+      "acc": 0.74,
+      "delta": 0.07599999999999996,
+      "ci": [
+        0.039999999999999925,
+        0.10999999999999999
+      ],
+      "sig": true,
+      "pct_headroom": 27.941176470588218
+    },
+    "oracle_final": 0.806,
+    "oracle_history": 0.936,
+    "headroom": 0.272,
+    "pool_mean": 2.258
+  },
+  "truthfulqa": {
+    "final_majority": {
+      "acc": 0.148
+    },
+    "round0_majority": {
+      "acc": 0.166,
+      "delta": 0.018000000000000016,
+      "ci": [
+        -0.0040000000000000036,
+        0.039999999999999994
+      ],
+      "sig": false,
+      "pct_headroom": 19.565217391304365
+    },
+    "hist_frequency": {
+      "acc": 0.168,
+      "delta": 0.020000000000000018,
+      "ci": [
+        0.007999999999999993,
+        0.036000000000000004
+      ],
+      "sig": true,
+      "pct_headroom": 21.739130434782627
+    },
+    "persistence": {
+      "acc": 0.168,
+      "delta": 0.020000000000000018,
+      "ci": [
+        0.007999999999999993,
+        0.036000000000000004
+      ],
+      "sig": true,
+      "pct_headroom": 21.739130434782627
+    },
+    "recency": {
+      "acc": 0.158,
+      "delta": 0.010000000000000009,
+      "ci": [
+        0.0020000000000000018,
+        0.01999999999999999
+      ],
+      "sig": true,
+      "pct_headroom": 10.869565217391314
+    },
+    "antirecency": {
+      "acc": 0.166,
+      "delta": 0.018000000000000016,
+      "ci": [
+        0.003999999999999976,
+        0.036000000000000004
+      ],
+      "sig": true,
+      "pct_headroom": 19.565217391304365
+    },
+    "oracle_final": 0.196,
+    "oracle_history": 0.24,
+    "headroom": 0.092,
+    "pool_mean": 6.31
+  },
+  "pooled": {
+    "final_majority": {
+      "acc": 0.5288
+    },
+    "round0_majority": {
+      "acc": 0.5604,
+      "delta": 0.03159999999999996,
+      "ci": [
+        0.015199999999999991,
+        0.0484
+      ],
+      "sig": true,
+      "pct_headroom": 13.644214162348867
+    },
+    "hist_frequency": {
+      "acc": 0.554,
+      "delta": 0.0252,
+      "ci": [
+        0.015199999999999991,
+        0.03520000000000001
+      ],
+      "sig": true,
+      "pct_headroom": 10.880829015544045
+    },
+    "persistence": {
+      "acc": 0.5508,
+      "delta": 0.02199999999999991,
+      "ci": [
+        0.01200000000000001,
+        0.032399999999999984
+      ],
+      "sig": true,
+      "pct_headroom": 9.499136442141587
+    },
+    "recency": {
+      "acc": 0.5412,
+      "delta": 0.012399999999999967,
+      "ci": [
+        0.00478999999999992,
+        0.020399999999999974
+      ],
+      "sig": true,
+      "pct_headroom": 5.354058721934357
+    },
+    "antirecency": {
+      "acc": 0.5584,
+      "delta": 0.02959999999999996,
+      "ci": [
+        0.016800000000000037,
+        0.04239999999999999
+      ],
+      "sig": true,
+      "pct_headroom": 12.780656303972354
+    },
+    "oracle_final": 0.6356,
+    "oracle_history": 0.7604,
+    "headroom": 0.23159999999999992,
+    "pool_mean": 3.0884
+  },
+  "_note": "All selectors gold-free. \u0394 vs final_majority with qid cluster-boot 95% CI; * = lo>0 (beats deployed baseline). %headroom = fraction of (oracle_history - final_majority) captured. A significant positive pool selector de-risks HP-MAD before the GPU LLM-verifier run."
+}

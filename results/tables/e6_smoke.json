@@ -1,0 +1,65 @@
+{
+  "n": 6,
+  "prevalence_ext": 1.0,
+  "never_acc": 0.5,
+  "always_acc": 0.5,
+  "hazard_curve": [
+    {
+      "tau": -1.0,
+      "acc": 0.5,
+      "rate": 1.0
+    },
+    {
+      "tau": 1.0,
+      "acc": 0.5,
+      "rate": 1.0
+    },
+    {
+      "tau": 2.0,
+      "acc": 0.5,
+      "rate": 0.0
+    }
+  ],
+  "random_curve": [
+    {
+      "rate": 1.0,
+      "acc": 0.5,
+      "acc_ci": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "rate": 1.0,
+      "acc": 0.5,
+      "acc_ci": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "rate": 0.0,
+      "acc": 0.5,
+      "acc_ci": [
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "at_30pct": {
+    "rate": 0.0,
+    "hazard_acc": 0.5,
+    "random_acc": 0.5,
+    "detector_gain": 0.0
+  },
+  "collateral": {
+    "n_would_live": 3,
+    "n_would_die": 3,
+    "harm_rate_on_would_live": 0.3333333333333333,
+    "help_rate_on_would_die": 0.3333333333333333
+  },
+  "mean_calls": {
+    "control": 5.5,
+    "combined": 6.0
+  }
+}

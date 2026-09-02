@@ -1,0 +1,66 @@
+{
+  "n_events": 231,
+  "n_social": 176,
+  "n_self": 55,
+  "auc": {
+    "influence_only": 0.4931818181818183,
+    "structural_only": 0.6270144628099174,
+    "influence_plus_struct": 0.6158574380165289,
+    "permutation_floor": 0.5105423553719007
+  },
+  "gsm8k_feature_dist": {
+    "holder_infl": {
+      "social_median": 0.3764503493150383,
+      "self_median": 0.3819443208979292,
+      "mwu_p": 0.053038139489593836
+    },
+    "holder_stub": {
+      "social_median": 0.7446209016393442,
+      "self_median": 0.6864864864864865,
+      "mwu_p": 0.03954932311987076
+    },
+    "max_peer_infl": {
+      "social_median": 0.3791754894908643,
+      "self_median": 0.3819443208979292,
+      "mwu_p": 0.08459668538714976
+    },
+    "mean_peer_infl": {
+      "social_median": 0.31177482534248063,
+      "self_median": 0.3090278395510354,
+      "mwu_p": 0.053038139489593836
+    },
+    "infl_gap": {
+      "social_median": 0.002725140175826035,
+      "self_median": 0.002725140175826035,
+      "mwu_p": 0.7218643137134961
+    },
+    "max_peer_stub": {
+      "social_median": 0.564703425229741,
+      "self_median": 0.5873015873015873,
+      "mwu_p": 0.36873000094223585
+    },
+    "holder_adopt_propensity": {
+      "social_median": 0.11206896551724138,
+      "self_median": 0.1328125,
+      "mwu_p": 0.07017255845677467
+    }
+  },
+  "per_bench": {
+    "gsm8k": {
+      "social": 16,
+      "self": 21
+    },
+    "strategyqa": {
+      "social": 54,
+      "self": 1
+    },
+    "commonsenseqa": {
+      "social": 48,
+      "self": 12
+    },
+    "bbh": {
+      "social": 58,
+      "self": 21
+    }
+  }
+}

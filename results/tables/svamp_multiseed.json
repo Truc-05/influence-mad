@@ -1,0 +1,125 @@
+{
+  "benchmark": "svamp",
+  "backend": "ollama",
+  "seeds": [
+    42
+  ],
+  "agent_names": [
+    "careful",
+    "skeptic",
+    "bigpicture"
+  ],
+  "influence_scores": {
+    "careful": {
+      "mean": 0.4910212414322485,
+      "std": 0.0
+    },
+    "skeptic": {
+      "mean": 0.22583531442280907,
+      "std": 0.0
+    },
+    "bigpicture": {
+      "mean": 0.28314344414494236,
+      "std": 0.0
+    }
+  },
+  "accuracy_per_agent": {
+    "careful": {
+      "mean": 0.9333333333333333,
+      "std": 0.0
+    },
+    "skeptic": {
+      "mean": 0.7333333333333333,
+      "std": 0.0
+    },
+    "bigpicture": {
+      "mean": 0.8,
+      "std": 0.0
+    }
+  },
+  "voting_accuracy": {
+    "majority": {
+      "mean": 0.9333333333333333,
+      "std": 0.0
+    },
+    "influence_based": {
+      "mean": 0.9333333333333333,
+      "std": 0.0
+    },
+    "influence_aware": {
+      "mean": 0.9333333333333333,
+      "std": 0.0
+    }
+  },
+  "influence_matrix_mean": [
+    [
+      0.0,
+      0.125,
+      0.2222222222222222
+    ],
+    [
+      0.0,
+      0.0,
+      0.04
+    ],
+    [
+      0.0,
+      0.12,
+      0.0
+    ]
+  ],
+  "influence_matrix_std": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "influence_scores": {
+        "careful": 0.4910212414322485,
+        "skeptic": 0.22583531442280907,
+        "bigpicture": 0.28314344414494236
+      },
+      "accuracy_per_agent": {
+        "careful": 0.9333333333333333,
+        "skeptic": 0.7333333333333333,
+        "bigpicture": 0.8
+      },
+      "voting": {
+        "majority": 0.9333333333333333,
+        "influence_based": 0.9333333333333333,
+        "influence_aware": 0.9333333333333333
+      },
+      "classification": {
+        "careful": "good_influence",
+        "skeptic": "low_influence",
+        "bigpicture": "good_influence"
+      },
+      "correlation": {
+        "pearson_r": 0.9919907802627157,
+        "pearson_p": 0.08062700268340019,
+        "spearman_r": 1.0,
+        "spearman_p": 0.0,
+        "n_agents": 3,
+        "note": ""
+      }
+    }
+  ],
+  "figures": {
+    "influence": "results/figures/svamp_influence_meanstd.png",
+    "voting": "results/figures/svamp_voting_meanstd.png"
+  }
+}

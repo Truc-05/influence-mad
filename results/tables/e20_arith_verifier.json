@@ -1,0 +1,141 @@
+{
+  "gsm8k": {
+    "grounded_coverage": 0.68,
+    "final_majority": {
+      "acc": 0.762
+    },
+    "hist_frequency": {
+      "acc": 0.808,
+      "d_final": 0.04600000000000004,
+      "ci_final": [
+        0.026000000000000023,
+        0.06799999999999995
+      ],
+      "sig_final": true
+    },
+    "arith_verify": {
+      "acc": 0.776,
+      "d_final": 0.014000000000000012,
+      "ci_final": [
+        -0.01799999999999991,
+        0.04400000000000004
+      ],
+      "sig_final": false,
+      "d_freq": -0.03200000000000003,
+      "ci_freq": [
+        -0.05800000000000005,
+        -0.006000000000000005
+      ],
+      "sig_freq": false
+    },
+    "arith_x_freq": {
+      "acc": 0.79,
+      "d_final": 0.028000000000000025,
+      "ci_final": [
+        -0.0020000000000000018,
+        0.05999999999999994
+      ],
+      "sig_final": false,
+      "d_freq": -0.018000000000000016,
+      "ci_freq": [
+        -0.04200000000000004,
+        0.008000000000000007
+      ],
+      "sig_freq": false
+    },
+    "oracle_history": 0.92
+  },
+  "math": {
+    "grounded_coverage": 0.425,
+    "final_majority": {
+      "acc": 0.6
+    },
+    "hist_frequency": {
+      "acc": 0.675,
+      "d_final": 0.07500000000000007,
+      "ci_final": [
+        0.0,
+        0.17499999999999993
+      ],
+      "sig_final": false
+    },
+    "arith_verify": {
+      "acc": 0.675,
+      "d_final": 0.07500000000000007,
+      "ci_final": [
+        -0.025000000000000022,
+        0.17562499999999664
+      ],
+      "sig_final": false,
+      "d_freq": 0.0,
+      "ci_freq": [
+        -0.07499999999999996,
+        0.07499999999999996
+      ],
+      "sig_freq": false
+    },
+    "arith_x_freq": {
+      "acc": 0.675,
+      "d_final": 0.07500000000000007,
+      "ci_final": [
+        -0.025000000000000022,
+        0.17562499999999664
+      ],
+      "sig_final": false,
+      "d_freq": 0.0,
+      "ci_freq": [
+        -0.07499999999999996,
+        0.07499999999999996
+      ],
+      "sig_freq": false
+    },
+    "oracle_history": 0.85
+  },
+  "pooled": {
+    "grounded_coverage": 0.6611111111111111,
+    "final_majority": {
+      "acc": 0.75
+    },
+    "hist_frequency": {
+      "acc": 0.7981481481481482,
+      "d_final": 0.04814814814814816,
+      "ci_final": [
+        0.02962962962962967,
+        0.06851851851851853
+      ],
+      "sig_final": true
+    },
+    "arith_verify": {
+      "acc": 0.7685185185185185,
+      "d_final": 0.01851851851851849,
+      "ci_final": [
+        -0.012415812031226128,
+        0.05035971223021585
+      ],
+      "sig_final": false,
+      "d_freq": -0.029629629629629672,
+      "ci_freq": [
+        -0.05463848068835501,
+        -0.003875968992248069
+      ],
+      "sig_freq": false
+    },
+    "arith_x_freq": {
+      "acc": 0.7814814814814814,
+      "d_final": 0.031481481481481444,
+      "ci_final": [
+        0.003257640067911809,
+        0.061605099705786086
+      ],
+      "sig_final": true,
+      "d_freq": -0.01666666666666672,
+      "ci_freq": [
+        -0.040078077115952564,
+        0.007950680272108738
+      ],
+      "sig_freq": false
+    },
+    "oracle_history": 0.9148148148148149
+  },
+  "_note": "arith_verify = deterministic; picks a candidate whose value is the result of a numerically-VALID equation in its supporting reasoning. \u0394 vs hist-freq is the decisive test (does verification add over vote-counting?). Coverage = how often the check fires. Low/insignificant gain => deterministic arithmetic insufficient, the selector must be a semantic LLM judge (GPU)."
+}

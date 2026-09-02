@@ -1,0 +1,19 @@
+% Appendix: full hazard-guided controller battery (E6 controller + E7-E9,E12 robustness).
+% DEMOTED supporting material. The controller MATCHES always-on at ~half the interventions but its
+% edge over a random budget is ~0 -- which is exactly why RQ2 concludes benefit is not identifiable.
+% Kept for completeness/reproducibility; not part of the main arc. Relocate under \appendix in the
+% master document if desired.
+\section{Hazard-Guided Controller: Full Results}
+\label{app:controller}
+
+RQ2 (\S\ref{sec:rq2main},~\S\ref{sec:rq13}) concludes that intervention \emph{benefit} is not
+identifiable from the pre-intervention state. This appendix reports the full controller battery behind
+that conclusion: a hazard-guided controller that selectively intervenes on the debates its detector
+flags. The headline is deliberately modest --- the controller \emph{matches} always-on intervention at
+$\sim\!55\%$ fewer interventions, but its edge over a \emph{random} intervention budget is within
+noise, and its only significant effect is that rescues outnumber harms. We keep it for completeness and
+because its per-seed statistics (E7--E9, E12) establish the cluster-bootstrap robustness protocol
+reused throughout the paper.
+
+\input{E6_results}
+\input{E6_robustness}

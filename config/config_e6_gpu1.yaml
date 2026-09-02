@@ -1,0 +1,41 @@
+
+agents:
+  - name: "careful"
+    model: "qwen2.5:3b-instruct"
+    persona: "careful"
+    temperature: 0.3
+  - name: "skeptic"
+    model: "phi4-mini:latest"
+    persona: "skeptic"
+    temperature: 0.5
+  - name: "bigpicture"
+    model: "llama3.2:3b"
+    persona: "bigpicture"
+    temperature: 0.5
+
+debate:
+  max_rounds: 3
+  backend: "ollama"
+  base_url: "http://localhost:11435"  
+  max_tokens: 512
+  timeout_seconds: 180
+
+benchmarks:
+  - name: "gsm8k"
+    n_samples: 100
+  - name: "bbh"
+    n_samples: 100
+
+influence:
+  algorithm: "pagerank"
+  damping_factor: 0.85
+  normalize: true
+
+voting:
+  strategies:
+    - "majority"
+    - "influence_based"
+    - "influence_aware"
+
+seeds: [42, 43, 44, 45, 46]
+random_seed: 42

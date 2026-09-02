@@ -1,0 +1,27 @@
+{
+  "benchmark": "gsm8k",
+  "n_samples": 100,
+  "influence_scores": {
+    "solver": 0.649122638064138,
+    "critic": 0.3508773619358619
+  },
+  "accuracy_per_agent": {
+    "solver": 0.74,
+    "critic": 0.66
+  },
+  "classification": {
+    "solver": "good_influence",
+    "critic": "low_influence"
+  },
+  "correlation": {
+    "pearson_r": null,
+    "pearson_p": null,
+    "spearman_r": null,
+    "spearman_p": null
+  },
+  "voting_accuracy": {
+    "majority": 0.74,
+    "influence_based": 0.74,
+    "influence_aware": 0.74
+  }
+}

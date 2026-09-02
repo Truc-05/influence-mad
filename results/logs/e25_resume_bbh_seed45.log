@@ -1,0 +1,2 @@
+[gen ] E_7b/bbh_seed45: 80 done, 20 remaining (backend=ollama, url=http://localhost:11435)
+[ok  ] E_7b/bbh_seed45: data/debate_logs/gen/E_7b/bbh_seed45.jsonl
