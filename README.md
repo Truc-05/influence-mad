@@ -299,14 +299,7 @@ counters are available; a minimal preamble wrapping `paper.tex` is all that's re
 
 If you use this code or the findings, please cite:
 
-```bibtex
-@article{notallconsensus,
-  title  = {Not All Consensus Is Equal: Epistemic Provenance of Agreement in Multi-Agent LLM Debate},
-  author = {<authors>},
-  year   = {2026},
-  note   = {Journal extension of the conference work on influence in multi-agent debate}
-}
-```
+
 
 ---
 
