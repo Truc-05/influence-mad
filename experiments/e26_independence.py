@@ -29,7 +29,7 @@ Outputs (paper-required):
   4. one clean figure -> results/figures/e26_matched_stratum.png
   + incremental AUC (why the downstream selector is only regime-bound) and actionable operating points.
 
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e26_independence.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e26_independence.py
 """
 import os, sys, glob, json
 from collections import defaultdict

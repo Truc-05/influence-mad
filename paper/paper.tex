@@ -7,28 +7,28 @@ Yet agreement is only useful when the evidence underlying it remains sufficientl
 
 We begin by showing that this distinction matters because multi-agent debate is not information preserving. A correct hypothesis may appear during the interaction and nevertheless disappear before the final vote when its supporting agents revise toward an incorrect alternative. We refer to this phenomenon as \emph{correct-hypothesis extinction}. Across our core experiments, preserving the complete hypothesis history raises candidate recall from approximately $0.64$ to $0.76$, revealing substantial information that a conventional final-round decision discards. More broadly, the pre-debate independent decision outperforms the debated final majority on four of five core benchmarks, showing that additional interaction is not uniformly constructive. These observations motivate a shift from treating debate solely as an answer-improvement process to treating it as a dynamic information system in which useful hypotheses can be created, propagated, and destroyed.
 
-A natural response is to predict which debates are about to fail and intervene selectively. We find, however, that detecting failure and predicting the value of intervention are fundamentally different problems. Extinction itself is predictable: a hazard model achieves an ROC--AUC of approximately $0.73$, and an oracle intervention analysis exposes a large potential improvement of $16.5$ percentage points. Nevertheless, across five pre-registered attempts using increasingly rich pre-intervention signals, we cannot reliably identify which individual debates will actually benefit from intervention. Cheap structural features, semantic representations, active self-diagnosis, placebo-controlled response probes, and mid-debate trajectories all fail the same benefit-prediction gate. Thus, \emph{failure predictability does not imply intervention actionability}. Rather than continuing to search for a controller that targets individual debates, we address the information loss structurally.
+A natural response is to predict which debates are about to fail and intervene selectively. We find, however, that detecting failure and predicting the value of intervention are fundamentally different problems. Extinction itself is predictable: a hazard model achieves an ROC--AUC of approximately $0.76$, and an oracle intervention analysis exposes a large potential improvement of $16.5$ percentage points. Nevertheless, across five successive attempts with pre-specified acceptance gates, using increasingly rich pre-intervention signals, we cannot reliably identify which individual debates will actually benefit from intervention. Cheap structural features, semantic representations, active self-diagnosis, placebo-controlled response probes, and mid-debate trajectories all fail the same benefit-prediction gate. Thus, \emph{failure predictability does not imply intervention actionability}. Rather than continuing to search for a controller that targets individual debates, we address the information loss structurally.
 
 Our resulting view is \emph{hypothesis preserving}. Instead of allowing an agent's latest answer to overwrite earlier candidates, we retain the set of hypotheses that appeared throughout the frozen debate history and attach a provenance record to each candidate. This record captures how the hypothesis entered and survived the interaction, including its number of independent round-$0$ origins, cumulative support, persistence, and subsequent social adoption. The resulting representation separates two quantities that ordinary majority voting conflates: the \emph{magnitude} of consensus and the \emph{origin} of consensus. The analysis is performed post hoc over frozen debate transcripts and requires no additional LLM calls; an end-to-end live non-destructive debate protocol is left for future work.
 
-This provenance view reveals the central empirical finding of the paper: \emph{not all consensus is equally informative}. First, hypothesis provenance is strongly associated with correctness across model families, task families, model scales, and agent counts. More importantly, this relationship cannot be explained merely by total support. The number of independent origins and total support are strongly correlated ($r\approx0.83$), so we explicitly compare hypotheses at matched levels of total consensus. Holding total support fixed, an additional independent round-$0$ supporter remains strongly associated with correctness, with a partial log-odds coefficient of $\beta_{\mathrm{ind}}=0.649$ and a clustered-bootstrap $95\%$ confidence interval of $[0.565,0.737]$. A decomposition of support gives a coefficient of $1.035$ for independently generated support versus $0.386$ for socially inherited support, corresponding to approximately $2.68\times$ larger conditional association per vote. The effect remains significant on seven of eight valid benchmarks and all five evaluated configurations, spanning model families from roughly $3$B to $14$B parameters and agent populations of $N\in\{3,5\}$. StrategyQA is the principal boundary case.
+This provenance view reveals the central empirical finding of the paper: \emph{not all consensus is equally informative}. First, hypothesis provenance is strongly associated with correctness across model families, task families, model scales, and agent counts. More importantly, this relationship cannot be explained merely by total support. The number of independent origins and total support are strongly correlated ($r\approx0.85$), so we explicitly compare hypotheses at matched levels of total consensus. Holding total support fixed, an additional independent round-$0$ supporter remains strongly associated with correctness, with a partial log-odds coefficient of $\beta_{\mathrm{ind}}=0.589$ and a clustered-bootstrap $95\%$ confidence interval of $[0.512,0.671]$. A clean decomposition that separates genuinely independent origins from true social-adoption events makes the asymmetry concrete: the per-origin log-odds coefficient ($0.92$) far exceeds that of genuine peer-adoption ($-0.04$, not significant), a gap of $\Delta\beta=0.96$ with a $95\%$ confidence interval of $[0.88,1.05]$. Crucially, this is not an artifact of easy questions: a within-question conditional logistic regression that absorbs each question's fixed effect still yields a positive independent-origin effect ($\beta_{\mathrm{ind}}=0.47$, $[0.42,0.53]$), and within the same question the correct hypothesis carries more independent origins in $75\%$ of correct/incorrect pairs. The effect remains significant on seven of eight benchmarks and all five ensemble configurations, spanning five open-weight model families from roughly $3$B to $14$B parameters and agent populations of $N\in\{3,5\}$. StrategyQA is the principal boundary case.
 
-The matched-support comparison makes the phenomenon especially clear. For hypotheses with total support $n_{\mathrm{sup}}=4$, empirical correctness rises from $0.21$ when no support is independently generated to $0.44$, $0.66$, and $0.74$ as the number of independent origins increases from one to three. Comparable monotonic patterns appear at larger support levels. Importantly, we interpret this result as an \emph{epistemic signal}, not as a causal effect: independently generated agreement is associated with correctness after controlling for total consensus, but the observational debate logs do not establish that increasing independent support would itself cause an answer to become correct.
+A matched-support comparison makes the phenomenon visible without any model: within each fixed-support stratum, empirical correctness rises monotonically with the number of independent origins (Figure~\ref{fig:matched}). Importantly, we interpret this as an \emph{epistemic signal}, not a causal effect: independently generated agreement is associated with correctness after controlling for consensus, but the observational logs do not establish that increasing independent support would itself make an answer correct.
 
-This mechanism also clarifies why provenance-aware reranking produces real but non-universal decision gains. Total support already captures much of the same information as independent support; adding provenance origin to raw support improves candidate-level AUC by only approximately $0.007$. Thus, a strong conditional relationship need not translate into a large incremental ranking advantage. Consistent with this explanation, a frozen provenance-aware selector improves over the deployed final majority in regimes where two conditions are simultaneously satisfied: provenance must discriminate correct from incorrect hypotheses, and a recoverable correct hypothesis must be available in the preserved pool. Under these conditions the selector improves pooled accuracy by approximately $3.2$ percentage points with no additional LLM calls and also outperforms the influence-based voting rule inherited from our earlier work. Outside these regimes, the gain is statistically indistinguishable from zero rather than universally positive. We therefore treat provenance-aware selection as a downstream application of the mechanism, not as the paper's central claim.
+This conditional relationship also clarifies why provenance-aware reranking produces real but non-universal decision gains. Total support already captures much of the same information as independent support; adding provenance origin to raw support improves candidate-level AUC by only approximately $0.007$. Thus, a strong conditional relationship need not translate into a large incremental ranking advantage. Consistent with this explanation, a frozen provenance-aware selector improves over the deployed final majority in regimes where two conditions are simultaneously satisfied: provenance must discriminate correct from incorrect hypotheses, and a recoverable correct hypothesis must be available in the preserved pool. Under these conditions the selector improves pooled accuracy from $0.528$ to $0.564$ (paired $\Delta=+0.035$, $95\%$ CI $[+0.022,+0.049]$) with no additional LLM calls and also outperforms the influence-based voting rule inherited from our earlier work. Outside these regimes, the gain is statistically indistinguishable from zero rather than universally positive. Indeed, the selector barely exceeds a strikingly cheap baseline: taking the pre-debate (round-$0$) independent majority already reaches $0.560$ using only the first of roughly three debate rounds --- about $3$ LLM calls versus $\approx\!8.7$ for the full debate. The most compute-efficient reliable rule is therefore to \emph{trust independent answers rather than debate them}: a compute-matched self-consistency control confirms the direction, since at the debate's inference budget repeated independent sampling of the same models outperforms the debated majority ($0.610$ vs.\ $0.530$; Appendix~\ref{app:e26}). We do not present this as a baseline that defeats our method, nor do we propose provenance-aware selection as a replacement for self-consistency as a deployment method; rather, the self-consistency result is \emph{independent confirmatory evidence} for our mechanism --- keeping samples independent beats letting them become socially coupled --- and provenance is what \emph{explains why}, and identifies what information conventional debate aggregation destroys. We accordingly treat provenance-aware selection as a downstream application of the finding, not as the paper's central claim.
 
 These results also refine an influence-centered view of multi-agent debate. Existing work has investigated communication topology, agent collaboration, persuasion, sycophancy, and which agents exert disproportionate influence over a group \cite{li2024sparse,zhang2024collaboration,sharma2024sycophancy}. Influence is important for describing how opinions propagate, but it does not determine whether the propagated hypothesis is correct. Our experiments show that an influence-aware voting rule can underperform plain majority voting, whereas hypothesis-level provenance remains strongly associated with correctness. The relevant unit of analysis is therefore not only the \emph{agent} that leads the debate, but the \emph{evidential history} of the hypothesis being selected.
 
 The contributions of this work are fivefold:
 \begin{itemize}
     \item \textbf{Correct-hypothesis extinction.} We identify and quantify a failure mode in which a correct hypothesis is generated during debate but disappears before the final decision, exposing substantial recoverable information that conventional final-round aggregation discards.
-    \item \textbf{Failure predictability is not intervention-benefit predictability.} We show that extinction can be detected and has a large oracle intervention ceiling, yet five increasingly informative pre-registered benefit-prediction attempts fail to identify which individual debates should be targeted, motivating a structural rather than selective remedy.
+    \item \textbf{Failure predictability is not intervention-benefit predictability.} We show that extinction can be detected and has a large oracle intervention ceiling, yet five increasingly informative benefit-prediction attempts with pre-specified gates fail to identify which individual debates should be targeted, motivating a structural rather than selective remedy.
     \item \textbf{Hypothesis preservation and provenance.} We formulate a non-destructive representation of frozen debate histories in which previously generated hypotheses are retained and annotated by their origin, support, persistence, and adoption history, enabling reliability analysis without additional LLM inference.
-    \item \textbf{Consensus is not epistemically homogeneous.} At matched total support, independently generated agreement carries substantially more correctness signal than socially inherited agreement. This relationship is robust across seven of eight benchmarks and all five model/agent configurations, including a $14$B anchor and $N=5$ debates.
-    \item \textbf{From mechanism to conditional decision utility.} We show that provenance-aware reranking can convert part of the preserved headroom into accuracy gains at zero additional LLM cost, while identifying the conditions under which such gains are possible and explaining why they are necessarily regime dependent.
+    \item \textbf{Consensus is not epistemically homogeneous.} At matched total support, independently generated agreement carries substantially more correctness signal than socially adopted agreement, and the effect survives a within-question control that absorbs each question's fixed effect. This relationship is robust across seven of eight benchmarks and all five ensemble configurations, including a $14$B anchor and $N=5$ debates.
+    \item \textbf{From epistemic signal to conditional decision utility.} We show that provenance-aware reranking can convert part of the preserved headroom into accuracy gains with no additional LLM calls, while identifying the conditions under which such gains are possible and explaining why they are necessarily regime dependent. We position this as a downstream \emph{application} that explains and partially exploits the finding, not as a deployment method competitive with self-consistency; the paper's contribution hierarchy is the scientific finding first, the preservation-and-provenance framework second, and the selector as an application third.
 \end{itemize}
 
-Taken together, our results suggest a different principle for reliable collective reasoning with LLMs: consensus should not be treated as a homogeneous count of votes. Reliability depends not only on how much agreement exists, but also on how that agreement was formed. Preserving candidate hypotheses and tracking their epistemic provenance provides a way to distinguish independently corroborated evidence from socially inherited consensus, moving the analysis of multi-agent reasoning beyond influence and toward the origin of collective belief.
+Taken together, our results suggest a different principle for reliable collective reasoning with LLMs: consensus should not be treated as a homogeneous count of votes. Reliability depends not only on how much agreement exists, but also on how that agreement was formed. Preserving candidate hypotheses and tracking their epistemic provenance provides a way to distinguish independently corroborated evidence from socially adopted consensus, moving the analysis of multi-agent reasoning beyond influence and toward the origin of collective belief.
 
 \section{Related Work}
 \label{sec:related_work}
@@ -36,7 +36,7 @@ Taken together, our results suggest a different principle for reliable collectiv
 \subsection{Inference-Time Reasoning and Self-Refinement}
 \label{subsec:rw_reasoning}
 
-A broad family of inference-time methods improves LLM reasoning by generating additional intermediate computation rather than changing model parameters. Chain-of-thought prompting elicits explicit reasoning trajectories \cite{wei2022cot}, while self-consistency samples multiple trajectories and selects an answer through agreement across independently generated chains \cite{wang2023selfconsistency}. Self-Refine repeatedly revises an answer using model-generated feedback \cite{madaan2023selfrefine}, and Reflexion equips language agents with verbal feedback that can influence subsequent attempts \cite{shinn2023reflexion}. These approaches establish that repeated inference can expose and correct errors, but they differ from multi-agent debate in an important respect: agreement obtained from independently sampled trajectories has a clearer interpretation than agreement obtained after agents have observed and influenced one another. Our work focuses on this loss of independence and asks whether the provenance of agreement changes how strongly consensus should be trusted.
+A broad family of inference-time methods improves LLM reasoning by generating additional intermediate computation rather than changing model parameters. Chain-of-thought prompting elicits explicit reasoning trajectories \cite{wei2022cot}, while self-consistency samples multiple trajectories and selects an answer through agreement across independently generated chains \cite{wang2023selfconsistency}. Self-Refine repeatedly revises an answer using model-generated feedback \cite{madaan2023selfrefine}, and Reflexion equips language agents with verbal feedback that can influence subsequent attempts \cite{shinn2023reflexion}. These approaches establish that repeated inference can expose and correct errors, but they differ from multi-agent debate in an important respect: agreement obtained from independently sampled trajectories has a clearer interpretation than agreement obtained after agents have observed and influenced one another. Self-consistency establishes the value of \emph{aggregating independent samples}. Our question is different: once agents \emph{interact}, does an equal amount of observed consensus retain equal evidential value? We show that it does not --- at matched support magnitude, reliability depends systematically on whether agreement was independently generated or socially acquired. This is precisely why our independent-origin signal is not self-consistency under another name: self-consistency asks whether adding independent samples improves selection, whereas we hold the observed consensus \emph{fixed} inside an interactive debate and vary only its provenance. Our compute-matched self-consistency control (Appendix~\ref{app:e26}) is, in this light, independent confirmatory evidence for the same mechanism --- at equal inference budget, keeping samples independent outperforms letting them become socially coupled through debate.
 
 \subsection{Multi-Agent Debate and Collaborative LLM Reasoning}
 \label{subsec:rw_mad}
@@ -50,12 +50,12 @@ Most of this literature evaluates debate through final-task accuracy, consensus,
 
 LLM agents do not exchange information neutrally. Social-psychological analyses show that collaboration patterns, agent roles, and interaction structures affect collective behavior \cite{zhang2024collaboration}. Sycophancy studies demonstrate that language models may align their responses with user or contextual preferences even when such agreement is not epistemically justified \cite{sharma2024sycophancy}. Evaluations of multi-agent debate similarly report that additional discussion is not uniformly beneficial and that debate strategy can substantially alter final performance \cite{smit2024mad}. More recent work has explicitly examined sycophancy mitigation in multi-agent consensus, reinforcing the concern that apparent agreement may partly reflect interaction dynamics rather than independent corroboration \cite{zhang2025consensagent}.
 
-These studies motivate analyzing \emph{how} beliefs propagate, but influence and correctness are distinct. Agent-level centrality can identify who is followed, just as PageRank-like scores quantify structural importance in a directed interaction graph \cite{page1998pagerank}, yet a highly influential agent can propagate either a correct or an incorrect hypothesis. Our prior conference work used this agent-centric perspective to study who leads a debate; the present work shifts the unit of analysis from agents to hypotheses. We record whether support was independently generated or socially inherited and show that, even at equal total support, these forms of agreement carry different correctness signal. This establishes epistemic provenance as complementary to, and more directly relevant for reliability than, influence alone.
+These studies motivate analyzing \emph{how} beliefs propagate, but influence and correctness are distinct. Agent-level centrality can identify who is followed, just as PageRank-like scores quantify structural importance in a directed interaction graph \cite{page1998pagerank}, yet a highly influential agent can propagate either a correct or an incorrect hypothesis. Our prior conference work used this agent-centric perspective to study who leads a debate; the present work shifts the unit of analysis from agents to hypotheses. We record whether support was independently generated or socially adopted and show that, even at equal total support, these forms of agreement carry different correctness signal. This establishes epistemic provenance as complementary to, and more directly relevant for reliability than, influence alone.
 
 \subsection{Consensus, Independent Evidence, and the Wisdom of Crowds}
 \label{subsec:rw_crowds}
 
-The interpretation of consensus has long depended on assumptions about independence. Classical wisdom-of-crowds reasoning is strongest when individual judgments contain sufficiently independent information, so that errors can cancel rather than reinforce one another. Recent behavioral work likewise shows that convergence among independent and approximately unbiased informants can rationally signal competence and accuracy, while systematic shared biases weaken this inference \cite{pfander2025crowd}. This perspective is highly relevant to multi-agent LLM systems because later-round answers are explicitly conditioned on peer responses and therefore cannot be interpreted as independent observations.
+The interpretation of consensus has long depended on assumptions about independence, from Condorcet's jury theorem \cite{condorcet1785essai} and Galton's ox-weighing experiment \cite{galton1907vox} to modern treatments of collective judgement \cite{surowiecki2004wisdom}. Classical wisdom-of-crowds reasoning is strongest when individual judgments contain sufficiently independent information, so that errors can cancel rather than reinforce one another; a classic result is that social influence can \emph{undermine} the wisdom-of-crowds effect by narrowing the diversity of estimates \cite{lorenz2011crowd}, and information cascades show how sequential observation of others can drive a group toward a shared, possibly wrong, position \cite{bikhchandani1992cascades}. The same intuition is formalized in ensemble learning, where classifier \emph{diversity} measures (e.g.\ disagreement and the $Q$-statistic) relate ensemble accuracy to how uncorrelated the members' errors are \cite{kuncheva2003diversity}. Our independent-versus-adopted decomposition can be read as a debate-time, per-hypothesis analogue of this diversity principle: it asks not how diverse the agents are in aggregate, but how much of a specific hypothesis's support was produced before the agents' errors could become correlated through interaction. Crucially, the effect of influence is not uniformly harmful: appropriately structured social exchange can also improve collective estimates \cite{becker2017crowd}, so the relevant question is not whether agents interact but whether the resulting agreement retains independent information. Recent behavioral work likewise shows that convergence among independent and approximately unbiased informants can rationally signal competence and accuracy, while systematic shared biases weaken this inference \cite{pfander2025crowd}. This perspective is highly relevant to multi-agent LLM systems because later-round answers are explicitly conditioned on peer responses and therefore cannot be interpreted as independent observations.
 
 Our results provide an LLM-specific operationalization of this principle. Rather than treating independence as an unobserved assumption, we track it directly through hypothesis provenance. We distinguish round-$0$ independent origins from support acquired after social exposure and compare them while holding total support fixed. The resulting difference is substantial: independently generated support remains strongly associated with correctness after controlling for raw consensus. In this sense, our work connects multi-agent LLM debate to the broader principle that the reliability of collective agreement depends on the dependence structure of the evidence producing it.
 
@@ -64,12 +64,12 @@ Our results provide an LLM-specific operationalization of this principle. Rather
 
 A separate line of work studies how to select among multiple model outputs. Self-consistency uses answer frequency over sampled reasoning paths \cite{wang2023selfconsistency}, while heterogeneous-agent systems frequently use majority voting, confidence weighting, or consensus-based aggregation \cite{chen2024reconcile,estornell2024multillm}. LLM-as-a-Judge methods instead ask a capable model to evaluate candidate responses directly; MT-Bench and Chatbot Arena helped establish the usefulness, as well as the biases and limitations, of this paradigm \cite{zheng2023judging}. In multi-agent settings, however, an external judge introduces additional inference cost and may solve the underlying problem more effectively than it discriminates among imperfect candidates.
 
-Our approach differs from both answer-frequency aggregation and external judging. We exploit metadata already contained in the debate trajectory and therefore add no new LLM calls. More importantly, the provenance analysis is not introduced merely as a new scoring heuristic. Its primary role is explanatory: it reveals that equal consensus counts can encode different amounts of epistemic evidence. The resulting selector is intentionally treated as a downstream application, and we characterize rather than hide its applicability boundary. This separates the near-universal mechanism---independent provenance carries more correctness signal---from the more conditional question of whether that signal yields additional end-task accuracy over a strong consensus baseline.
+Our approach differs from both answer-frequency aggregation and external judging. We exploit metadata already contained in the debate trajectory and therefore add no new LLM calls. More importantly, the provenance analysis is not introduced merely as a new scoring heuristic. Its primary role is explanatory: it reveals that equal consensus counts can encode different amounts of epistemic evidence. The resulting selector is intentionally treated as a downstream application, and we characterize rather than hide its applicability boundary. This separates the near-universal empirical regularity---independent provenance carries more correctness signal---from the more conditional question of whether that signal yields additional end-task accuracy over a strong consensus baseline.
 
 \subsection{Positioning of This Work}
 \label{subsec:rw_positioning}
 
-The above literature reveals three unresolved gaps. First, existing MAD evaluations largely focus on final answers and therefore do not explicitly quantify correct hypotheses that appear and later disappear. Second, work on collaboration and influence explains how agents affect one another but does not determine whether socially propagated agreement should carry the same epistemic weight as independently generated agreement. Third, aggregation methods usually operate on the magnitude of support or on an external evaluator, without explicitly modeling the origin of that support. We address these gaps through a unified trajectory-level analysis: we quantify correct-hypothesis extinction, preserve the full candidate history, attach provenance to each hypothesis, and test whether the origin of agreement remains informative after controlling for total consensus. The resulting finding---that independently generated consensus carries substantially more correctness signal than socially inherited consensus at matched support---is the central distinction between our approach and prior influence-, consensus-, or judge-based methods.
+The above literature reveals three unresolved gaps. First, existing MAD evaluations largely focus on final answers and therefore do not explicitly quantify correct hypotheses that appear and later disappear. Second, work on collaboration and influence explains how agents affect one another but does not determine whether socially propagated agreement should carry the same epistemic weight as independently generated agreement. Third, aggregation methods usually operate on the magnitude of support or on an external evaluator, without explicitly modeling the origin of that support. We address these gaps through a unified trajectory-level analysis: we quantify correct-hypothesis extinction, preserve the full candidate history, attach provenance to each hypothesis, and test whether the origin of agreement remains informative after controlling for total consensus. The resulting finding---that independently generated consensus carries substantially more correctness signal than socially adopted consensus at matched support, even within a question---is the central distinction between our approach and prior influence-, consensus-, or judge-based methods.
 
 
 \section{Problem Formulation}
@@ -85,8 +85,8 @@ experimental protocol is deferred to Appendix~\ref{app:protocol}.
 \label{subsec:mad_formulation}
 
 Let $\mathcal{A}=\{a_1,\dots,a_N\}$ be a set of $N$ heterogeneous LLM agents. Given a question $q$ drawn
-from a benchmark $\mathcal{D}$ with gold answer $y^\star(q)$, the agents debate for up to $T$ synchronous
-rounds. We write $x_i^{(r)}$ for the answer proposed by agent $a_i$ in round $r$, and
+from a benchmark $\mathcal{D}$ with gold answer $y^\star(q)$, the agents debate for at most $R=3$ synchronous
+rounds, indexed $r\in\{0,1,2\}$. We write $x_i^{(r)}$ for the answer proposed by agent $a_i$ in round $r$, and
 $\bar{x}=\mathrm{norm}(x)$ for a normalized answer, so that surface variants of the same answer are
 treated as identical. At round $0$ each agent answers \emph{independently},
 $x_i^{(0)}=a_i(q)$, with no knowledge of its peers. In every subsequent round the agents revise
@@ -94,8 +94,13 @@ $x_i^{(0)}=a_i(q)$, with no knowledge of its peers. In every subsequent round th
 \begin{equation}
 x_i^{(r)} \;=\; a_i\!\Big(q,\; x_i^{(r-1)},\; \{x_k^{(r-1)}\}_{k\ne i}\Big),\qquad r\ge 1 .
 \end{equation}
-The debate stops early upon consensus and otherwise runs to round $T$. The deployed system returns the
-majority answer over the agents' final responses,
+The debate stops early upon consensus, which is checked \emph{after each revision round} (i.e.\ from round
+$r\ge 1$); otherwise it runs to the round cap. We write $T\le R-1=2$ for the index of a debate's final round.
+Because the consensus check begins at round $1$, every debate performs at least one revision round, so a
+hypothesis on which all $N$ agents already agree at round $0$ ($n_{\mathrm{ind}}=N$) still accrues further
+cumulative support in round $1$; this is why $n_{\mathrm{sup}}$ can exceed $n_{\mathrm{ind}}$ even at full
+independent consensus (e.g.\ the $n_{\mathrm{sup}}{=}6,\,n_{\mathrm{ind}}{=}3$ stratum in
+Table~\ref{tab:matched}). The deployed system returns the majority answer over the agents' final responses,
 $\hat{y}_{\mathrm{maj}}(q)=\arg\max_{c}\sum_{i}\mathbb{1}[\bar{x}_i^{(T)}=c]$, with ties broken
 deterministically. This synchronous, peer-symmetric protocol is what makes belief revision --- and hence
 provenance --- attributable: a change at round $r$ can be ascribed to what an agent saw at round $r-1$.
@@ -113,26 +118,35 @@ A vanilla debate reports only the \emph{final pool} $H^{\mathrm{fin}}=H^{(T)}$. 
 \emph{history pool} $H^{\mathrm{hist}}=\bigcup_{r\le T}H^{(r)}$, the set of all hypotheses that ever
 appeared. The two coincide only if no hypothesis is ever abandoned; in general
 $H^{\mathrm{fin}}\subseteq H^{\mathrm{hist}}$, and the difference is exactly the information a final-round
-decision discards. The \emph{total support} of a hypothesis is its cumulative agent--round count,
-$n_{\mathrm{sup}}(h)=\sum_{r=0}^{T}\lvert S^{(r)}(h)\rvert$, and its \emph{persistence} is the number of
+decision discards. We distinguish two notions of consensus magnitude: the \emph{final-round vote count}
+$n_{\mathrm{final}}(h)=\lvert S^{(T)}(h)\rvert$, which the deployed majority actually uses, and the
+trajectory-level \emph{cumulative support} $n_{\mathrm{sup}}(h)=\sum_{r=0}^{T}\lvert S^{(r)}(h)\rvert$,
+which counts an answer's total presence over the debate; our matched-consensus analysis holds each fixed in
+turn (Section~\ref{subsec:not_all_consensus_equal}). The \emph{persistence} of a hypothesis is the number of
 rounds in which it is alive, $n_{\mathrm{per}}(h)=\lvert\{r : S^{(r)}(h)\ne\varnothing\}\rvert$.
 
 \subsection{Correct-Hypothesis Extinction}
 \label{subsec:extinction_definition}
 
-A hypothesis becomes \emph{extinct} when it is present during the debate but absent from the final
-decision. To quantify how often this destroys \emph{correct} information, we measure the probability that
-the gold answer survives to the final round versus anywhere in the history:
+A debate on question $q$ exhibits a \emph{correct-hypothesis extinction event} when the gold answer lives in
+the history pool but not in the final-round pool:
+\begin{equation}
+E(q)=\mathbb{1}\!\big[\,y^\star(q)\in H^{\mathrm{hist}}(q)\ \wedge\ y^\star(q)\notin H^{\mathrm{fin}}(q)\,\big].
+\label{eq:extinction_event}
+\end{equation}
+To quantify how often extinction destroys \emph{correct} information we measure the probability that the gold
+answer survives to the final round versus anywhere in the history,
 \begin{equation}
 \mathrm{CR}_{\mathrm{fin}}=\Pr\!\big(y^\star\in H^{\mathrm{fin}}\big),\quad
 \mathrm{CR}_{\mathrm{hist}}=\Pr\!\big(y^\star\in H^{\mathrm{hist}}\big),\quad
 \Delta\mathrm{CR}=\mathrm{CR}_{\mathrm{hist}}-\mathrm{CR}_{\mathrm{fin}} .
 \label{eq:extinction}
 \end{equation}
-$\Delta\mathrm{CR}$ is the \emph{correct-hypothesis extinction rate}: the fraction of debates in which a
-correct answer is generated and then forgotten. It is exactly the accuracy a perfect selector over a
-preserved pool could recover over a perfect selector restricted to the final round, and it upper-bounds
-the value of any preservation-based remedy.
+Since $H^{\mathrm{fin}}\subseteq H^{\mathrm{hist}}$, the two views coincide: the \emph{extinction rate} is
+exactly $\mathrm{ER}=\tfrac{1}{|\mathcal{D}|}\sum_{q}E(q)=\Delta\mathrm{CR}$. This quantity is the maximum gain
+attributable \emph{specifically} to recovering hypotheses lost before the final round, relative to a perfect
+selector restricted to the final-round pool; the additional gain of a perfect final-round selector over the
+deployed majority is a separate term (Section~\ref{par:preservation_headroom}).
 
 \subsection{Epistemic Provenance of Agreement}
 \label{subsec:provenance_definition}
@@ -143,33 +157,50 @@ that proposed it before observing any peer,
 \begin{equation}
 n_{\mathrm{ind}}(h)=\lvert S^{(0)}(h)\rvert ,
 \end{equation}
-and its \emph{socially inherited support} is the remaining, post-exposure support,
-$n_{\mathrm{inh}}(h)=n_{\mathrm{sup}}(h)-n_{\mathrm{ind}}(h)$, accrued when an agent revises \emph{onto}
-$h$ after seeing it held by a peer. We also record the round in which $h$ first appears,
-$\mathrm{first}(h)=\min\{r:S^{(r)}(h)\ne\varnothing\}$. The tuple
-$\big(n_{\mathrm{sup}},\,n_{\mathrm{ind}},\,n_{\mathrm{inh}},\,n_{\mathrm{per}},\,\mathrm{first}\big)$ is
-the \emph{provenance} of a hypothesis. Majority voting sees only a coarse function of $n_{\mathrm{sup}}$;
-our question is whether the finer, origin-aware decomposition carries additional correctness signal.
+where ``independent'' means \emph{interaction-independent} --- produced before any peer exposure --- and
+\emph{not} statistically independent, since the agents share overlapping pretraining. Its
+\emph{socially adopted support} counts genuine adoption events: agent $i$ switches onto $h$ at round
+$r\ge 1$, did not hold it at $r-1$, and \emph{a peer was offering it} at $r-1$,
+\begin{equation}
+A_i^{(r)}(h)=\mathbb{1}\!\big[\,\bar{x}_i^{(r)}=h\ \wedge\ \bar{x}_i^{(r-1)}\ne h\ \wedge\ \exists\,j\ne i:\ \bar{x}_j^{(r-1)}=h\,\big],
+\qquad
+n_{\mathrm{adopt}}(h)=\sum_{r=1}^{T}\sum_{i=1}^{N} A_i^{(r)}(h) .
+\label{eq:adopt}
+\end{equation}
+The peer condition is essential: without it, an agent that independently generates a \emph{new} answer
+mid-debate would be miscounted as ``adopting'' it. We also deliberately avoid the residual
+$n_{\mathrm{sup}}-n_{\mathrm{ind}}$ as ``inherited support'', since it absorbs an originating agent's own
+persistence. Collecting the pieces --- with $r_{\mathrm{first}}(h)=\min\{r:S^{(r)}(h)\ne\varnothing\}$ ---
+each hypothesis is summarized by a \emph{provenance vector}
+\begin{equation}
+\phi(h)=\big[\,n_{\mathrm{sup}}(h),\ n_{\mathrm{ind}}(h),\ n_{\mathrm{adopt}}(h),\ n_{\mathrm{per}}(h),\ r_{\mathrm{first}}(h)\,\big]^\top .
+\label{eq:provvec}
+\end{equation}
+Majority voting observes only the final-round count $n_{\mathrm{final}}$ and ignores the origin-aware
+decomposition of support; our question is whether the finer $\phi(h)$ carries additional correctness signal.
 
 \subsection{Research Hypotheses}
 \label{subsec:research_hypotheses}
 
-The paper is organized around three pre-registered hypotheses of increasing sharpness:
+The paper is organized around three headline hypotheses of increasing sharpness:
 \begin{itemize}
     \item[\textbf{H1}] \textbf{(Extinction).} Debate destroys correct answers it once held:
-    $\Delta\mathrm{CR}>0$ (Eq.~\ref{eq:extinction}), and the pre-debate independent decision is not
-    uniformly worse than the debated final decision.
-    \item[\textbf{H2}] \textbf{(Provenance predicts correctness).} A hypothesis's own provenance predicts
-    whether it is correct: $\Pr(\text{correct}\mid n_{\mathrm{ind}})$ and
-    $\Pr(\text{correct}\mid n_{\mathrm{per}})$ are monotone increasing, with directional AUC above chance.
-    \item[\textbf{H3}] \textbf{(Origin, at matched total support).} \emph{Holding total support fixed},
-    independently generated agreement carries more correctness signal than socially inherited agreement:
-    the partial effect of $n_{\mathrm{ind}}$ given $n_{\mathrm{sup}}$ is strictly positive.
+    $\Delta\mathrm{CR}>0$ (Eq.~\ref{eq:extinction}). As a supporting behavioral observation, the pre-debate
+    independent decision is often no worse than the debated final decision.
+    \item[\textbf{H2}] \textbf{(Provenance predicts correctness).} A hypothesis's own provenance carries
+    predictive information about its correctness beyond chance --- in particular independent origin
+    ($n_{\mathrm{ind}}$) and persistence ($n_{\mathrm{per}}$), whose reliability curves are (overall)
+    monotone increasing.
+    \item[\textbf{H3}] \textbf{(Origin beyond magnitude).} Holding consensus magnitude fixed, independent
+    origins carry additional correctness signal: the partial effect of $n_{\mathrm{ind}}$ given
+    $n_{\mathrm{sup}}$ is strictly positive ($\beta_{\mathrm{ind}}>0$). Moreover, in a decomposition
+    separating independent origins, peer-compatible adoption events, and persistence, the independent-origin
+    coefficient exceeds the adoption coefficient ($\beta_{\mathrm{ind}}-\beta_{\mathrm{adopt}}>0$).
 \end{itemize}
-The clause ``at matched total support'' in H3 is load-bearing. Independent support and total support are
+The clause ``at matched consensus'' in H3 is load-bearing. Independent support and total support are
 strongly collinear (Pearson $r\approx0.83$), so H2 alone cannot separate \emph{how much} agreement exists
-from \emph{how it was formed}; H3 is the mechanism behind H2, isolated by controlling for consensus
-magnitude, not a restatement of it.
+from \emph{how it was formed}; H3 sharpens H2 by isolating the origin signal from consensus magnitude, and
+is an empirical, observational relationship rather than a demonstrated causal mechanism.
 
 
 \section{Methodology}
@@ -184,34 +215,45 @@ hypothesis that appears in the debate rather than only the final round; (ii) ann
 hypothesis with a provenance record describing how its support was formed; and (iii) optionally re-select
 the final answer from the preserved pool using that record. All three stages operate post hoc on stored
 transcripts and add \emph{no} LLM inference; the selection stage is therefore a drop-in replacement for
-majority voting at zero marginal cost. We stress that the analysis is offline: we do not run a live
+majority voting with no additional LLM inference. We stress that the analysis is offline: we do not run a live
 non-destructive debate, and we quantify what preservation and provenance \emph{could} recover from
 transcripts a standard debate already produces.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig1_framework.png}
-\caption{\textbf{Preserve $\to$ Track Provenance $\to$ Select.} A standard debate destructively overwrites
-earlier hypotheses and votes over the final round only; our analysis preserves the full history pool
+\caption{\textbf{Preserve $\to$ Track Provenance $\to$ Select.} A standard debate's final-round vote
+discards hypotheses generated earlier in the interaction; our analysis preserves the full history pool
 ($H^{\mathrm{fin}}\subseteq H^{\mathrm{hist}}$), attaches an origin-aware provenance record to each
 candidate ($n_{\mathrm{ind}}$, persistence, first round), and re-selects the final answer by a provenance
 score --- all without additional model calls. In the example, the correct hypothesis $A$ is generated
 independently by two agents, socially erased by the final vote, but recovered because its independent
 origin gives it the highest provenance score.}
 \label{fig:framework}
-\end{figure}
+\end{figure*}
 
 \subsection{Preserving the Hypothesis Space}
 \label{subsec:hypothesis_preservation}
 
 \paragraph{History-preserving candidate pool.}
 \label{par:history_pool}
-The core structural change is to replace the final-round pool $H^{\mathrm{fin}}$ with the history pool
-$H^{\mathrm{hist}}=\bigcup_{r\le T}H^{(r)}$ as the candidate set from which the final answer is drawn.
-Because a hypothesis, once generated, is never erased, the pool grows monotonically,
-$H^{(0)}\subseteq H^{(0)}\!\cup H^{(1)}\subseteq\cdots\subseteq H^{\mathrm{hist}}$ --- a preservation
-guarantee that a destructive debate lacks. This directly counters both extinction mechanisms
-(Section~\ref{par:extinction_anatomy}): a correct hypothesis abandoned through social adoption or
+The core structural change is to accumulate hypotheses into a running pool
+$\mathcal{H}_t=\bigcup_{r=0}^{t}H^{(r)}$ through a \emph{preservation operator}
+\begin{equation}
+\mathcal{H}_t=\mathcal{P}\big(\mathcal{H}_{t-1},H^{(t)}\big)=\mathcal{H}_{t-1}\cup H^{(t)},
+\qquad \mathcal{H}_{-1}=\varnothing,
+\label{eq:preserve_op}
+\end{equation}
+and to draw the final answer from $\mathcal{H}_T=H^{\mathrm{hist}}$ rather than from $H^{\mathrm{fin}}=H^{(T)}$.
+Because a hypothesis, once generated, is never removed, the candidate space obeys a \emph{monotone
+preservation invariant}
+\begin{equation}
+\boxed{\;H^{(t)}\subseteq\mathcal{H}_t\subseteq\mathcal{H}_{t+1}\quad\text{for all }t\;}
+\label{eq:preserve_inv}
+\end{equation}
+--- a property a destructive final-round vote lacks. Intuitively, debate may freely revise beliefs, but the
+system-level candidate space never forgets a generated hypothesis. This directly counters both extinction
+mechanisms (Section~\ref{par:extinction_anatomy}): a correct hypothesis abandoned through social adoption or
 self-error drift remains recoverable.
 
 \paragraph{Reconstruction from frozen debate trajectories.}
@@ -236,14 +278,18 @@ support that an agent \emph{originated} from support it \emph{adopted} after pee
 \paragraph{Independent hypothesis origins.}
 \label{par:independent_origins}
 The independent support $n_{\mathrm{ind}}(h)=\lvert S^{(0)}(h)\rvert$ counts agents that proposed $h$ at
-round $0$, before seeing any peer. It is the number of \emph{independent evidential paths} to $h$ and is
-the central provenance quantity of the paper.
+round $0$, before seeing any peer. It counts the \emph{interaction-independent} origins of $h$ --- not
+statistically independent paths, since the agents share overlapping pretraining --- and is the central
+provenance quantity of the paper.
 
-\paragraph{Socially inherited support.}
+\paragraph{Socially adopted support.}
 \label{par:inherited_support}
-The inherited support $n_{\mathrm{inh}}(h)=n_{\mathrm{sup}}(h)-n_{\mathrm{ind}}(h)$ aggregates all
-post-exposure support: votes that arose only after $h$ was visible in the debate. Two hypotheses can share
-$n_{\mathrm{sup}}$ while differing sharply in the $n_{\mathrm{ind}}$/$n_{\mathrm{inh}}$ split.
+The adopted support $n_{\mathrm{adopt}}(h)$ counts genuine adoption events --- agents that switch onto $h$
+after seeing a peer hold it. Unlike the residual $n_{\mathrm{sup}}-n_{\mathrm{ind}}$ (which also contains an
+originating agent's own persistence), $n_{\mathrm{adopt}}$ isolates support acquired \emph{after} peer
+exposure and consistent with peer-mediated adoption (temporal precedence and exposure compatibility, not a
+proven causal transfer). Two hypotheses can share $n_{\mathrm{sup}}$ while differing sharply in how much of
+it is independent versus adopted.
 
 \paragraph{Persistence across debate rounds.}
 \label{par:persistence}
@@ -259,16 +305,17 @@ without gold labels.
 
 \paragraph{Total support.}
 \label{par:total_support}
-$n_{\mathrm{sup}}(h)$, cumulative agent--round votes --- the quantity majority voting (approximately) uses.
+$n_{\mathrm{sup}}(h)$, cumulative agent--round support, used as a trajectory-level measure of consensus
+magnitude (the deployed final majority instead uses the final-round count $n_{\mathrm{final}}$).
 
 \paragraph{Independent support.}
 \label{par:independent_support}
 $n_{\mathrm{ind}}(h)$, round-$0$ origins; the origin signal whose incremental value over $n_{\mathrm{sup}}$
 we test.
 
-\paragraph{Inherited support.}
+\paragraph{Socially adopted support.}
 \label{par:inherited_support_feature}
-$n_{\mathrm{inh}}(h)$, post-exposure support; contrasted against $n_{\mathrm{ind}}$ per vote.
+$n_{\mathrm{adopt}}(h)$, the count of genuine peer-adoption events; contrasted against $n_{\mathrm{ind}}$.
 
 \paragraph{Temporal provenance.}
 \label{par:temporal_provenance}
@@ -280,7 +327,9 @@ hypotheses are treated as suspect.
 
 Because $n_{\mathrm{ind}}$ and $n_{\mathrm{sup}}$ are collinear ($r\approx0.83$), a raw association between
 independent support and correctness could merely reflect that popular answers are correct. We therefore
-test H3 with three complementary estimators that all hold total consensus fixed. All confidence intervals
+test H3 with complementary analyses: matched-support stratification and a controlled regression isolate
+origin from consensus magnitude by holding total support fixed, while a separate decomposition contrasts
+independent origination with genuine social adoption and persistence. All confidence intervals
 are clustered bootstraps that resample at the (config, benchmark, question) level, so dependence among a
 question's candidates and across seeds is respected; full inference details are in
 Appendix~\ref{app:stats}.
@@ -291,122 +340,229 @@ Non-parametrically, we stratify candidates by $n_{\mathrm{sup}}$ and, within eac
 correctness as a function of $n_{\mathrm{ind}}$. If origin is inert once magnitude is fixed, correctness
 should be flat within a stratum.
 
-\paragraph{Independent--inherited support decomposition.}
+\paragraph{Independent--adopted support decomposition.}
 \label{par:support_decomposition}
-Parametrically, we fit a logistic model of correctness on the two origin components,
-$\operatorname{logit}\Pr(\text{correct})=\beta_{\mathrm{ind}}\,n_{\mathrm{ind}}+\beta_{\mathrm{inh}}\,
-n_{\mathrm{inh}}+\text{const}$, which yields the correctness value \emph{per vote} of each kind of support.
+Parametrically, we fit a logistic model of correctness on the interpretable, linearly-independent basis
+\begin{equation}
+\operatorname{logit}\Pr(Y_h=1)=\beta_0+\beta_{\mathrm{ind}}\,n_{\mathrm{ind}}(h)+\beta_{\mathrm{adopt}}\,n_{\mathrm{adopt}}(h)+\beta_{\mathrm{per}}\,n_{\mathrm{per}}(h),
+\label{eq:decomp}
+\end{equation}
+whose coefficients are the per-origin, per-adoption, and per-round log-odds contributions.
 
-\paragraph{Controlled and fixed-effect estimation.}
+\paragraph{Controlled, fixed-effect, and within-question estimation.}
 \label{par:controlled_estimation}
-Equivalently, we regress correctness on $n_{\mathrm{sup}}$ and $n_{\mathrm{ind}}$ jointly; the coefficient
-on $n_{\mathrm{ind}}$ is then the extra correctness signal of an independent origin \emph{at matched total
-support} (algebraically $\beta_{\mathrm{ind}}-\beta_{\mathrm{inh}}$ of the decomposition). We repeat the
-estimate with benchmark and configuration fixed effects, and separately per benchmark and per
-configuration, to check that the effect is not an artifact of task or ensemble composition.
+The matched-support effect is captured by a logistic model with benchmark ($\gamma_b$) and configuration
+($\delta_c$) fixed effects,
+\begin{equation}
+\operatorname{logit}\Pr(Y_h=1)=\beta_0+\beta_s\,n_{\mathrm{sup}}(h)+\beta_{\mathrm{ind}}\,n_{\mathrm{ind}}(h)+\gamma_{b(h)}+\delta_{c(h)} ,
+\label{eq:femodel}
+\end{equation}
+so that $\beta_{\mathrm{ind}}$ is the extra correctness signal of an independent origin \emph{at matched
+total support}. The paper's headline reduces to two one-sided tests,
+\begin{equation}
+\boxed{\,H_0\!:\ \beta_{\mathrm{ind}}\le 0\ \ \text{vs.}\ \ H_1\!:\ \beta_{\mathrm{ind}}>0\,}
+\qquad\text{and}\qquad
+\boxed{\,H_0\!:\ \beta_{\mathrm{ind}}-\beta_{\mathrm{adopt}}\le 0\ \ \text{vs.}\ \ H_1\!:\ \beta_{\mathrm{ind}}-\beta_{\mathrm{adopt}}>0\,},
+\label{eq:h3tests}
+\end{equation}
+the first isolating origin from magnitude (Eq.~\ref{eq:femodel}), the second contrasting independent
+origination against genuine peer-adoption in the decomposition (Eq.~\ref{eq:decomp}). We also fit
+Eq.~\ref{eq:femodel} per benchmark and per configuration. Finally, to rule out that independent origins
+merely proxy \emph{easy questions}, we estimate a \emph{within-question} conditional logistic stratified by
+question --- a question fixed-effect logit that absorbs all question-level heterogeneity --- and a non-parametric
+within-question concordance: among correct/incorrect hypothesis pairs from the \emph{same} question
+(optionally at matched total support), how often does the correct one carry more independent origins? All
+CIs are clustered bootstraps on (config, benchmark, question).
 
 \subsection{Provenance-Aware Hypothesis Selection}
 \label{subsec:provenance_selection}
 
 \paragraph{Candidate scoring.}
 \label{par:candidate_scoring}
-To turn the mechanism into a decision rule, we score each hypothesis in the preserved pool by
+To turn this signal into a decision rule, we score each preserved hypothesis by its provenance vector
+$\phi(h)$ (Eq.~\ref{eq:provvec}). The interpretable equal-weight variant uses
 \begin{equation}
-S(h)=w_1\,n_{\mathrm{ind}}(h)+w_2\,n_{\mathrm{per}}(h)+w_3\,n_{\mathrm{sup}}(h)-w_4\,\mathrm{first}(h),
+S(h)=w_1\,n_{\mathrm{ind}}(h)+w_2\,n_{\mathrm{per}}(h)+w_3\,n_{\mathrm{sup}}(h)-w_4\,r_{\mathrm{first}}(h)
+\label{eq:sel_linear}
 \end{equation}
-and return $\arg\max_h S(h)$. Weights are either fixed and equal (after standardizing features) or learned.
+with unit weights on features standardized (z-scored) over the full training-fold candidate pool; the learned variant is a logistic score
+\begin{equation}
+p_\theta(h)=\sigma\!\big(\theta_0+\theta^\top\phi(h)\big),\qquad \sigma(z)=\tfrac{1}{1+e^{-z}} .
+\label{eq:sel_prob}
+\end{equation}
 
 \paragraph{Cross-fitted estimation.}
 \label{par:crossfit}
-For the learned variant we fit logistic weights with group $k$-fold cross-fitting over questions, so no
-candidate is ever scored by weights trained on its own question; reported accuracies are out-of-fold. This
-prevents the selector from overfitting question-specific idiosyncrasies and makes the comparison to the
-zero-parameter baselines fair.
+The learned weights are fit by regularized maximum likelihood with \emph{question-grouped} cross-fitting.
+Partitioning questions into $K$ folds, the parameters for fold $k$ solve
+\begin{equation}
+\hat\theta^{(-k)}=\arg\min_{\theta}\ \sum_{h\in\mathcal{D}_{-k}}\ell_{\mathrm{BCE}}\!\big(Y_h,\,p_\theta(h)\big)+\lambda\lVert\theta\rVert_2^2 ,
+\label{eq:sel_fit}
+\end{equation}
+where $\ell_{\mathrm{BCE}}$ is the binary cross-entropy and $\mathcal{D}_{-k}$ excludes every candidate whose
+question lies in fold $k$, so no hypothesis is ever scored by weights trained on its own question. Reported
+accuracies are therefore strictly out-of-fold, making the comparison to the zero-parameter baselines fair.
 
 \paragraph{Final decision rule.}
 \label{par:decision_rule}
-The selected answer replaces the deployed majority vote. Because scoring reads only stored provenance
-features, the rule adds no LLM calls and is a strict post-processing step over any existing debate log.
+For a question $q$ in fold $k(q)$, the selected answer is the highest-scoring hypothesis in the preserved pool,
+\begin{equation}
+\boxed{\ \hat{y}_q=\arg\max_{h\in\mathcal{H}_T(q)}\ p_{\hat\theta^{(-k(q))}}(h)\ }
+\label{eq:sel_decision}
+\end{equation}
+(or $\arg\max_h S(h)$ for the equal-weight variant), replacing the deployed majority vote. Because scoring
+reads only stored provenance features, the rule adds no LLM calls and is a strict post-processing step over
+any existing debate log.
+
+\paragraph{Reconstruction algorithm and complexity.}
+\label{par:algorithm}
+Algorithm~\ref{alg:hpmad} assembles the pipeline in a single pass over the frozen transcript: it preserves
+the hypothesis pool (Eq.~\ref{eq:preserve_op}), accumulates each candidate's provenance $\phi(h)$
+(Eqs.~\ref{eq:adopt}--\ref{eq:provvec}), and selects (Eq.~\ref{eq:sel_decision}). Two details make the counts
+correct and the pass linear. First, per-round quantities ($n_{\mathrm{per}}$, and the round-$0$ origin
+count) are updated once per \emph{distinct} hypothesis of a round --- via the per-round supporter map
+$c_r$ --- so persistence counts rounds, not agent--rounds. Second, $c_r$ also decides peer-compatible
+adoption in $O(1)$: since the switching agent $i$ did not hold $h$ at $r-1$, a peer held it iff
+$c_{r-1}[h]\ge 1$, avoiding an $O(N)$ existence scan. Each of the $T{+}1$ rounds then costs $O(N)$, so
+reconstruction runs in $O(NT)$ time and $O(|\mathcal{H}_T|)$ space per debate --- negligible beside the
+debate itself and requiring no additional model inference.
+
+% Requires \usepackage{algorithm} and \usepackage{algpseudocode} (algorithmicx) in the master preamble.
+\begin{algorithm}[t]
+\caption{Hypothesis Preservation, Provenance Reconstruction, and Selection}
+\label{alg:hpmad}
+\begin{algorithmic}[1]
+\Require frozen debate trajectory $\{\bar{x}_i^{(r)}\}$ ($N$ agents, rounds $0..T$); fitted selector $p_\theta$
+\Ensure  preserved pool $\mathcal{H}$, provenance $\{\phi(h)\}$, selected answer $\hat{y}$
+\State $\mathcal{H}\gets\varnothing$;\quad $\phi(h)\gets\mathbf{0}$ for each new $h$
+\For{$r=0$ \textbf{to} $T$}
+  \State $c_r\gets$ empty map \Comment{per-round supporter counts: $c_r[h]=|S^{(r)}(h)|$}
+  \For{$i=1$ \textbf{to} $N$ \textbf{with} $\bar{x}_i^{(r)}\ne\varnothing$}\quad $c_r[\bar{x}_i^{(r)}]\mathrel{+}{=}1$ \EndFor
+  \For{\textbf{each} $h\in\mathrm{keys}(c_r)$}\Comment{once per distinct hypothesis this round}
+    \State $\mathcal{H}\gets\mathcal{H}\cup\{h\}$;\quad $n_{\mathrm{sup}}(h)\mathrel{+}{=}c_r[h]$;\quad $n_{\mathrm{per}}(h)\mathrel{+}{=}1$
+    \State \textbf{if} $r_{\mathrm{first}}(h)$ undefined \textbf{then} $r_{\mathrm{first}}(h)\gets r$
+    \State \textbf{if} $r=0$ \textbf{then} $n_{\mathrm{ind}}(h)\mathrel{+}{=}c_0[h]$ \Comment{round-$0$ independent origins}
+  \EndFor
+  \If{$r\ge 1$}\Comment{peer-compatible adoption, $O(1)$ per agent via $c_{r-1}$ (Eq.~\ref{eq:adopt})}
+    \For{$i=1$ \textbf{to} $N$}
+      \State $h\gets\bar{x}_i^{(r)}$
+      \State \textbf{if} $h\ne\varnothing$ \textbf{and} $\bar{x}_i^{(r-1)}\ne h$ \textbf{and} $c_{r-1}[h]\ge 1$ \textbf{then} $n_{\mathrm{adopt}}(h)\mathrel{+}{=}1$
+    \EndFor
+  \EndIf
+\EndFor
+\State \Return $\hat{y}=\arg\max_{h\in\mathcal{H}}\,p_\theta\!\big(\phi(h)\big)$ \Comment{selection, Eq.~\ref{eq:sel_decision}}
+\end{algorithmic}
+\end{algorithm}
 
 
 \section{Experiments and Results}
 \label{sec:experiments_results}
 
 We report results as a single narrative: debate forgets correct answers
-(\S\ref{subsec:extinction_results}); the natural levers for recovering them --- agent influence
-(\S\ref{subsec:influence_insufficient}) and failure prediction
-(\S\ref{subsec:prediction_actionability}) --- do not identify a useful action; so we attack the loss
+(Section~\ref{subsec:extinction_results}); the natural levers for recovering them --- agent influence
+(Section~\ref{subsec:influence_insufficient}) and failure prediction
+(Section~\ref{subsec:prediction_actionability}) --- do not identify a useful action; so we attack the loss
 structurally by preserving hypotheses and reading their provenance
-(\S\ref{subsec:provenance_correctness}), which reveals the paper's central finding, that consensus is not
-epistemically homogeneous (\S\ref{subsec:not_all_consensus_equal}); we then convert the mechanism into a
-zero-cost decision rule whose gains are real but conditional
-(\S\ref{subsec:decision_utility}), and confirm the scientific claims generalize
-(\S\ref{subsec:generalization}). Unless noted, numbers are pooled over benchmarks $\times$ seeds under the
+(Section~\ref{subsec:provenance_correctness}), which reveals the paper's central finding, that consensus is not
+epistemically homogeneous (Section~\ref{subsec:not_all_consensus_equal}); we then convert this signal into a
+no-extra-inference decision rule whose gains are real but conditional
+(Section~\ref{subsec:decision_utility}), and confirm the scientific claims generalize
+(Section~\ref{subsec:generalization}). Unless noted, numbers are pooled over benchmarks $\times$ seeds under the
 robust scorer, with clustered-bootstrap $95\%$ CIs over questions.
 
 \subsection{Experimental Protocol}
 \label{subsec:experimental_protocol}
 
-We summarize the protocol here; Appendix~\ref{app:protocol} gives the full specification.
+We summarize the protocol here (Table~\ref{tab:setup}); Appendix~\ref{app:protocol} gives the full
+specification and per-cell data volumes (Table~\ref{tab:counts}).
 
-\paragraph{Benchmarks.}
+\begin{table}[t]
+\centering\small
+\caption{Experimental scope: eight benchmarks and five agent ensembles. All benchmarks use $100$ questions
+(the base ensemble \textsc{E\_orig} ran a $20$-question pilot subset of AQuA); core benchmarks are run under
+up to $5$ seeds (full per-cell counts in Table~\ref{tab:counts}). Personas
+(\emph{careful}/\emph{skeptic}/\emph{bigpicture}) are fixed; only the backbones and agent count $N$ vary.}
+\label{tab:setup}
+\begin{tabular}{lll}
+\toprule
+\multicolumn{3}{l}{\emph{Benchmarks}}\\
+\midrule
+GSM8K & grade-school math & open numeric \\
+StrategyQA & implicit multi-hop & binary yes/no \\
+CommonsenseQA & commonsense & $5$-way MC \\
+BBH & mixed hard tasks & MC / short answer \\
+TruthfulQA & adversarial factuality & free text \\
+AQuA & algebraic word problems & $5$-way MC \\
+MMLU & multi-domain knowledge & $4$-way MC \\
+ARC & science QA & $4$-way MC \\
+\midrule
+\multicolumn{3}{l}{\emph{Ensembles} (backbones; $N$ = agent count)}\\
+\midrule
+\textsc{E\_orig}   & qwen2.5:3b, phi4-mini, llama3.2:3b & $N{=}3$ \\
+\textsc{E\_7b}     & qwen2.5:7b, mistral:7b, llama3.1:8b & $N{=}3$ \\
+\textsc{E\_mixed}  & gemma2:9b, phi4-mini, llama3.2:3b & $N{=}3$ \\
+\textsc{E\_strong} & qwen2.5:14b, phi4-mini, llama3.2:3b & $N{=}3$ \\
+\textsc{E\_n5}     & qwen2.5:3b, phi4-mini, llama3.2:3b, mistral:7b, qwen2.5:7b & $N{=}5$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Benchmarks and ensembles.}
 \label{par:benchmarks}
-The core experiments use five reasoning benchmarks spanning open-answer arithmetic (GSM8K), binary
-strategic reasoning (StrategyQA), multiple-choice commonsense (CommonsenseQA), diverse hard tasks (BBH),
-and adversarial factuality (TruthfulQA), with $500$ questions per benchmark $\times$ $5$ seeds. For the
-generalization and provenance analyses we add three further multiple-choice benchmarks (AQuA, MMLU, ARC),
-for eight benchmarks in total.
-
-\paragraph{Models and agent configurations.}
-\label{par:model_configs}
-The base ensemble (\textsc{E\_orig}) is three peer agents with distinct personas
-(\emph{careful}, \emph{skeptic}, \emph{bigpicture}) backed by three different open-weight models
-(\texttt{qwen2.5:3b}, \texttt{phi4-mini}, \texttt{llama3.2:3b}). To probe generalization we vary the
-backbone and population: \textsc{E\_7b} (\texttt{qwen2.5:7b}/\texttt{mistral:7b}/\texttt{llama3.1:8b}),
-\textsc{E\_mixed} (\texttt{gemma2:9b}/\texttt{phi4-mini}/\texttt{llama3.2:3b}), a strong-anchor
-\textsc{E\_strong} (a \texttt{qwen2.5:14b} anchor with two small peers), and a five-agent \textsc{E\_n5}
-($N{=}5$). The five ensembles together span roughly $3$B--$14$B parameters and $N\in\{3,5\}$; their exact
-backbones are listed in Table~\ref{tab:ensembles} (Appendix~\ref{app:protocol}).
+The core experiments use five reasoning benchmarks spanning open-answer arithmetic (GSM8K), binary strategic
+reasoning (StrategyQA), multiple-choice commonsense (CommonsenseQA), diverse hard tasks (BBH), and
+adversarial factuality (TruthfulQA), with $100$ questions each and up to $5$ seeds ($500$ debates per core
+benchmark for the base ensemble); generalization and provenance analyses add three further multiple-choice
+benchmarks (AQuA, MMLU, ARC). The base ensemble \textsc{E\_orig} is three persona-distinct peers
+(\emph{careful}/\emph{skeptic}/\emph{bigpicture}) on three open-weight backbones; four further ensembles vary
+the backbone (up to a $14$B anchor) and population ($N\in\{3,5\}$), together spanning $\approx\!3$B--$14$B.
+All benchmarks, backbones, and per-cell seed/question counts are in Tables~\ref{tab:setup}
+and~\ref{tab:counts} (Appendix~\ref{app:e26}); the \textsc{E\_orig} AQuA cell is a $20$-question pilot subset.
 
 \paragraph{Debate protocol.}
 \label{par:debate_protocol}
-Agents debate for up to $T{=}3$ synchronous rounds with early stopping on consensus, run locally through
+Agents debate for at most $R=3$ synchronous rounds (indices $r\in\{0,1,2\}$) with early stopping on consensus, run locally through
 Ollama with fixed per-persona sampling temperatures (careful $0.3$; skeptic and bigpicture $0.5$) and a
 $512$-token answer budget. Round $0$ is independent; rounds $\ge 1$ condition on all peers' previous
-answers (\S\ref{subsec:mad_formulation}). The verbatim persona, debate, intervention, and probe prompts,
+answers (Section~\ref{subsec:mad_formulation}). The verbatim persona, debate, intervention, and probe prompts,
 together with the full serving configuration, are given in Appendix~\ref{app:config}.
 
 \paragraph{Hardware and serving.}
 \label{par:hardware}
-All debates are generated on a workstation with two NVIDIA RTX~5060~Ti GPUs ($16$\,GB each), served through
-Ollama. Because the machine is shared, each run is pinned to the \emph{idle} GPU via a dedicated Ollama
-instance bound to that device (\texttt{CUDA\_VISIBLE\_DEVICES}) on a private port
-(\texttt{:11435} for GPU\,1, \texttt{:11436} for GPU\,0), leaving the co-tenant's job untouched. Every
-ensemble is sized so that all of its agents co-reside on a \emph{single} $16$\,GB card with no model
-swapping: for example, the $14$B-anchor ensemble (\textsc{E\_strong}) uses $\approx 13.5$\,GB and the
-five-agent ensemble (\textsc{E\_n5}) $\approx 15.5$\,GB. The exact model-to-GPU placement, VRAM budget,
-and decoding parameters are in Appendix~\ref{app:config} (Table~\ref{tab:serving}).
+Debates are generated locally on NVIDIA RTX~5060~Ti ($16$\,GB) GPUs using Ollama; each ensemble's nominal
+$4$-bit model footprints fit within a single $16$\,GB card. Complete serving and decoding settings --- GPU pinning, ports,
+per-ensemble model-to-GPU placement, and VRAM budgets --- are in Appendix~\ref{app:config}
+(Table~\ref{tab:serving}).
 
-\paragraph{Answer normalization and correctness evaluation.}
+\paragraph{Answer extraction, scoring, and data hygiene.}
 \label{par:answer_evaluation}
-A robust extractor normalizes each answer, recovers answers truncated by the token limit, and censors
-genuinely truncated generations. Correctness uses task-appropriate matching (numeric equality for GSM8K,
-option matching for multiple choice, normalized string match otherwise). The same pipeline scores the
-baseline vote, the preserved pool, and every selector.
-
-\paragraph{Data-quality and exclusion criteria.}
-\label{par:data_quality}
-Debates with unrecoverable transcripts or fully truncated final rounds are excluded before analysis;
-provenance analyses operate at the candidate (distinct-hypothesis) level, giving $23{,}239$ candidates over
-the five ensembles $\times$ eight benchmarks for the independence analysis. Underpowered cells (fewer than
-eight positive events) are reported as such rather than scored.
+A robust extractor normalizes each answer (recovering token-truncated answers, censoring unrecoverable
+generations) and correctness uses task-appropriate matching (numeric equality, option matching, or normalized
+string match), applied identically to the baseline vote, the preserved pool, and every selector. Debates with
+unrecoverable transcripts or fully truncated final rounds are excluded; provenance analyses operate at the
+candidate (distinct-hypothesis) level ($27{,}139$ candidates over the five ensembles $\times$ eight
+benchmarks), and underpowered cells (fewer than eight positive events) are flagged rather than scored (full
+specification in Appendix~\ref{app:protocol}).
 
 \paragraph{Evaluation and statistical inference.}
 \label{par:statistical_analysis}
 All intervals are clustered bootstraps that resample the natural unit of dependence --- the question
-(and, where relevant, the (config, benchmark, question) triple) --- because a question's five seeds and a
-debate's several candidates are correlated repeats, not independent observations. We report point estimates
-with $95\%$ CIs and treat an effect as significant when its CI excludes zero.
+(and, where relevant, the (config, benchmark, question) triple) --- because a question's several seeds and a
+debate's several candidates are correlated repeats, not independent observations. Because the same benchmark
+question is reused across configurations, we also report the more conservative (benchmark, question)
+clustering for the headline effect (Section~\ref{par:h3_robustness}). We report point estimates with $95\%$ CIs and
+treat an effect as significant when its CI excludes zero. The three headline hypotheses are assessed by
+pooled/global tests; per-benchmark and per-configuration intervals are reported as heterogeneity and
+generalization analyses rather than a family of independent discovery claims (bootstrap seeds are fixed;
+$B=2000$ for candidate-level and $B=4000$ for selector CIs). For transparency we nonetheless report
+Benjamini--Hochberg FDR control ($q=0.05$) over each $40$-cell family: the two \emph{scientific} families are
+essentially untouched --- extinction survives in $36/40$ cells (unchanged from raw) and
+provenance$\to$correctness in $38/40$ (unchanged) --- while the \emph{conditional} selector family reduces
+from $13/40$ to $9/40$, consistent with its status as conditional rather than universal utility
+(Appendix~\ref{app:e26}).
+The extraction and scoring pipeline, prompts, experimental configurations, and analysis scripts are released
+with the project repository; the generated debate logs and derived candidate/provenance data supporting the
+reported results are available from the corresponding author upon reasonable request.
 
 
 \subsection{When Debate Forgets Correct Hypotheses}
@@ -425,199 +581,150 @@ where targeting helps least.
 \begin{table}[t]
 \centering\small
 \caption{Extinction and the preservation ceiling. Correct-answer recall at the final round vs.\ across the
-full history, and the deployed majority accuracy. $\Delta\mathrm{CR}$ is the correct-hypothesis extinction
-rate (clustered-boot $95\%$ CI over questions); Pool is the mean number of distinct hypotheses per
-question.}
+full history, and the deployed majority accuracy (deterministic tie-break, identical to the baseline in
+Table~\ref{tab:selector}). $\Delta\mathrm{CR}$ is the correct-hypothesis extinction rate (clustered-boot
+$95\%$ CI over questions); Pool is the mean number of distinct hypotheses per question. TruthfulQA's larger
+pool ($6.31$ vs.\ $\approx\!2$) reflects its open-ended, free-text answer space, where normalization admits
+many surface variants --- a caveat on its numbers, not a general property. Displayed values are rounded to
+three decimals; $\Delta\mathrm{CR}$ and its CI are computed from unrounded per-question values (so e.g.\ the
+pooled $\Delta\mathrm{CR}=0.125$ need not equal the rounded $0.760-0.636$).}
 \label{tab:preserve}
 \begin{tabular}{lccccc}
 \toprule
 Benchmark & Maj.\ acc & $\mathrm{CR}_{\mathrm{fin}}$ & $\mathrm{CR}_{\mathrm{hist}}$ & $\Delta\mathrm{CR}$ [95\% CI] & Pool \\
 \midrule
-GSM8K         & 0.732 & 0.824 & 0.920 & $+0.096\,[.070,.128]$ & 2.40 \\
-BBH           & 0.456 & 0.602 & 0.798 & $+0.196\,[.156,.236]$ & 2.84 \\
-StrategyQA    & 0.600 & 0.750 & 0.908 & $+0.158\,[.112,.206]$ & 1.64 \\
-CommonsenseQA & 0.638 & 0.806 & 0.936 & $+0.130\,[.100,.162]$ & 2.26 \\
-TruthfulQA    & 0.120 & 0.196 & 0.240 & $+0.044\,[.022,.068]$ & 6.31 \\
+GSM8K         & 0.760 & 0.824 & 0.920 & $+0.096\,[.070,.128]$ & 2.40 \\
+BBH           & 0.466 & 0.602 & 0.798 & $+0.196\,[.156,.236]$ & 2.84 \\
+StrategyQA    & 0.604 & 0.750 & 0.908 & $+0.158\,[.112,.206]$ & 1.64 \\
+CommonsenseQA & 0.664 & 0.806 & 0.936 & $+0.130\,[.100,.162]$ & 2.26 \\
+TruthfulQA    & 0.148 & 0.196 & 0.240 & $+0.044\,[.022,.068]$ & 6.31 \\
 \midrule
-\textbf{Pooled} & \textbf{0.509} & \textbf{0.636} & \textbf{0.760} & $\mathbf{+0.125\,[.108,.142]}$ & 3.09 \\
+\textbf{Pooled} & \textbf{0.528} & \textbf{0.636} & \textbf{0.760} & $\mathbf{+0.125\,[.108,.142]}$ & 3.09 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig2_extinction.png}
 \caption{\textbf{Correct hypotheses are generated, then forgotten.} Per benchmark, the correct answer is
 present in the history far more often than in the final round; the gap ($\Delta\mathrm{CR}$) is the
 extinction rate, significant everywhere and largest on BBH.}
 \label{fig:extinction}
-\end{figure}
+\end{figure*}
 
 \paragraph{Anatomy of extinction.}
 \label{par:extinction_anatomy}
-The loss has a reproducible anatomy (Appendix~\ref{app:anatomy}). Two behavioral mechanisms drive it:
-\emph{social adoption} (an agent copies a peer's wrong answer) and \emph{self-error drift} (an agent
-revises its own correct answer away). Social adoption dominates overall ($\approx 72\%$ of extinctions),
-but on the open-answer GSM8K anchor the loss is self-error-led ($57\%$ vs $43\%$). Notably, $73\%$ of
-adoptions are \emph{surface}: the answer copies a peer while the reasoning does \emph{not} converge --- a
-fact we return to in \S\ref{par:genuine_surface}. A lone correct minority is extinguished $78\%$ of the
-time.
-
-\paragraph{Information retained in the debate history.}
-\label{par:history_information}
-Preserving the full history is thus not a matter of adding noise: the history pool contains only
-$\approx 3$ distinct hypotheses per question (Table~\ref{tab:preserve}, last column), yet recovering it
-raises candidate recall from $0.636$ to $0.760$. An independent behavioral accounting agrees: censoring
-truncation artifacts, $+11.6$pp of pooled accuracy is \emph{online-recoverable} --- present at some round
-but discarded by the final vote --- rising to $+15.8$pp on BBH (Appendix~\ref{app:anatomy}).
+The loss has a reproducible anatomy: two behavioral mechanisms drive it --- \emph{social adoption} (an agent
+switches to a wrong answer a peer was offering, $\approx 72\%$ of extinctions, mostly surface copies) and
+\emph{self-error drift} (an agent revises its own correct answer away, dominant on open-answer GSM8K); a lone
+correct minority is extinguished $78\%$ of the time (Appendix~\ref{app:anatomy}).
 
 \paragraph{Preservation headroom.}
 \label{par:preservation_headroom}
-Taken together, the total gap between the deployed majority ($50.9\%$) and a perfect selector over the
-preserved pool ($76.0\%$) is $+25$ points, decomposing into $+12.5$pp of structural preservation and
-$+12.7$pp of final-round selection. This headroom --- large, cheap, and present without any targeting --- is
-the opportunity the rest of the paper pursues.
+Preserving the full history is not a matter of adding noise: the pool holds only $\approx 3$ hypotheses per
+question (Table~\ref{tab:preserve}), yet recovering it raises recall from $0.636$ to $0.760$. The total gap
+from the deployed majority ($0.528$) to a perfect selector over the preserved pool ($0.760$) is $+23.2$pp,
+decomposing into $+12.5$pp of structural preservation ($\mathrm{CR}_{\mathrm{hist}}-\mathrm{CR}_{\mathrm{fin}}$)
+and $+10.8$pp of final-round selection ($\mathrm{CR}_{\mathrm{fin}}-$ majority). This headroom --- large,
+cheap, and present without any targeting --- is the opportunity the rest of the paper pursues, and it is not a
+weak-baseline artifact ($\Delta\mathrm{CR}$ correlates weakly \emph{positively} with accuracy, $r=+0.45$;
+Appendix~\ref{app:e26}).
 
 
 \subsection{Why Agent Influence Is Not Enough}
 \label{subsec:influence_insufficient}
 
-If debate forgets correct answers because some agents pull the group the wrong way, the natural remedy is
-to identify influential agents and weight the vote by influence. This was the premise of our conference
-work; here we show it is insufficient, which motivates the shift from agents to hypotheses. The full
-influence analysis is in Appendix~\ref{app:influence}.
-
-\paragraph{Influence structure in multi-agent debate.}
-\label{par:influence_structure}
-Influence, estimated as a PageRank centrality over an agent-to-agent adoption graph
-(Appendix~\ref{app:influence}), is concentrated, stable across tasks (mean pairwise rank correlation
-$0.80$), and persona-driven. But it is earned by \emph{stubbornness}, not correctness: across (agent,
-benchmark) pairs, influence correlates with an agent's refusal to change ($r=0.69$, $p=0.005$) and not with
-its standalone accuracy ($r=0.15$, $p=0.60$).
-
-\paragraph{Influence and extinction mechanism.}
-\label{par:influence_extinction}
-Because influence tracks stubbornness, it cannot tell whether a given revision was a helpful correction or
-a harmful capitulation. Predicting the extinction \emph{mechanism} (social adoption vs.\ self-error) from
-influence features is at chance (AUC $0.49$; permutation floor $0.51$), whereas simple structural features
-of the disagreement reach AUC $0.63$ --- influence describes \emph{how} opinions move but not
-\emph{whether} the moved-to hypothesis is right.
-
-\paragraph{Limits of influence-aware aggregation.}
 \label{par:influence_aggregation}
-Consequently, an influence-weighted vote does not help. Applied uniformly it \emph{loses} to plain
-majority ($0.502$ vs.\ $0.528$ pooled; $\Delta=-0.026$, CI $[-0.036,-0.018]$), significantly so on GSM8K,
-BBH, and CommonsenseQA (Table~\ref{tab:selector}). The relevant unit of analysis is therefore not the
-agent that leads the debate but the evidential history of the hypothesis being selected --- the pivot to
-provenance.
+The premise of our conference work was that one could identify influential agents and weight the vote by
+influence; here we show that is insufficient, which motivates the shift from agents to hypotheses. Estimated
+as a PageRank centrality over an agent-to-agent adoption graph, influence is concentrated and stable across
+tasks but earned by \emph{stubbornness}, not correctness (it correlates with an agent's refusal to change,
+$r=0.69$, $p=0.005$, yet not with standalone accuracy, $r=0.15$, $p=0.60$), and it cannot attribute the
+extinction mechanism (social vs.\ self-error, AUC $0.49\approx$ chance vs.\ $0.63$ for structural features).
+Consequently an influence-weighted vote \emph{loses} to plain majority ($0.502$ vs.\ $0.528$; $\Delta=-0.026$,
+$[-0.036,-0.018]$; Table~\ref{tab:selector}). The relevant unit of analysis is therefore not the agent that
+leads the debate but the evidential history of the hypothesis being selected --- the pivot to provenance.
+Full influence diagnostics are in Appendix~\ref{app:influence}.
 
 
-\subsection{The Gap Between Failure Prediction and Actionability}
+\subsection{Failure Prediction Is Not Intervention Actionability}
 \label{subsec:prediction_actionability}
 
-The second natural remedy is to detect a failing debate and intervene. We show the detection half is
-easy and the targeting half is not, which is why we ultimately abandon targeting altogether. The full
-battery, summarized in Figure~\ref{fig:benefit} (Appendix~\ref{app:benefit}), is reported in
-Appendix~\ref{app:benefit}.
+The second natural remedy is to detect a failing debate and intervene. \emph{Detection} is easy: a round-$0$
+hazard detector predicts which debates will lose their correct answer (ROC $0.757$, LOBO $0.67$--$0.75$), and
+because our precompute stored both counterfactual arms per debate, an \emph{oracle} that targets the true
+individual treatment effect exposes a large $+16.5$pp headroom --- the payoff from correct targeting is real.
 
-\paragraph{Predicting impending extinction.}
-\label{par:extinction_prediction}
-A round-$0$ hazard detector predicts which debates will lose their correct answer with ROC $0.757$
-in-distribution ($0.67$--$0.75$ leave-one-benchmark-out); extinction is genuinely detectable, most
-strongly on StrategyQA (hazard ROC $0.87$). A mechanism-agnostic re-query can rescue a failing debate,
-lifting preservation by $+16$pp at matched call count (Appendix~\ref{app:benefit}).
-
-\paragraph{Oracle intervention headroom.}
-\label{par:oracle_headroom}
-Because our precompute stored both counterfactual arms for every debate, we observe the individual
-treatment effect $\mathrm{ITE}_i=Y_1^{(i)}-Y_0^{(i)}$ of intervening. An \emph{oracle} that targets the
-true ITE reaches always-on accuracy at a $\sim\!20\%$ budget, a gain of $+16.5$pp pooled ($+11.8$ on
-GSM8K, $+20.4$ on BBH) --- the payoff from correct targeting is large and real.
-
-\paragraph{Predicting individual intervention benefit.}
-\label{par:benefit_prediction}
-Yet none of that headroom is reachable from the pre-intervention state. The control outcome $Y_0$ is
-predictable (OOF AUC $0.73$ --- essentially the hazard) and $Y_1$ is predictable (AUC $0.67$), but their
-\emph{difference} is not: predicting whether intervention has any effect is barely above chance (AUC
-$0.58$) and predicting its sign fails outright (learned CATE anti-correlated with true ITE). Five
-pre-registered attempts with progressively richer signals --- cheap structural features, residualized
-semantic embeddings, an active self-diagnosis probe, a placebo-controlled dose-response probe, and the
-mid-debate trajectory --- all fail the same benefit gate (Appendix~\ref{app:benefit}).
-
-\paragraph{Predictability does not imply actionability.}
-\label{par:predictability_actionability}
-The lesson is a clean impossibility for our setting: \emph{failure prediction and benefit prediction are
-different problems, and only the first is solved from the observable state.} Differencing two individually
-predictable outcomes leaves a treatment effect the transcript does not determine. A hazard-guided
-controller therefore matches always-on intervention at $\sim\!55\%$ fewer interventions but cannot beat a
-random budget (its one significant effect is a rescue-$\gg$-harm asymmetry; Appendix~\ref{app:controller}).
-Rather than keep searching for a controller, we address the loss structurally.
+\emph{Targeting}, however, is not. The two potential outcomes $Y_0,Y_1$ are each predictable (OOF AUC
+$0.73/0.67$) but their difference is not (effect AUC $0.58$; predicted sign anti-correlated with the true
+effect), and five pre-specified signal families --- cheap structural features, residualized semantic
+embeddings, an active self-diagnosis probe, a placebo-controlled dose-response probe, and the mid-debate
+trajectory --- all fail the same pre-specified benefit gate; a hazard-guided controller consequently only
+matches always-on intervention ($+0.0$pp) and cannot beat a random budget. Thus failure prediction is an
+\emph{empirical identifiability barrier away} from intervention actionability, so we abandon per-instance
+targeting and address the loss structurally instead. The full battery (five attempts, gates, and controller)
+is in Appendix~\ref{app:benefit} (Figure~\ref{fig:benefit}) and Appendix~\ref{app:controller}.
 
 
-\subsection{Provenance as a Signal of Hypothesis Correctness}
+\subsection{Provenance Predicts Hypothesis Correctness}
 \label{subsec:provenance_correctness}
 
-Having preserved the hypotheses (\S\ref{subsec:extinction_results}), we ask whether a hypothesis's own
-provenance --- computed with no new LLM calls --- tells us if it is correct. It does, on every one of the
-eight benchmarks (Table~\ref{tab:prov}, Figure~\ref{fig:provbench}).
+Having preserved the hypotheses (Section~\ref{subsec:extinction_results}), we ask whether a hypothesis's own
+provenance --- computed with no new LLM calls --- tells us if it is correct. At the benchmark-aggregated
+level it does on every one of the eight benchmarks (Table~\ref{tab:prov}, Figure~\ref{fig:provbench}); at the
+finer configuration~$\times$~benchmark resolution the signal holds in $38/40$ cells
+(Section~\ref{subsec:generalization}).
 
 \paragraph{Candidate-level provenance signal.}
 \label{par:candidate_signal}
 At the candidate level (base rate $\Pr(\text{correct})=0.25$), independent support, persistence, and first
-round of appearance each predict correctness monotonically and across benchmarks. The distinction is
+round of appearance each predict correctness beyond chance, monotonically on most core benchmarks
+(independent support on $4/5$, persistence on $5/5$; Table~\ref{tab:prov}). The distinction is
 stark: an answer produced independently by three agents is $83\%$ correct, whereas one that only
 \emph{emerges} during the debate is $\approx 7\%$ correct --- a difference the majority vote discards
 entirely.
 
 \begin{table}[t]
 \centering\small
-\caption{Provenance predicts correctness (candidate level; directional AUC with clustered-boot CI, and
-$\Pr(\text{correct})$ by feature value). Independent support and persistence are monotone across
-benchmarks; late-adoption and ``resurrected'' features are near chance (honesty controls).}
+\caption{Provenance predicts correctness on the core five-benchmark set (candidate level, base rate
+$0.25$; directional AUC with clustered-boot CI, and $\Pr(\text{correct})$ by feature value). Monotonicity
+counts are over these five benchmarks; the broader eight-benchmark evidence is in
+Section~\ref{subsec:not_all_consensus_equal}. Independent support is monotone on $4/5$ core benchmarks and
+persistence on $5/5$; late-adoption and ``resurrected'' features are near chance (honesty controls).}
 \label{tab:prov}
 \begin{tabular}{lccl}
 \toprule
 Signal & dir.\ AUC [95\% CI] & mono. & $\Pr(\text{correct}\mid\cdot)$ \\
 \midrule
-$n_{\mathrm{ind}}$ (round-0 support) & $0.823\,[.800,.845]$ & 4/5 & $0{:}.07\;\;1{:}.17\;\;2{:}.58\;\;3{:}.83$ \\
-$n_{\mathrm{per}}$ (rounds alive)    & $0.806\,[.785,.824]$ & 5/5 & $1{:}.06\;\;2{:}.30\;\;3{:}.57$ \\
-$n_{\mathrm{sup}}$ (total votes)     & $0.857\,[.836,.877]$ & 2/5 & $.05\!\rightarrow\!.84$ \\
-first round (late emergence)         & $0.695\,[.681,.709]$ & 4/5 & $r_0{:}.37\;\;r_1{:}.08\;\;r_2{:}.04$ \\
+$n_{\mathrm{ind}}$ (round-0 support) & $0.833\,[.813,.852]$ & 4/5 & $0{:}.07\;\;1{:}.18\;\;2{:}.64\;\;3{:}.84$ \\
+$n_{\mathrm{per}}$ (rounds alive)    & $0.808\,[.792,.823]$ & 5/5 & $1{:}.07\;\;2{:}.28\;\;3{:}.62$ \\
+$n_{\mathrm{sup}}$ (total votes)     & $0.863\,[.845,.880]$ & 2/5 & $.06\!\rightarrow\!.87$ \\
+first round (late emergence)         & $0.681\,[.669,.693]$ & 4/5 & $r_0{:}.41\;\;r_1{:}.09\;\;r_2{:}.05$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig10_overview.png}
 \caption{\textbf{Provenance predicts correctness, at a glance, on every benchmark.} Per benchmark,
 $\Pr(\text{correct})$ rises with the number of independently produced supporters ($n_{\mathrm{ind}}$): more
-independent origins means more often correct, across all eight tasks. Per-feature reliability curves and
+independent origins is positively associated with correctness across all eight benchmarks. Per-feature reliability curves and
 feature-importance rankings are in Figure~\ref{fig:reliability} and Figure~\ref{fig:features}
 (Appendix~\ref{app:e26}).}
 \label{fig:provbench}
-\end{figure}
+\end{figure*}
 
-\paragraph{Independent origins.}
-\label{par:independent_correctness}
-Independent support is the strongest single origin signal, with directional AUC $0.823$ and correctness
-climbing $0.07\!\to\!0.17\!\to\!0.58\!\to\!0.83$ as $n_{\mathrm{ind}}$ rises from $0$ to $3$. This is the
-quantity we sharpen in \S\ref{subsec:not_all_consensus_equal}.
-
-\paragraph{Persistence and temporal history.}
-\label{par:persistence_correctness}
-Persistence is a second, weaker dimension (AUC $0.806$, monotone on all five benchmarks): hypotheses that
-survive more rounds are more likely correct. Conversely, the first round of appearance is a strong
-negative signal --- answers that appear only after round $0$ are correct just $8\%$ (round 1) and $4\%$
-(round 2) of the time, versus $37\%$ at round $0$, quantifying the destructiveness of debate revision.
-
-\paragraph{Comparative informativeness of provenance features.}
+\paragraph{Which provenance features carry the signal.}
 \label{par:provenance_comparison}
-Total support has the highest raw AUC ($0.857$) but a noisy, non-monotone tail (monotone on only $2/5$
-benchmarks), and an equal-weight combination of provenance features reaches AUC $0.827$ (per-feature AUCs
-in Figure~\ref{fig:features}, Appendix~\ref{app:e26}). This sets up the
-central question: total support and independent support are strongly correlated, so \emph{is it the
-magnitude of agreement that matters, or its origin?} The next subsection answers it.
+Independent support is the strongest single origin signal (directional AUC $0.833$; correctness climbs
+$0.07\!\to\!0.18\!\to\!0.64\!\to\!0.84$ as $n_{\mathrm{ind}}$ rises from $0$ to $3$), and persistence is a
+second, weaker one (AUC $0.808$); conversely, late-emerging answers are rarely correct ($41\%$ at round $0$
+vs.\ $9\%$/$5\%$ at rounds $1$/$2$). Total support has a marginally higher raw AUC ($0.863$) but is noisy and
+strongly correlated with independent support --- which sets up the central question: is it the \emph{magnitude}
+of agreement that matters, or its \emph{origin}? The next subsection answers it; per-feature detail is in
+Appendix~\ref{app:e26}.
 
 
 \subsection{Not All Consensus Is Equally Informative}
@@ -625,283 +732,288 @@ magnitude of agreement that matters, or its origin?} The next subsection answers
 
 This is the paper's central finding. Consensus is not a homogeneous count of votes: at \emph{matched total
 support}, independently generated agreement carries substantially more correctness signal than socially
-inherited agreement (Figure~\ref{fig:matched}). The analysis spans $23{,}239$ candidates over five
+adopted agreement (Figure~\ref{fig:matched}). The analysis spans $27{,}139$ candidates over five
 ensembles and eight benchmarks, with clustered bootstraps over (config, benchmark, question).
 
 \paragraph{Correctness under matched total support.}
 \label{par:matched_support_results}
 Fixing total support and varying only how it was formed makes the effect visible without any model
 (Table~\ref{tab:matched}). Among hypotheses with total support $n_{\mathrm{sup}}=4$, correctness rises
-from $0.21$ when none of the support is independently generated to $0.44$, $0.66$, and $0.74$ as the number
-of independent origins goes from one to three. The same upward slope holds at every support level for which
-the strata are populated --- the hallmark of a signal that magnitude alone cannot explain.
+from $0.21$ ($95\%$ Wilson interval $[0.16,0.28]$) when none of the support is independently generated,
+through $0.42$ $[0.38,0.45]$ and $0.63$ $[0.59,0.67]$, to $0.66$ $[0.53,0.77]$ as the number of independent
+origins goes from zero to three. The rise across the row is significant (the $n_{\mathrm{ind}}{=}0/1/2$
+intervals are mutually non-overlapping); only the final $n_{\mathrm{ind}}{=}3$ cell is small ($n=53$), so its
+estimate is noisier but its interval still clears the $n_{\mathrm{ind}}{=}1$ level. The same upward slope holds
+across all displayed, sufficiently populated support strata ($n_{\mathrm{sup}}=2,\dots,6$) --- the hallmark
+of a signal that magnitude alone cannot explain.
 
 \begin{table}[t]
 \centering\small
 \caption{Correctness at \emph{matched total support}. Each row fixes total support $n_{\mathrm{sup}}$; each
 column varies the number of independent (round-0) origins $n_{\mathrm{ind}}$. Within every row, more
 independent origins means higher correctness, though total support is identical. Cells show
-$\Pr(\text{correct})$ (candidate count).}
+$\Pr(\text{correct})$ (candidate count); rows show the sufficiently populated strata $n_{\mathrm{sup}}=2,\dots,6$
+($11{,}184$ of the $27{,}139$ candidates), omitting the trivial $n_{\mathrm{sup}}{=}1$ level and sparse
+high-support cells. Point estimates are proportions; $95\%$ Wilson intervals for the cited $n_{\mathrm{sup}}{=}4$
+row appear in the text, and the smallest displayed cell ($n_{\mathrm{sup}}{=}4,n_{\mathrm{ind}}{=}3$; $n{=}53$)
+has interval $[0.53,0.77]$.}
 \label{tab:matched}
 \begin{tabular}{lcccc}
 \toprule
 $n_{\mathrm{sup}}$ & $n_{\mathrm{ind}}{=}0$ & $n_{\mathrm{ind}}{=}1$ & $n_{\mathrm{ind}}{=}2$ & $n_{\mathrm{ind}}{=}3$ \\
 \midrule
-2 & $0.13\,(1383)$ & $0.20\,(1610)$ & $0.38\,(196)$  & --- \\
-3 & $0.19\,(382)$  & $0.31\,(1554)$ & $0.52\,(276)$  & --- \\
-4 & $0.21\,(156)$  & $0.44\,(739)$  & $0.66\,(458)$  & $0.74\,(43)$ \\
-5 & $0.28\,(47)$   & $0.48\,(545)$  & $0.71\,(666)$  & $0.80\,(95)$ \\
-6 & ---            & $0.53\,(231)$  & $0.78\,(652)$  & $0.87\,(534)$ \\
+2 & $0.13\,(1568)$ & $0.19\,(1900)$ & $0.33\,(255)$  & --- \\
+3 & $0.18\,(445)$  & $0.31\,(1788)$ & $0.52\,(323)$  & --- \\
+4 & $0.21\,(177)$  & $0.42\,(862)$  & $0.63\,(546)$  & $0.66\,(53)$ \\
+5 & $0.27\,(51)$   & $0.47\,(656)$  & $0.71\,(773)$  & $0.76\,(115)$ \\
+6 & ---            & $0.53\,(274)$  & $0.77\,(763)$  & $0.87\,(635)$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig5_matched_support_HERO.png}
 \caption{\textbf{Not all consensus is equal (H3, hero).} Two candidates with identical total support can
 carry very different reliability: $\Pr(\text{correct})$ increases with the number of independent origins
-\emph{within} each fixed-total-support stratum. Origin, not magnitude, is what tracks correctness.}
+\emph{within} each fixed-total-support stratum. Consensus magnitude matters, but origin carries correctness
+signal \emph{beyond} it.}
 \label{fig:matched}
-\end{figure}
+\end{figure*}
 
-\paragraph{Independent versus socially inherited agreement.}
+\paragraph{Independent versus socially adopted agreement.}
 \label{par:independent_inherited_results}
-Parametrically, decomposing support into its independent and inherited components gives per-vote log-odds
-of $\beta_{\mathrm{ind}}=1.035$ ($[0.963,1.112]$) versus $\beta_{\mathrm{inh}}=0.386$ ($[0.354,0.420]$) ---
-an independently generated vote is worth about $2.68\times$ an inherited one
-(Table~\ref{tab:coef}, Figure~\ref{fig:coef}). Equivalently, controlling for total support, each additional
-independent origin adds $\beta_{\mathrm{ind}}=0.649$ ($[0.565,0.737]$) to the log-odds of correctness. We
-interpret this as an \emph{epistemic signal}: origin is associated with correctness after conditioning on
-consensus magnitude; the observational logs do not license a causal claim that manufacturing independent
-support would make an answer correct.
+Parametrically, decomposing support into genuinely independent origins, true peer-adoption events, and
+persistence gives per-unit log-odds of $\beta_{\mathrm{ind}}=0.92$ ($[0.85,0.99]$),
+$\beta_{\mathrm{adopt}}=-0.04$ ($[-0.09,0.01]$, not significant), and $\beta_{\mathrm{per}}=0.83$
+($[0.78,0.89]$) (Table~\ref{tab:coef}, Figure~\ref{fig:coef}). Strikingly, genuine peer-adoption support
+carries \emph{no} detectable correctness signal once persistence is accounted for, whereas an independent
+origin carries a large one: the independent--adopted contrast $\Delta\beta=0.96$ ($[0.88,1.05]$) is well
+clear of zero. Equivalently,
+controlling for total support, each additional independent origin adds $\beta_{\mathrm{ind}}=0.589$
+($[0.512,0.671]$) to the log-odds of correctness. We report log-odds \emph{coefficients}, not probability
+multipliers, and interpret them as an \emph{epistemic signal}: origin is associated with correctness after
+conditioning on consensus magnitude; the observational logs do not license a causal claim that manufacturing
+independent support would make an answer correct.
 
 \begin{table}[t]
 \centering\small
-\caption{Origin carries correctness signal beyond magnitude ($n{=}23{,}239$ candidates; clustered-boot
-$95\%$ CIs). Model~A controls total support; Model~B decomposes support per vote; both agree that
-independent support dominates inherited support. Effects survive benchmark$+$config fixed effects and a
-joint model with persistence.}
+\caption{Independent origin carries correctness signal beyond consensus magnitude --- and beyond question
+difficulty ($n{=}27{,}139$ candidates; clustered bootstrap on (config, benchmark, question); within-question
+rows via conditional logistic on the $2{,}946$ mixed-outcome questions). Model~A is the partial effect of an
+independent origin at matched total support, robust to task/ensemble and to question difficulty
+(within-question). Model~B1 (primary) decomposes support into genuinely independent origins, true
+peer-adoption events, and persistence: the independent coefficient dominates adoption ($\Delta\beta{=}0.96$),
+and genuine peer-adoption carries no detectable residual signal ($\beta_{\mathrm{adopt}}$ CI includes zero).
+Sensitivity models B2/B3 and robustness to consensus definition, clustering, and exposure are in
+Appendix~\ref{app:e26}.}
 \label{tab:coef}
 \begin{tabular}{llc}
 \toprule
 Model & Coefficient & Estimate [95\% CI] \\
 \midrule
-A: control $n_{\mathrm{sup}}$        & $\beta_{\mathrm{ind}}$ (per independent origin) & $0.649\,[0.565,0.737]$ \\
-B: decomposition                     & $\beta_{\mathrm{ind}}$ (per independent vote)   & $1.035\,[0.963,1.112]$ \\
-                                     & $\beta_{\mathrm{inh}}$ (per inherited vote)     & $0.386\,[0.354,0.420]$ \\
-A $+$ bench\,\&\,config FE           & $\beta_{\mathrm{ind}}$                          & $0.656\,[0.577,0.748]$ \\
-Joint $\{$ind, inh, persist$\}$      & $\beta_{\mathrm{ind}}$                          & $0.950\,[0.877,1.028]$ \\
-                                     & $\beta_{\mathrm{inh}}$                          & $0.228\,[0.188,0.271]$ \\
-                                     & $\beta_{\mathrm{per}}$                          & $0.448\,[0.367,0.524]$ \\
+A: matched total support ($\mathrm{ctrl}\ n_{\mathrm{sup}}$) & $\beta_{\mathrm{ind}}$ & $0.589\,[0.512,0.671]$ \\
+\quad $+$ benchmark \& config fixed effects                  & $\beta_{\mathrm{ind}}$ & $0.590\,[0.514,0.681]$ \\
+\quad $+$ within-question fixed effects (cond.\ logit)       & $\beta_{\mathrm{ind}}$ & $0.474\,[0.419,0.528]$ \\
+\midrule
+B1: decomposition (primary) & $\beta_{\mathrm{ind}}$ (per independent origin)    & $0.920\,[0.848,0.993]$ \\
+                      & $\beta_{\mathrm{adopt}}$ (per peer-adoption event) & $-0.040\,[-0.090,0.006]$ \\
+                      & $\beta_{\mathrm{per}}$ (per round alive)           & $0.831\,[0.775,0.891]$ \\
+                      & $\Delta\beta$ (independent $-$ adopted)            & $0.960\,[0.885,1.045]$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig6_coefficients.png}
-\caption{\textbf{The origin effect is not a proxy for magnitude.} The partial coefficient on independent
-support stays well clear of zero as we add controls (total support, benchmark and config fixed effects, and
-persistence), and per vote it far exceeds inherited support ($\approx 2.7\times$).}
+\caption{\textbf{Independent origin carries signal beyond magnitude --- and beyond question difficulty.}
+The partial coefficient on independent support stays well clear of zero as controls are added (total support,
+benchmark/config fixed effects, and \emph{within-question} fixed effects), and in the decomposition its
+log-odds coefficient far exceeds that of genuine social adoption ($\Delta\beta=0.96$; adoption itself is
+statistically indistinguishable from zero).}
 \label{fig:coef}
-\end{figure}
+\end{figure*}
 
-\paragraph{Controlling for benchmark and ensemble effects.}
+\paragraph{Controlling for task, ensemble, question difficulty, and robustness.}
 \label{par:fixed_effect_results}
-The effect is not an artifact of task or ensemble mix. Adding benchmark and configuration fixed effects
-leaves it essentially unchanged ($\beta_{\mathrm{ind}}=0.656$, $[0.577,0.748]$), and a joint model that
-includes persistence keeps all three provenance dimensions clear of zero, with the ordering
-independent $>$ persistence $>$ inherited (Table~\ref{tab:coef}).
+The effect is not an artifact of task or ensemble mix (benchmark$+$config fixed effects: $\beta_{\mathrm{ind}}=0.590$,
+$[0.514,0.681]$), nor of question difficulty: a \emph{within-question} conditional logistic (question fixed
+effects, over the $2{,}946$ mixed-outcome questions) still finds a positive independent-origin effect at
+matched support ($\beta_{\mathrm{ind}}=0.474$, $[0.419,0.528]$; Table~\ref{tab:coef}), and within the same
+question the correct hypothesis carries more independent origins than an incorrect one in $75\%$ of pairs
+($57\%$ even at matched support). \label{par:h3_robustness}The conclusion further survives matching the
+deployed \emph{final-round} vote count ($\beta_{\mathrm{ind}}=1.03$), conservative (benchmark, question)
+clustering ($0.589$), and exposure-time adjustment ($0.531$) --- full estimates and CIs in
+Appendix~\ref{app:e26}.
 
 \paragraph{Consistency across benchmarks.}
 \label{par:h3_benchmarks}
-Per benchmark, the partial independent-support effect is positive and significant on seven of the eight
-benchmarks (GSM8K, CommonsenseQA, BBH, TruthfulQA, AQuA, MMLU, ARC; full estimates in
-Table~\ref{tab:e26_bench}, Appendix~\ref{app:e26}). StrategyQA is the lone boundary case
-($\beta_{\mathrm{ind}}=0.240$, $[-0.072,0.586]$, CI includes zero) --- its binary answer space affords
-little room for multiple independent origins to differentiate, consistent with StrategyQA being the one
-benchmark on which debate is net-constructive.
+This is not a single pooled regression: both the provenance signal (H2) and the origin-beyond-magnitude
+effect (H3) are examined on each of the eight benchmarks (Table~\ref{tab:h3bench}). The directional AUC of
+independent support is above chance on all eight (StrategyQA weakest at $0.610$), and the partial
+independent-support effect $\beta_{\mathrm{ind}}\mid n_{\mathrm{sup}}$ is positive and significant on seven of
+the eight. StrategyQA is the lone boundary case ($\beta_{\mathrm{ind}}=0.240$, $[-0.072,0.586]$, CI includes
+zero). One plausible explanation is that its binary answer space affords little room for multiple independent
+origins to differentiate, consistent with StrategyQA being the one benchmark on which debate is
+net-constructive; we report it as a boundary rather than a demonstrated cause.
+
+\begin{table}[t]
+\centering\small
+\caption{Provenance evidence per benchmark ($8$-benchmark candidate set, pooled over ensembles/seeds; cluster
+bootstrap on (config, benchmark, question)). H2: directional AUC of independent support ($>0.5$ = predicts
+correctness); H3: partial log-odds of an independent origin at matched total support ($\beta_{\mathrm{ind}}$,
+$^{*}$ = CI excludes $0$). Both hold on $7$--$8$ of $8$ benchmarks; StrategyQA is the boundary case.}
+\label{tab:h3bench}
+\begin{tabular}{lccc}
+\toprule
+Benchmark & $N$ & $n_{\mathrm{ind}}$ AUC (H2) & $\beta_{\mathrm{ind}}$ [95\% CI] (H3) \\
+\midrule
+CommonsenseQA & $4320$ & $0.869^{*}$ & $1.067\,[0.846,1.312]^{*}$ \\
+GSM8K         & $4641$ & $0.904^{*}$ & $1.017\,[0.770,1.303]^{*}$ \\
+MMLU          & $1240$ & $0.835^{*}$ & $0.953\,[0.686,1.261]^{*}$ \\
+AQuA          & $1302$ & $0.852^{*}$ & $0.752\,[0.379,1.166]^{*}$ \\
+TruthfulQA    & $6092$ & $0.682^{*}$ & $0.630\,[0.375,0.890]^{*}$ \\
+ARC           & $1873$ & $0.736^{*}$ & $0.573\,[0.353,0.806]^{*}$ \\
+BBH           & $5580$ & $0.751^{*}$ & $0.519\,[0.371,0.668]^{*}$ \\
+StrategyQA    & $2091$ & $0.598^{*}$ & $0.203\,[-0.059,0.488]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Consistency across model and agent configurations.}
 \label{par:h3_configs}
 Per configuration, the effect holds on all five ensembles, including the strong-anchor ensemble with a
-$14$B model ($\beta_{\mathrm{ind}}=0.447$, $[0.221,0.688]$) and the five-agent ensemble
-($\beta_{\mathrm{ind}}=0.304$, $[0.156,0.471]$). The principle is therefore not tied to weak $3$B debaters
-or to $N=3$; the full per-benchmark table (Table~\ref{tab:e26_bench}) and per-config estimates are in
+$14$B model ($\beta_{\mathrm{ind}}=0.554$, $[0.346,0.762]$) and the five-agent ensemble
+($\beta_{\mathrm{ind}}=0.161$, $[0.035,0.309]$). The principle is therefore not tied to weak $3$B debaters
+or to $N=3$; the per-benchmark table is Table~\ref{tab:h3bench} and per-config estimates are in
 Appendix~\ref{app:e26}.
 
-\paragraph{Epistemic mechanism versus incremental prediction.}
+\paragraph{Epistemic signal versus incremental prediction.}
 \label{par:mechanism_prediction}
 One caveat is essential and, in fact, sets up the next subsection. Because independent and total support
 are collinear ($r=0.83$), adding independent support \emph{on top of} total support raises candidate-level
-ranking AUC by only $+0.007$ ($0.841\!\to\!0.849$). H3 is thus a statement about epistemic value
-\emph{per vote}, not about incremental ranking power --- and this small increment is precisely why the
-downstream selector, which can only exploit ranking information, delivers a real but modest and
-regime-bound gain.
+ranking AUC by only $+0.007$ (unrounded $0.8414\!\to\!0.8489$ on the eight-benchmark candidate set;
+the $3$-decimal display $0.841\!\to\!0.849$ differs by $0.008$ purely from rounding). H3 is thus a
+statement about epistemic value per additional origin, not about incremental ranking power --- and this
+small increment is precisely why the downstream selector, which can only exploit ranking information,
+delivers a real but modest and regime-bound gain. Importantly, the small increment reflects
+\emph{redundancy}, not instability of the coefficient: the collinearity is moderate (variance inflation
+factor $3.2$, well below the usual threshold of $5$) and the estimate of $\beta_{\mathrm{ind}}$ is
+essentially unchanged under $L_2$ regularization across four orders of magnitude of penalty
+(Appendix~\ref{app:e26}), so it is not a collinearity artifact.
 
 
-\subsection{From Epistemic Mechanism to Decision Utility}
+\subsection{From Epistemic Signal to Decision Utility}
 \label{subsec:decision_utility}
 
-We now convert the mechanism into a decision rule. We treat provenance-aware selection as a
+We now convert this signal into a decision rule. We treat provenance-aware selection as a
 \emph{downstream application} of the central finding, not the paper's headline: it recovers part of the
-preservation headroom at zero additional cost, but its accuracy gain is conditional
+preservation headroom with no additional LLM inference, but its accuracy gain is conditional
 (Table~\ref{tab:selector}; see also the selector ladder in Figure~\ref{fig:ladder} and the applicability
 landscape in Figure~\ref{fig:utility}, Appendix~\ref{app:selectors}).
 
 \paragraph{Provenance-aware re-selection.}
 \label{par:selector_results}
-The frozen provenance selector (\S\ref{subsec:provenance_selection}), scoring each preserved hypothesis by
+The frozen provenance selector (Section~\ref{subsec:provenance_selection}), scoring each preserved hypothesis by
 its independent support, persistence, total support, and recency, improves pooled accuracy from the deployed
-majority's $0.528$ to $0.564$ ($\Delta=+0.035$, CI $[+0.022,+0.049]$; up to $+8$pp on some benchmarks) with
-\textbf{no additional inference}. Equal-weight and cross-fit logistic variants agree.
+majority's $0.528$ to $0.564$ ($\Delta=+0.035$, CI $[+0.022,+0.049]$; up to $+8.6$pp on CommonsenseQA) with
+\textbf{no additional LLM inference beyond the already-generated debate transcript}. Equal-weight and cross-fit logistic variants agree.
 
 \begin{table}[t]
 \centering\small
-\caption{Inference-time selection rules over the frozen debate logs (gold-free; clustered-boot CI over
-questions). Provenance beats the deployed majority and the conference influence vote at zero extra LLM
-calls; influence voting and an external judge lose. Oracle $=$ a perfect selector over the preserved pool.}
+\caption{Inference-time decision utility per benchmark (gold-free selection over frozen logs; no extra LLM
+calls for any rule except the omitted external judge). \emph{Provenance} is the cross-fit logistic selector;
+\emph{Oracle} is the correct answer's presence in the preserved pool (a deterministic ceiling, no CI).
+Pooled, provenance beats the deployed final majority (paired $\Delta=+0.035$, $95\%$ CI $[+0.022,+0.049]$)
+and the conference influence vote (which itself loses to majority, $-0.026$ $[-0.036,-0.018]$), and is
+numerically close to the round-$0$ independent majority ($0.564$ vs.\ $0.560$; the round-$0$ majority itself
+beats the deployed final majority by $+0.032$ $[+0.015,+0.048]$). We report no direct paired test of the
+small provenance-vs-round-$0$ gap. Accuracies rounded to three
+decimals; paired $\Delta$/CIs use unrounded per-question values. An external LLM judge (separate
+four-benchmark pilot, not comparable here) fails; see Appendix~\ref{app:selectors}.}
 \label{tab:selector}
-\begin{tabular}{lccc}
+\begin{tabular}{lccccc}
 \toprule
-Selector & Pooled acc & $\Delta$ vs.\ majority [95\% CI] & Extra calls \\
+Benchmark & Final maj. & Influence & Round-0 & Provenance & Oracle \\
 \midrule
-Final majority (deployed)           & 0.528 & --- & 0 \\
-Conference influence voting         & 0.502 & $-0.026\,[-.036,-.018]$ & 0 \\
-Round-0 (independent) majority      & 0.560 & $+0.032\,[.015,.048]$ & 0 \\
-\textbf{Provenance selector (ours)} & \textbf{0.564} & $\mathbf{+0.035\,[.022,.049]}$ & \textbf{0} \\
+GSM8K         & $0.760$ & $0.706$ & $0.810$ & $0.808$ & $0.920$ \\
+StrategyQA    & $0.604$ & $0.602$ & $0.580$ & $0.590$ & $0.908$ \\
+CommonsenseQA & $0.664$ & $0.622$ & $0.750$ & $0.750$ & $0.936$ \\
+BBH           & $0.466$ & $0.430$ & $0.494$ & $0.502$ & $0.798$ \\
+TruthfulQA    & $0.148$ & $0.150$ & $0.166$ & $0.168$ & $0.240$ \\
 \midrule
-Oracle (history-pool ceiling)       & 0.760 & $+0.232$ & --- \\
+\textbf{Pooled} & $\mathbf{0.528}$ & $0.502$ & $0.560$ & $\mathbf{0.564}$ & $0.760$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Comparison with consensus and influence-based aggregation.}
+\paragraph{Interpretation: a real but modest, regime-bound gain.}
 \label{par:selector_comparison}
-The selector beats the deployed final majority and, more pointedly, beats the conference influence vote,
-which itself \emph{loses} to plain majority (\S\ref{par:influence_aggregation}) --- provenance succeeds
-exactly where influence weighting fails. An external LLM judge is worse still: forced to pick from the
-preserved pool, both a $7$B and a $14$B judge fail the preservation gate
-($\Delta_{\mathrm{HP}}=-0.047$ and $-0.018$), and the $14$B model scores higher \emph{solving} the question
-($0.76$) than \emph{selecting} from a weak pool ($0.53$) --- a capable external judge is a liability under
-capability mismatch, not a fix (Appendix~\ref{app:selectors}).
-
-\paragraph{The independent-majority baseline.}
-\label{par:independent_majority}
-The provenance selector ties a strikingly simple baseline: taking the round-$0$ independent majority
-($0.560$). This is not a weakness of the method but a restatement of the phenomenon --- trusting the
-pre-debate answer is strong precisely because debate is net-destructive on four of five benchmarks
-(\S\ref{subsec:extinction_results}). What wins is independent agreement, whether read as a vote or as a
-provenance feature; the sophistication of the score is not what matters.
-
-\paragraph{Recoverable headroom and realized gain.}
-\label{par:realized_gain}
-The selector captures roughly $14$--$15\%$ of the $+23$pp preservation ceiling. The remaining $\approx 86\%$
-requires a selector that can verify a candidate's reasoning, not merely rank its provenance --- our stated
-open problem.
-
-\paragraph{Why the downstream gain is necessarily modest.}
-\label{par:modest_gain}
-The ceiling on the gain is exactly the $+0.007$ incremental AUC of \S\ref{par:mechanism_prediction}: origin
-carries large per-vote epistemic value, but because it co-varies with total support, a rank-based selector
-that already uses support cannot extract much more. The strong mechanism and the modest selector are two
-faces of the same collinearity, not a contradiction.
-
-\paragraph{Applicability across debate regimes.}
-\label{par:applicability}
-Consistent with this, the accuracy gain is regime-bound: significant in $15$ of $40$ generalization cells,
-with \emph{no} cell showing a significant loss (every failing CI includes zero). It is a conditional
-improvement, not a universal one.
-
-\paragraph{Identifiability and candidate availability.}
-\label{par:identifiability_availability}
-Two conditions govern when the selector helps: provenance must be \emph{informative} about correctness
-(identifiability) and a correct hypothesis must be \emph{available} in the preserved pool (availability).
-Both hold on multi-answer reasoning benchmarks; StrategyQA violates identifiability (binary answers, and
-the one net-constructive regime) and TruthfulQA violates availability (an adversarial, low-accuracy pool).
-The applicability landscape --- gain against headroom and against identifiability --- is shown in
-Figure~\ref{fig:utility} (Appendix~\ref{app:selectors}).
+Provenance succeeds exactly where influence weighting fails: it beats the conference influence vote, which
+itself \emph{loses} to plain majority (Section~\ref{par:influence_aggregation}), and beats an external LLM
+judge, which fails the preservation gate entirely under capability mismatch (a $7$B/$14$B judge selecting
+from a weak pool; separate pilot in Appendix~\ref{app:selectors}). It is, however, only \emph{numerically
+close} to the round-$0$ independent majority ($0.564$ vs.\ $0.560$; we report no direct paired test of this
+small difference) --- not a weakness but a restatement of the phenomenon:
+trusting the pre-debate answer is strong precisely because debate is net-destructive
+(Section~\ref{subsec:extinction_results}), and round-$0$ is also cheaper ($\approx\!3$ vs.\ $\approx\!8.7$
+LLM calls). The blunt recommendation is therefore to answer independently rather than debate; provenance is
+what \emph{explains} why. The selector recovers only $\approx 15\%$ of the $+23$pp preservation ceiling
+($0.035/0.232$): because origin co-varies with total support ($r=0.83$), a rank-based rule adds little
+ranking signal beyond support ($+0.007$ AUC, Section~\ref{par:mechanism_prediction}) --- the strong
+conditional association and the modest selector are two faces of the same collinearity, and closing the
+remaining $\approx 85\%$ requires verifying a candidate's reasoning, not merely ranking its provenance (our
+open problem). The gain is accordingly conditional --- significant in $15$ of $40$ generalization cells with
+\emph{no} significant loss --- governed by whether provenance is \emph{informative}
+($\beta_{\mathrm{ind}}>0$; violated by binary StrategyQA) and whether a correct hypothesis is
+\emph{available} in the pool ($\mathrm{CR}_{\mathrm{hist}}$; TruthfulQA supplies one only $24\%$ of the time).
+The full applicability landscape is Figure~\ref{fig:utility} (Appendix~\ref{app:selectors}). Finally, a
+compute-matched \emph{self-consistency} control confirms the recommendation to answer independently: at the
+debate's $\approx\!8.7$-call budget, repeated independent sampling of the same backbones reaches $0.596$
+(single model) to $0.610$ (heterogeneous), beating the debated final majority ($0.530$ on this subset) by a
+paired-significant margin (SC-mixed $\Delta=+0.080$, $95\%$ CI $[+0.042,+0.118]$; best single $+0.066$
+$[+0.024,+0.108]$) on four to five of five benchmarks (Table~\ref{tab:selfconsistency}, Appendix~\ref{app:e26}).
 
 
-\subsection{Generalization Across Tasks and Debate Configurations}
+\subsection{Generalization}
 \label{subsec:generalization}
 
-To ensure the scientific claims are not artifacts of one setting, we re-ran the frozen analysis over a
-grid of $40$ (configuration, benchmark) cells spanning five model families, capabilities from $3$B to
-$14$B, agent populations $N\in\{3,5\}$, and eight benchmarks (Figure~\ref{fig:generalization}).
+To ensure the scientific claims are not artifacts of one setting, we re-ran the frozen analysis over a grid
+of $40$ (configuration, benchmark) cells spanning five ensemble configurations (open-weight model families),
+capabilities from $3$B to $14$B, agent populations $N\in\{3,5\}$, and eight benchmarks
+(Figure~\ref{fig:generalization}). The three scientific claims replicate broadly: \textbf{H1} (extinction) is
+directionally positive in all $40/40$ cells and strictly significant in $36/40$ (the four near-misses are
+near-ceiling); \textbf{H2} (provenance$\to$correctness) holds in $38/40$ (the two exceptions, \textsc{E\_7b}
+and \textsc{E\_n5}, are both StrategyQA); and the origin-beyond-magnitude effect (\textbf{H3}, $\beta_{\mathrm{ind}}>0$ conditional on
+total support) holds on $7/8$ benchmarks and $5/5$ ensembles --- including the $14$B-anchor and five-agent
+ensembles (Section~\ref{par:h3_configs}), so the principle is not tied to weak $3$B debaters or to $N=3$. The
+downstream \emph{selector} gain, by contrast, is significant in $13/40$ cells: broad enough to be useful,
+regime-bound as predicted (Appendix~\ref{app:e26}). Two further robustness axes push beyond the
+$3$B--$14$B grid: a $24$B open-weight anchor (\textsc{E\_strong24}) and a frontier-scale cloud model
+(deepseek-v4-flash, \textsc{E\_frontier}). H1 stays directionally positive on all $8$ benchmarks in both and
+H2 holds on $8/8$ (24B) and $7/8$ (frontier); the frontier model's free-form answers are often unparseable,
+leaving only $2/8$ of its cells inside the pre-registered validity gate, so we read \textsc{E\_frontier} as
+suggestive rather than confirmatory (Figure~\ref{fig:scale_ext}, Appendix~\ref{app:e26}).
 
-\paragraph{Across benchmark families.}
-\label{par:generalization_benchmarks}
-Extinction and the provenance signal appear on every benchmark family we tested --- arithmetic, binary
-strategic, multiple-choice commonsense, mixed hard tasks, adversarial factuality, and the three added
-multiple-choice sets (AQuA, MMLU, ARC).
-
-\paragraph{Across model families and capability levels.}
-\label{par:generalization_models}
-Scaling the anchor from $3$B to $14$B raises majority accuracy while shrinking the remaining headroom, but
-does not eliminate the phenomena: extinction and provenance$\to$correctness hold under the $14$B ensemble,
-and the origin effect (H3) holds there too (\S\ref{par:h3_configs}).
-
-\paragraph{Across agent populations.}
-\label{par:generalization_agents}
-Moving from $N=3$ to $N=5$ preserves all three hypotheses and, if anything, gives the selector slightly
-more room (more independent origins to distinguish).
-
-\paragraph{Generalization of the three central hypotheses.}
-\label{par:generalization_hypotheses}
-Quantitatively: \textbf{H1} (extinction) is directionally positive in all $40/40$ cells and strictly
-significant in $35/40$ (the five near-misses are near-ceiling); \textbf{H2}
-(provenance$\to$correctness) holds in $39/40$ (the sole exception being \textsc{E\_7b} on StrategyQA); and
-\textbf{H3} (independent $>$ inherited at matched support) holds on $7/8$ benchmarks and $5/5$ ensembles.
-The downstream \emph{selector} gain, by contrast, is significant in $15/40$ cells --- broad enough to be
-useful, regime-bound as predicted. The two scientific claims travel; the utility is conditional
-(Appendix~\ref{app:e26}).
-
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig7_generalization.png}
 \caption{\textbf{Generalization atlas.} Across $40$ cells (5 ensembles $\times$ 8 benchmarks, $N\in\{3,5\}$,
-$3$B--$14$B), extinction (H1) and provenance$\to$correctness (H2) are near-universal and the origin effect
-(H3) holds on $7/8$ benchmarks and $5/5$ ensembles, while the selector's accuracy win stays regime-bound.}
+$3$B--$14$B), extinction (H1) and provenance$\to$correctness (H2) are near-universal and the
+origin-beyond-magnitude component of H3 ($\beta_{\mathrm{ind}}>0$ conditional on support) holds on $7/8$
+benchmarks and $5/5$ ensembles, while the selector's accuracy win stays regime-bound.}
 \label{fig:generalization}
-\end{figure}
+\end{figure*}
 
-\subsection{Additional Mechanistic Analyses}
-\label{subsec:additional_analysis}
-
-\paragraph{Genuine versus surface social adoption.}
+\paragraph{Additional analyses.}
 \label{par:genuine_surface}
-Does the origin effect merely reflect that some late adoptions genuinely converge in reasoning while others
-copy at the surface? No: it is \emph{origin} that matters, not the quality of later adoption. A naive
-event-level comparison suggests genuine adoptions are more correct than surface ones
-($0.356$ vs.\ $0.292$, $\Delta=+0.064$), but once total support is controlled the genuine$-$surface
-difference vanishes ($-0.014$, CI $[-0.111,+0.080]$), while independent support still towers over both
-(Appendix~\ref{app:surface}). This is also a cautionary tale for the naive analysis --- exactly why H3
-must be estimated at matched total support.
-
-\paragraph{Independent origin versus reasoning convergence.}
-\label{par:origin_convergence}
-A convergence-gated selector, which credits late consensus only when supporters' reasoning genuinely
-converges (lexical similarity residualized against the debate's own baseline), correctly recovers the one
-constructive-debate benchmark (StrategyQA, $0.580\!\to\!0.604$) but cannot beat the round-$0$ majority
-pooled: a single global rule cannot serve both the destructive and constructive regimes, and identifying
-per-instance whether a revision is constructive is the mechanism-attribution problem that is at chance
-(\S\ref{subsec:prediction_actionability}; Appendix~\ref{app:selectors}).
-
-\paragraph{External LLM judging.}
-\label{par:external_judge}
-As noted in \S\ref{par:selector_comparison}, replacing the intrinsic provenance signal with an external LLM
-judge fails: a capable judge does better solving the question than selecting from a weak debate pool
-(Appendix~\ref{app:selectors}). This reinforces that the working signal is intrinsic to the debate's
-provenance, not an added evaluator.
-
-\paragraph{Boundary regimes and failure cases.}
-\label{par:boundary_cases}
-The honest boundaries are consistent across analyses: StrategyQA (binary, net-constructive debate) is where
-H3 is not significant and the selector should not trust early answers, and TruthfulQA (adversarial, very
-low base accuracy, noisy pool) is where availability fails. We report these as boundaries rather than hide
-them; they delimit exactly where the method applies.
+Several supporting analyses are reported in Appendices~\ref{app:surface} and~\ref{app:selectors}: that it is
+the \emph{origin} of agreement that matters and not the quality of later adoption (once support is
+controlled, the genuine$-$surface adoption difference vanishes, $-0.014$ $[-0.111,+0.080]$, which is also why
+H3 must be estimated at matched support), a convergence-gated selector that recovers the one
+constructive-debate benchmark (StrategyQA) but not the pooled round-$0$ majority, and external-judge
+baselines that fail under capability mismatch.
 
 
 \section{Discussion}
@@ -916,11 +1028,18 @@ than reinforce; recent behavioral work shows that convergence among independent,
 informants rationally signals accuracy \cite{pfander2025crowd}. Multi-agent debate systematically violates
 this assumption, because later-round votes are explicitly conditioned on peers. Rather than treat
 independence as an unobserved assumption, we track it directly through provenance and show that, at matched
-total support, independently generated agreement is worth about $2.7\times$ an inherited vote. Consensus, in
-short, is epistemically heterogeneous: a vote count conflates \emph{how much} agreement exists with
-\emph{how it was formed}.
+total support, an independent origin carries a substantially larger log-odds coefficient than a social
+adoption ($\Delta\beta=0.96$; genuine adoption carries no detectable residual signal after controlling for
+persistence), and the effect
+persists within questions. Consensus, in short, is
+epistemically heterogeneous: a vote count conflates \emph{how much} agreement exists with \emph{how it was
+formed}. We invoke this classical principle by analogy, not literally: the agents are only
+\emph{interaction}-independent, and their round-$0$ errors are in fact strongly correlated (all-agents-wrong
+events occur $1.5$--$158\times$ more often than statistical independence would predict, due to shared
+pretraining; Appendix~\ref{app:e26}). Independent origination is therefore a within-debate proxy for
+independent evidence, not a guarantee of it, and Condorcet-style guarantees do not transfer directly.
 
-\subsection{From Agent Influence to Hypothesis Provenance}
+\subsection{From Influence to Provenance}
 \label{subsec:influence_to_provenance}
 This reframes an influence-centered view of debate (Figure~\ref{fig:interpretation},
 Appendix~\ref{app:influence}). Influence describes
@@ -932,57 +1051,66 @@ majority. The unit that carries reliability is not the agent that leads the deba
 history of the hypothesis being selected. Shifting the question from ``who supplied this answer?'' to ``how
 many independent paths produced it?'' is the conceptual move from influence to provenance.
 
-\subsection{Why Mechanistic Signal Does Not Guarantee Decision Gain}
-\label{subsec:mechanism_utility}
-A recurring theme is that a strong mechanism need not yield a large decision improvement. Independent origin
-carries substantial per-vote epistemic value, yet because it co-varies with total support ($r=0.83$), it
-adds only $+0.007$ ranking AUC over raw consensus, and a rank-based selector therefore recovers only
-$\approx 14\%$ of the preservation ceiling. This mirrors the failure-vs-benefit result: two quantities can
-each be predictable while the decision-relevant contrast between them is not. Honest reliability engineering
-must separate the size of a mechanism from its incremental decision utility --- and report both.
-
-\subsection{Implications for Multi-Agent LLM Design}
-\label{subsec:design_implications}
-Three design implications follow. First, \emph{do not destructively overwrite hypotheses}: preserving the
-history pool is nearly free (about three candidates per question) and exposes a large recoverable headroom.
-Second, \emph{prefer independent corroboration to social consensus}: independently generated agreement is a
-cheap, model-agnostic reliability signal, whereas agreement acquired after peer exposure --- and influence
-weighting built on it --- should be discounted. Third, \emph{be wary of external judges under capability
-mismatch}: a strong judge does better solving a problem than adjudicating a weak pool, so a matched-class,
-intrinsic signal is often the better selector.
-
-\subsection{Limitations and Future Directions}
+\subsection{Practical Implications and Limitations}
 \label{subsec:limitations_future}
-Our claims are observational: H3 is a logistic association at matched support, not a manipulation, and
-independent support partly encodes question difficulty --- though this is arguably part of the point
-(independent agreement marks better-determined questions). All selection numbers are offline replays of a
-frozen \emph{destructive} debate; an end-to-end live non-destructive protocol (HP-MAD) with a matched-class
-or self-consistency verifier is the natural next step, and the residual $\approx 86\%$ of the preservation
-ceiling is the standing open problem. Generalization, while broad ($5$ families, $3$B--$14$B, $N\in\{3,5\}$,
-$8$ benchmarks), leaves $N>5$ and a fully crossed persona$\times$backbone design for future work, and the
-boundary regimes (binary StrategyQA, adversarial TruthfulQA) mark where the mechanism weakens or the pool
-lacks a correct answer. Finally, identifying which debates \emph{benefit} from intervention remains
-unsolved from the pre-intervention state; whether a richer intervention-aware signal can close that gap is
-left open.
+A strong association need not yield a large decision improvement: independent origin carries substantial
+per-origin epistemic value yet, being collinear with total support ($r=0.83$), adds only $+0.007$
+candidate-level ranking AUC, which is why a rank-based selector recovers only $\approx 15\%$ of the
+preservation ceiling --- honest reliability engineering must report both the size of an association and its
+incremental decision utility. Three design implications nonetheless follow. First, \emph{do not destructively
+overwrite hypotheses}: preserving the history pool is nearly free (about three candidates per question) and
+exposes a large recoverable headroom. Second, \emph{prefer independent corroboration to social consensus}:
+independently generated agreement is a cheap, model-agnostic reliability signal, whereas agreement acquired
+after peer exposure --- and influence weighting built on it --- should be discounted. Third, \emph{be wary of
+external judges under capability mismatch}: a strong judge does better solving a problem than adjudicating a
+weak pool, so a matched-class, intrinsic signal is often the better selector.
+
+Our claims are observational: H3 is a logistic association, not a manipulation. Raw independent support
+correlates with question difficulty, but the effect survives within-question conditional-logistic analysis
+(Section~\ref{par:fixed_effect_results}), so it cannot be reduced to question-level difficulty; residual
+candidate-level confounding nevertheless remains possible (e.g.\ an intrinsically easy-to-derive hypothesis
+that many agents independently produce and that is also correct), and ``independent'' means
+interaction-independent, not statistically independent. All selection numbers are offline replays of a frozen
+\emph{destructive} debate; an end-to-end live non-destructive protocol (HP-MAD) with a matched-class or
+self-consistency verifier is the natural next step, and the residual $\approx 85\%$ of the preservation
+ceiling is the standing open problem. Generalization, while broad ($5$ ensemble configurations, $3$B--$14$B,
+$N\in\{3,5\}$, $8$ benchmarks), replicates across the tested configurations rather than establishing
+population-level universality, and leaves $N>5$ and a fully crossed persona$\times$backbone design (currently
+confounded in the base ensemble) for future work; the boundary regimes (binary StrategyQA, adversarial
+TruthfulQA) mark where the mechanism weakens or the pool lacks a correct answer. A matched-budget
+self-consistency control, which we ran rather than left open, confirms that independent sampling beats
+destructive debate at equal compute (Table~\ref{tab:selfconsistency}, Appendix~\ref{app:e26}); one control
+for which the remaining capability gap is a \emph{proprietary} frontier model (GPT-4/Claude/Gemini): our
+open-weight range now reaches $24$B and includes a frontier-scale API (\textsc{E\_strong24}, \textsc{E\_frontier};
+Section~\ref{subsec:generalization}), where extinction and the origin effect persist. Our selector is
+benchmarked against majority, influence-weighted, and round-$0$ baselines; a frequency-of-agreement
+confidence signal is already subsumed by the round-$0$ and total-support baselines, but calibrated
+token-level or self-reported confidence and stronger learned aggregators (e.g.\ confidence-weighted
+round-table selection~\cite{chen2024reconcile}) are not evaluated here --- the local backend does not expose
+calibrated log-probabilities --- and are left for future work. Finally,
+identifying which debates \emph{benefit} from intervention remains unsolved from the pre-intervention state.
 
 \section{Conclusion}
 \label{sec:conclusion}
 Multi-agent debate is widely used to make LLM answers more reliable, yet we show it routinely destroys
-correct answers: on four of five benchmarks a correct hypothesis present during the debate is gone by the
-final vote, and the pre-debate independent answer beats the debated majority. The natural remedies ---
+correct answers: across all five core benchmarks a correct hypothesis present during the debate sometimes
+disappears before the final vote, and on four of five the pre-debate independent majority beats the debated
+final majority. The natural remedies ---
 weighting by agent influence, or detecting and intervening on failing debates --- do not deliver, because
-influence tracks stubbornness rather than correctness and because the \emph{benefit} of intervention is
-unidentifiable from the observable state despite a large oracle ceiling. We therefore attack the loss
+influence tracks stubbornness rather than correctness and because the \emph{benefit} of intervention is not
+reliably identifiable from the pre-intervention signals evaluated here despite a large oracle ceiling. We therefore attack the loss
 structurally, by preserving every hypothesis and reading its provenance. This exposes the paper's central
-finding: \emph{consensus is not epistemically homogeneous.} At matched total support, independently
-generated agreement carries substantially more correctness signal than socially inherited agreement ---
-about $2.7\times$ per vote, on seven of eight benchmarks and all five ensembles from $3$B to $14$B and
-$N\in\{3,5\}$. A zero-cost provenance-aware selector turns part of this into accuracy, beating both the
+finding: \emph{consensus is not epistemically homogeneous.} At matched total support, the independent-origin
+effect remains positive within questions and on seven of eight benchmarks and all five ensemble
+configurations from $3$B to $14$B and $N\in\{3,5\}$; separately, the pooled decomposition shows a large
+independent--adopted contrast ($\Delta\beta=0.96$), with genuine peer-adoption carrying no detectable
+\emph{residual} correctness signal after persistence is controlled. A provenance-aware selector that requires
+no additional LLM calls over an already-generated debate transcript turns part of this into accuracy, beating both the
 deployed majority and an influence-weighted vote, though the gain is conditional on the origin signal being
 informative and a correct hypothesis being available. The broader message is a different principle for
 reliable collective reasoning with LLMs: reliability depends not only on how much agreement exists, but on
-how that agreement was formed --- the \emph{origin} of collective belief, not its magnitude nor the models'
-mutual influence.
+how that agreement was formed --- the \emph{origin} of collective belief, which carries information beyond
+its magnitude and beyond the models' agent-level influence.
 
 % ============================================================================
 % APPENDIX. Detailed protocol, derivations, and the full supporting experiments
@@ -1000,36 +1128,24 @@ mutual influence.
 \label{app:protocol}
 
 \paragraph{Benchmarks and splits.}
-The five core benchmarks (GSM8K, StrategyQA, CommonsenseQA, BBH, TruthfulQA) use $500$ questions each,
-debated under five random seeds ($42$--$46$). The three breadth benchmarks (AQuA, MMLU, ARC) are added for
-the provenance and generalization analyses. Extinction, provenance, and independence analyses operate at
+The five core benchmarks (GSM8K, StrategyQA, CommonsenseQA, BBH, TruthfulQA) use $100$ questions each,
+debated under up to five random seeds ($42$--$46$); for the base ensemble this is $500$ debates per core
+benchmark. The three breadth benchmarks (AQuA, MMLU, ARC) are added for the provenance and generalization
+analyses (AQuA, MMLU, and ARC each with $100$ questions; \textsc{E\_orig}'s AQuA cell is a $20$-question pilot
+subset). Seed coverage is uneven across
+ensembles; the exact per-cell counts are in Table~\ref{tab:counts}. Extinction, provenance, and independence analyses operate at
 the candidate (distinct-hypothesis) level; the independence analysis (Table~\ref{tab:coef}) pools
-$23{,}239$ candidates across five ensembles and eight benchmarks.
+$27{,}139$ candidates across five ensembles and eight benchmarks.
 
 \paragraph{Ensembles.}
-Table~\ref{tab:ensembles} lists the five ensembles. Personas (\emph{careful}/\emph{skeptic}/\emph{bigpicture})
-are held fixed; only the backbone models and, for \textsc{E\_n5}, the agent count vary.
-
-\begin{table}[h]
-\centering\small
-\caption{Agent ensembles. Personas are fixed; backbones and $N$ vary to probe generalization.}
-\label{tab:ensembles}
-\begin{tabular}{llc}
-\toprule
-Ensemble & Backbone models & $N$ \\
-\midrule
-\textsc{E\_orig}   & qwen2.5:3b, phi4-mini, llama3.2:3b            & 3 \\
-\textsc{E\_7b}     & qwen2.5:7b, mistral:7b, llama3.1:8b           & 3 \\
-\textsc{E\_mixed}  & gemma2:9b, phi4-mini, llama3.2:3b            & 3 \\
-\textsc{E\_strong} & qwen2.5:14b (anchor), phi4-mini, llama3.2:3b & 3 \\
-\textsc{E\_n5}     & qwen2.5:3b, phi4-mini, llama3.2:3b, mistral:7b, qwen2.5:7b & 5 \\
-\bottomrule
-\end{tabular}
-\end{table}
+The five ensembles are listed in Table~\ref{tab:setup}. Personas
+(\emph{careful}/\emph{skeptic}/\emph{bigpicture}) are held fixed; only the backbone models and, for
+\textsc{E\_n5}, the agent count vary. The strong-anchor ensemble \textsc{E\_strong} places a
+\texttt{qwen2.5:14b} anchor with two small peers.
 
 \paragraph{Debate protocol.}
-Up to $T=3$ synchronous rounds with early stopping on consensus, served locally through Ollama with fixed
-per-persona sampling temperatures (\emph{careful} $0.3$, \emph{skeptic} $0.5$, \emph{bigpicture} $0.7$).
+At most $R=3$ synchronous rounds (indices $r\in\{0,1,2\}$) with early stopping on consensus, served locally through Ollama with fixed
+per-persona sampling temperatures (\emph{careful} $0.3$, \emph{skeptic} $0.5$, \emph{bigpicture} $0.5$).
 Round $0$ is independent; each later round conditions on all peers' previous answers.
 
 \paragraph{Answer extraction and correctness.}
@@ -1038,6 +1154,18 @@ by the $512$-token limit, and \emph{censors} genuinely truncated generations so 
 Correctness uses numeric equality (GSM8K/AQuA), option matching (CommonsenseQA/MMLU/ARC/BBH multiple
 choice), yes/no matching (StrategyQA), and normalized string match (TruthfulQA). The identical pipeline
 scores the baseline majority, the preserved pool, and every selector.
+
+\paragraph{Extraction audit.}
+An automated audit over the $\approx\!21.8$k core round-answers finds high extraction coverage: a normalized
+answer is recovered from $90.6\%$ (BBH) to $99.3\%$ (StrategyQA) of responses. Recovery and censoring are two
+separate (non-partitioning) indicators over the same set of responses --- a truncation-flagged generation may
+still yield an extractable answer --- so they need not sum to $100\%$; the censoring rate (fraction flagged as
+genuinely truncated) ranges from $0.8\%$ (StrategyQA) to $9.6\%$ (BBH), highest on GSM8K/BBH where long
+numeric reasoning hits the $512$-token cap. TruthfulQA extracts at
+$99.1\%$, so its larger candidate pool (Table~\ref{tab:preserve}) reflects free-text \emph{normalization
+granularity} --- many surface variants of an open answer --- rather than extraction failure. Manual
+validation of normalized-answer equivalence (especially for TruthfulQA free text) is the remaining
+measurement-quality step; the logs and a random sample (available on request) enable it.
 
 \paragraph{Statistical inference.}
 \label{app:stats}
@@ -1051,25 +1179,18 @@ the bootstrap median and the $2.5$/$97.5$ percentiles; ``significant'' means the
 \label{app:config}
 
 This appendix reproduces, verbatim, every prompt used to generate the debates and the exact serving
-configuration, referenced from \S\ref{par:debate_protocol} and \S\ref{par:hardware}.
+configuration, referenced from Section~\ref{par:debate_protocol} and Section~\ref{par:hardware}.
 
 \subsection{Hardware and GPU serving}
-Debates are generated on a shared workstation with two NVIDIA RTX~5060~Ti GPUs ($16$\,GB each). Each
-generation run is pinned to the idle GPU by launching a dedicated Ollama server bound to that device and a
-private port, so it never disturbs a co-tenant job on the other card:
-\begin{verbatim}
-CUDA_VISIBLE_DEVICES=1 OLLAMA_VULKAN=0 GGML_VK_VISIBLE_DEVICES=-1 \
-  OLLAMA_HOST=127.0.0.1:11435 OLLAMA_MODELS=/usr/share/ollama/.ollama/models \
-  ollama serve      # GPU 1  (use CUDA_VISIBLE_DEVICES=0 and :11436 for GPU 0)
-\end{verbatim}
-Clients then target \texttt{http://localhost:11435} (or \texttt{:11436}). Each ensemble is sized so that
-all of its agents co-reside on one $16$\,GB card with no model swapping (Table~\ref{tab:serving}); model
-sizes are approximate 4-bit quantized footprints.
+Debates are generated on NVIDIA RTX~5060~Ti GPUs ($16$\,GB) via Ollama, each ensemble pinned to a single
+card (Table~\ref{tab:serving}). Sizes are nominal $4$-bit model footprints; the largest ensemble
+(\textsc{E\_n5}, $\approx\!15.5$\,GB nominal) approaches the $16$\,GB limit, so Ollama loads its models on
+demand within the card. The exact device-pinning launch commands are in the released code.
 
 \begin{table}[h]
 \centering\small
 \caption{Per-ensemble model-to-GPU placement and VRAM budget. All agents of an ensemble are served by a
-single Ollama instance on one idle $16$\,GB GPU (no cross-GPU sharding, no swapping).}
+single Ollama instance on one idle $16$\,GB GPU (no cross-GPU sharding). Sizes are nominal $4$-bit footprints.}
 \label{tab:serving}
 \begin{tabular}{l p{6.4cm} c c}
 \toprule
@@ -1087,9 +1208,12 @@ Ensemble & Models (approx.\ VRAM, GB) & $\Sigma$\,VRAM & Placement \\
 \subsection{Decoding and debate parameters}
 Generation uses the Ollama \texttt{/api/generate} endpoint with \texttt{stream}\,$=$\,false,
 \texttt{num\_predict}\,$=512$ (answer-token budget), and per-persona sampling temperature (careful $0.3$,
-skeptic $0.5$, bigpicture $0.5$); requests use a $180$\,s timeout with up to two retries. Debates run
-$\le 3$ rounds with early stopping on consensus, over five seeds $\{42,43,44,45,46\}$; the influence
-baseline uses PageRank damping $0.85$. The core configuration file is:
+skeptic $0.5$, bigpicture $0.5$); requests use a $180$\,s timeout with up to two retries. Debates run at
+most $R=3$ rounds with early stopping on consensus, drawing seeds from $\{42,43,44,45,46\}$; the base
+ensemble \textsc{E\_orig} uses all five on the core benchmarks, while \textsc{E\_7b}/\textsc{E\_mixed} use a
+$4$- or $1$-seed subset per benchmark and \textsc{E\_strong}/\textsc{E\_n5} use seed $42$ only
+(Table~\ref{tab:counts}). The influence baseline uses PageRank damping $0.85$. The core (\textsc{E\_orig})
+configuration file is:
 \begin{verbatim}
 agents:
   - {name: careful,    model: qwen2.5:3b-instruct, persona: careful,    temperature: 0.3}
@@ -1181,16 +1305,17 @@ CONFIDENCE: <a number 0-100 for how confident you are the answer is correct>
 \label{app:anatomy}
 
 \paragraph{Two mechanisms.}
-Each extinction of a correct answer is classified into \emph{social adoption} (an agent copies a peer's
-wrong answer) or \emph{self-error drift} (an agent revises its own correct answer away). Social adoption
+Each extinction of a correct answer is classified into \emph{social adoption} (an agent switches to a wrong
+answer previously held by a peer) or \emph{self-error drift} (an agent revises its own correct answer away). Social adoption
 accounts for $\approx 72\%$ of extinctions overall, but on the open-answer GSM8K anchor the split reverses
 to self-error-led ($57\%$ vs.\ $43\%$), and a lone correct minority is extinguished $78\%$ of the time.
 
 \paragraph{Surface adoption.}
-$73\%$ of social adoptions are \emph{surface}: the adopter's final answer matches a peer while its reasoning
+$73\%$ of social adoptions (on the core five-benchmark set; $\approx 80\%$ on the eight-benchmark candidate
+set of Appendix~\ref{app:surface}) are \emph{surface}: the adopter's final answer matches a peer while its reasoning
 does not converge toward the peer's. This dissociation between answer-copying and reasoning-convergence is
 why a ``social contagion'' framing is insufficient and motivates the origin-based (rather than
-convergence-based) analysis of \S\ref{subsec:not_all_consensus_equal}.
+convergence-based) analysis of Section~\ref{subsec:not_all_consensus_equal}.
 
 \paragraph{Behavioral headroom.}
 An independent behavioral accounting (comparing round-0 independent answers to the final majority, censoring
@@ -1201,7 +1326,7 @@ $+12.5$pp structural extinction rate of Table~\ref{tab:preserve} from a differen
 \section{Influence Analysis: The Conference Bridge}
 \label{app:influence}
 
-This appendix gives the agent-centric influence analysis summarized in \S\ref{subsec:influence_insufficient}.
+This appendix gives the agent-centric influence analysis summarized in Section~\ref{subsec:influence_insufficient}.
 
 \paragraph{Influence estimation.}
 From each transcript we build an asymmetric influence matrix $M$, where $M_{ij}$ is the empirical rate at
@@ -1225,16 +1350,16 @@ Recalibrating each agent's weight by an accuracy-aware role can repair the damag
 on most benchmarks, but does not beat it uniformly --- which is why we do not build on the influence vote in
 the journal work.
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig9_interpretation.png}
-\caption{\textbf{From influence to provenance} (referenced in \S\ref{subsec:influence_to_provenance}). Two
+\caption{\textbf{From influence to provenance} (referenced in Section~\ref{subsec:influence_to_provenance}). Two
 hypotheses can be championed by the same influential agent yet have entirely different provenance; an
 agent-centric view cannot tell them apart, whereas a hypothesis-centric provenance record can. The panel
 also shows why the selector is modest: origin adds little ranking power over raw consensus once they
 co-vary.}
 \label{fig:interpretation}
-\end{figure}
+\end{figure*}
 
 \section{Failure Prediction Is Not Benefit Prediction: Full Battery}
 \label{app:benefit}
@@ -1251,33 +1376,34 @@ $\sim\!20\%$ budget. A learned CATE (S- and T-learners, cross-fit over questions
 $0.73$) and $Y_1$ (AUC $0.67$) individually but not their difference (effect AUC $0.58$; sign
 anti-correlated), so it does not beat a random budget and captures $\approx 0\%$ of the oracle gain.
 
-\paragraph{Five pre-registered rescue attempts.}
+\paragraph{Five successive rescue attempts (pre-specified gates).}
 Each attempt fixed its gate in advance (effect AUC $>0.65$ or Spearman$(\hat\tau,\mathrm{ITE})>0.20$, and a
 clustered-bootstrap policy-value CI excluding zero) and changed only the feature signal: (i) cheap
 structural features; (ii) residualized \textsc{nomic-embed} semantic features; (iii) an active
 self-diagnosis probe (each agent names one flaw before revising); (iv) a placebo-controlled dose-response
 probe; (v) the mid-debate trajectory (features observed up to rounds $1$ and $2$). All failed the gate, the
-active probe nudging effect AUC only to $0.55$; the sign stayed wrong throughout. Per the pre-registered
-stop rule we report the gap as the contribution.
+active probe nudging effect AUC only to $0.55$; the sign stayed wrong throughout. Per the pre-specified
+stop rule we report the gap as the contribution. (Gates were frozen before evaluation; they are
+pre-specified rather than externally time-stamped pre-registrations.)
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig12_failure_not_benefit.png}
 \caption{\textbf{Failure prediction $\neq$ benefit prediction} (referenced in
-\S\ref{subsec:prediction_actionability}). An oracle targeting the true treatment effect reaches the ceiling
+Section~\ref{subsec:prediction_actionability}). An oracle targeting the true treatment effect reaches the ceiling
 by a $\sim\!20\%$ budget ($+16$--$20$pp), but a learned benefit predictor tracks at or below random across
-five pre-registered feature families: $Y_0$ and $Y_1$ are each predictable, their difference is not.}
+five pre-specified feature families: $Y_0$ and $Y_1$ are each predictable, their difference is not.}
 \label{fig:benefit}
-\end{figure}
+\end{figure*}
 
 \section{Hazard-Guided Controller}
 \label{app:controller}
 
 For completeness we report the controller the conference framing would suggest. Built on the hazard
-detector, it matches always-on intervention ($63.2\%$ vs.\ $62.8\%$; difference $+0.0$pp,
-$[-1.6,+1.2]$) at $\sim\!55\%$ fewer interventions, but its edge over a random intervention budget is
-$\approx 0$. Its one significant effect is an intervention asymmetry: it rescues $39.5\%$
-$[32.4,46.8]$ of would-die debates while harming $20.6\%$ $[15.5,26.1]$ of would-live debates
+detector, it does not beat always-on intervention: at its best operating point both reach $62.8\%$, with a
+paired difference of $+0.0$pp ($95\%$ CI $[-1.6,+1.2]$, $p=0.67$), and its edge over a \emph{random}
+intervention budget is also $\approx 0$. Its one significant effect is an intervention asymmetry: it rescues
+$39.5\%$ $[32.4,46.8]$ of would-die debates while harming $20.6\%$ $[15.5,26.1]$ of would-live debates
 (non-overlapping). Ablations show no feature group dominates and influence is not required. We demote the
 controller to a supporting result because it ranks failures without converting the ranking into an accuracy
 win (consistent with Appendix~\ref{app:benefit}).
@@ -1286,70 +1412,317 @@ win (consistent with Appendix~\ref{app:benefit}).
 \label{app:e26}
 
 \paragraph{Per-benchmark origin effect.}
-Table~\ref{tab:e26_bench} gives the partial coefficient $\beta_{\mathrm{ind}}$ (control total support) per
-benchmark. It is significant on seven of eight; StrategyQA is the boundary.
+Table~\ref{tab:h3bench} gives the per-benchmark H2 and H3 estimates (pooled over ensembles).
+Below we report the \emph{full} generalization grid --- every (ensemble, benchmark) cell --- for the three
+frozen hypotheses, so that nothing is summarized away behind the $40$-cell counts.
+
+\paragraph{Full generalization grid (all 40 cells).}
+Tables~\ref{tab:grid_h1}--\ref{tab:grid_sel} give, for each of the five ensembles and eight benchmarks:
+H1 (extinction $\Delta\mathrm{CR}$), H2 (directional AUC of independent support), and the downstream selector
+gain $\Delta$Acc. A marker ($^{*}$) denotes the cluster-bootstrap CI excluding the null ($0$ for
+$\Delta\mathrm{CR}$/$\Delta$Acc, $0.5$ for AUC), all resampled on questions. Cells for
+\textsc{E\_orig}/\textsc{E\_7b}/\textsc{E\_mixed} on the two hardest core benchmarks use the same $100$
+questions as the core analysis. Summary: H1 is directionally positive in $40/40$ cells and strictly
+significant in $36/40$; H2 in $38/40$ (\textsc{E\_7b} and \textsc{E\_n5}, both StrategyQA); the selector gain in $14/40$ if
+\emph{either} frozen variant (equal-weight or cross-fit logistic) is counted, or $13/40$ for the primary
+cross-fit logistic selector alone (regime-bound, no significant loss).
+
+\emph{Multiplicity.} These per-cell intervals support the generalization/heterogeneity narrative; the primary
+inference remains the pooled/global H1--H3 tests. Applying Benjamini--Hochberg FDR control ($q=0.05$)
+independently within each $40$-cell family leaves the two scientific families essentially unchanged ---
+extinction $36/40\!\to\!36/40$ and provenance$\to$correctness $38/40\!\to\!38/40$ survive --- whereas the
+conditional selector family (primary cross-fit logistic) reduces from $13/40$ to $9/40$; the four cells that
+do not survive are borderline benchmark-specific gains ($p\in[0.013,0.037]$). That the scientific claims are
+robust to multiplicity correction while the downstream-utility claim is not is exactly the paper's position:
+the origin-of-consensus effect is a broad regularity, whereas the selector's accuracy gain is conditional
+(computed in \texttt{experiments/e32\_multiplicity.py}).
 
 \begin{table}[h]
 \centering\small
-\caption{Per-benchmark partial effect of independent support at matched total support ($\beta_{\mathrm{ind}}$;
-clustered-boot $95\%$ CI).}
-\label{tab:e26_bench}
-\begin{tabular}{lc}
+\caption{\textbf{H1 --- extinction $\Delta\mathrm{CR}$} per (ensemble, benchmark). $^{*}$: CI-lo $>0$.}
+\label{tab:grid_h1}
+\begin{tabular}{lccccc}
 \toprule
-Benchmark & $\beta_{\mathrm{ind}}$ [95\% CI] \\
+Benchmark & \textsc{E\_orig} & \textsc{E\_7b} & \textsc{E\_mixed} & \textsc{E\_strong} & \textsc{E\_n5} \\
 \midrule
-GSM8K         & $1.028\,[0.753,1.343]$ \\
-CommonsenseQA & $1.179\,[0.953,1.454]$ \\
-BBH           & $0.546\,[0.358,0.711]$ \\
-TruthfulQA    & $0.630\,[0.375,0.890]$ \\
-AQuA          & $0.752\,[0.379,1.166]$ \\
-MMLU          & $0.953\,[0.686,1.261]$ \\
-ARC           & $0.573\,[0.353,0.806]$ \\
-StrategyQA    & $0.240\,[-0.072,0.586]$ \\
+GSM8K         & $+0.096^{*}$ & $+0.065^{*}$ & $+0.103^{*}$ & $+0.047^{*}$ & $+0.060^{*}$ \\
+StrategyQA    & $+0.158^{*}$ & $+0.050^{*}$ & $+0.160^{*}$ & $+0.123^{*}$ & $+0.107^{*}$ \\
+CommonsenseQA & $+0.130^{*}$ & $+0.095^{*}$ & $+0.177^{*}$ & $+0.103^{*}$ & $+0.080^{*}$ \\
+BBH           & $+0.196^{*}$ & $+0.118^{*}$ & $+0.170^{*}$ & $+0.110^{*}$ & $+0.137^{*}$ \\
+TruthfulQA    & $+0.044^{*}$ & $+0.070^{*}$ & $+0.090^{*}$ & $+0.020$ & $+0.050^{*}$ \\
+AQuA          & $+0.100$ & $+0.070^{*}$ & $+0.150^{*}$ & $+0.100^{*}$ & $+0.060^{*}$ \\
+MMLU          & $+0.150^{*}$ & $+0.180^{*}$ & $+0.160^{*}$ & $+0.120^{*}$ & $+0.110^{*}$ \\
+ARC           & $+0.070^{*}$ & $+0.060^{*}$ & $+0.080^{*}$ & $+0.010$ & $+0.030$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\begin{table}[h]
+\centering\small
+\caption{\textbf{H2 --- directional AUC of independent support} per (ensemble, benchmark). $^{*}$: CI-lo $>0.5$.}
+\label{tab:grid_h2}
+\begin{tabular}{lccccc}
+\toprule
+Benchmark & \textsc{E\_orig} & \textsc{E\_7b} & \textsc{E\_mixed} & \textsc{E\_strong} & \textsc{E\_n5} \\
+\midrule
+GSM8K         & $0.879^{*}$ & $0.901^{*}$ & $0.915^{*}$ & $0.927^{*}$ & $0.929^{*}$ \\
+StrategyQA    & $0.607^{*}$ & $0.582$ & $0.653^{*}$ & $0.634^{*}$ & $0.601$ \\
+CommonsenseQA & $0.867^{*}$ & $0.870^{*}$ & $0.864^{*}$ & $0.890^{*}$ & $0.893^{*}$ \\
+BBH           & $0.712^{*}$ & $0.744^{*}$ & $0.763^{*}$ & $0.779^{*}$ & $0.794^{*}$ \\
+TruthfulQA    & $0.749^{*}$ & $0.624^{*}$ & $0.641^{*}$ & $0.622^{*}$ & $0.658^{*}$ \\
+AQuA          & $0.779^{*}$ & $0.860^{*}$ & $0.844^{*}$ & $0.841^{*}$ & $0.892^{*}$ \\
+MMLU          & $0.840^{*}$ & $0.802^{*}$ & $0.856^{*}$ & $0.854^{*}$ & $0.839^{*}$ \\
+ARC           & $0.748^{*}$ & $0.685^{*}$ & $0.763^{*}$ & $0.775^{*}$ & $0.726^{*}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Downstream selector gain $\Delta$Acc vs.\ final majority} per (ensemble, benchmark).
+$^{*}$: CI-lo $>0$. Regime-bound ($13/40$ primary logistic; $9/40$ after BH-FDR), no significant loss.}
+\label{tab:grid_sel}
+\begin{tabular}{lccccc}
+\toprule
+Benchmark & \textsc{E\_orig} & \textsc{E\_7b} & \textsc{E\_mixed} & \textsc{E\_strong} & \textsc{E\_n5} \\
+\midrule
+GSM8K         & $+0.054^{*}$ & $+0.015$ & $+0.093^{*}$ & $+0.013$ & $+0.027^{*}$ \\
+StrategyQA    & $-0.012$ & $-0.020$ & $+0.050$ & $+0.000$ & $-0.020$ \\
+CommonsenseQA & $+0.088^{*}$ & $+0.048^{*}$ & $+0.160^{*}$ & $+0.107^{*}$ & $+0.050$ \\
+BBH           & $+0.032$ & $+0.032^{*}$ & $+0.060^{*}$ & $+0.033$ & $+0.023$ \\
+TruthfulQA    & $+0.020$ & $+0.000$ & $-0.010$ & $-0.020$ & $+0.040^{*}$ \\
+AQuA          & $+0.000$ & $+0.020$ & $+0.060$ & $+0.040$ & $+0.000$ \\
+MMLU          & $+0.160^{*}$ & $+0.050$ & $+0.130^{*}$ & $+0.010$ & $+0.070$ \\
+ARC           & $+0.030$ & $+0.020$ & $+0.060^{*}$ & $+0.000$ & $+0.070^{*}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{results/figures/fig13_scale_ext.png}
+\caption{\textbf{Scale extension beyond the pre-registered $40$-cell grid: a $24$B open-weight anchor
+(\textsc{E\_strong24}) and a frontier-scale cloud model (deepseek-v4-flash, \textsc{E\_frontier}).}
+Per benchmark: (a) extinction $\Delta\mathrm{CR}$ (H1), (b) directional AUC of independent support (H2), and
+(c) the cross-fit logistic selector gain. Both axes reproduce the two scientific claims: H1 is directionally
+positive on all $8$ benchmarks and H2 holds on $8/8$ (\textsc{E\_strong24}) and $7/8$ (\textsc{E\_frontier}).
+$^{*}$ marks a cluster-bootstrap CI clear of the null; \emph{hatched} cells fail the pre-registered Step-A
+validity gate --- \textsc{E\_frontier}'s free-form answers are frequently unparseable, leaving only $2/8$ of
+its cells inside the gate, so we read it as suggestive rather than confirmatory. These robustness axes are
+reported separately and are \emph{not} folded into the $40$-cell counts.}
+\label{fig:scale_ext}
+\end{figure*}
+
 \paragraph{Per-configuration origin effect.}
 The effect holds on all five ensembles: \textsc{E\_orig} $0.684\,[0.510,0.841]$, \textsc{E\_7b}
 $0.475\,[0.284,0.663]$, \textsc{E\_mixed} $1.046\,[0.851,1.218]$, \textsc{E\_strong} (14B)
-$0.447\,[0.221,0.688]$, \textsc{E\_n5} ($N{=}5$) $0.304\,[0.156,0.471]$.
+$0.554\,[0.346,0.762]$, \textsc{E\_n5} ($N{=}5$) $0.161\,[0.035,0.309]$.
+
+\paragraph{True decomposition (models B1--B3).}
+Rather than the residual $n_{\mathrm{sup}}-n_{\mathrm{ind}}$ (which absorbs an originating agent's own
+persistence), we use the true adoption count $n_{\mathrm{adopt}}$ (agents switching onto $h$ at $r\ge 1$
+that a \emph{peer} already held at $r-1$; Eq.~\ref{eq:adopt}). We report three nested decompositions:
+\textbf{B1} (primary) $\{n_{\mathrm{ind}},n_{\mathrm{adopt}},n_{\mathrm{per}}\}$;
+\textbf{B2} (sensitivity, no persistence) $\{n_{\mathrm{ind}},n_{\mathrm{adopt}}\}$; and
+\textbf{B3} (sensitivity) B2 with the coarser \emph{naive} adoption count that does not require a peer to
+have offered $h$. B1 gives $\beta_{\mathrm{ind}}=0.920$ $[0.848,0.993]$, $\beta_{\mathrm{adopt}}=-0.040$
+$[-0.090,0.006]$ (not significant), $\beta_{\mathrm{per}}=0.831$ $[0.775,0.891]$, with contrast
+$\Delta\beta=0.960$ $[0.885,1.045]$. B2 gives $\beta_{\mathrm{ind}}$ vs $\beta_{\mathrm{adopt}}$ of $1.29$ vs
+$0.38$, and B3 (naive adoption) $1.42$ vs $0.44$ --- the latter agrees \emph{in magnitude} with the
+independent coefficient in Appendix~\ref{app:surface}, which uses a different parameterization that further
+splits adoption into genuine and surface components ($\beta_{\mathrm{ind}}=1.42$; genuine $0.41$, surface
+$0.44$); it is a consistency check, not the same estimate. Genuine peer-adoption thus carries \emph{no
+detectable residual correctness signal after accounting for persistence}; the positive B2 coefficient shows
+adoption does co-vary with
+correctness mainly through persistence, so we do not claim adoption is inert in every specification, only
+that origin dominates it in all three (B1 canonical).
+
+\paragraph{Within-question and consensus/dependence robustness.}
+The difficulty-confound objection is addressed by a within-question conditional logistic (question fixed
+effects; $2{,}946$ mixed-outcome questions): $\beta_{\mathrm{ind}}=0.474$ $[0.419,0.528]$ controlling total
+support, and $0.753$ $[0.706,0.800]$ controlling $\{n_{\mathrm{adopt}},n_{\mathrm{per}}\}$. Non-parametrically,
+the correct hypothesis carries more independent origins than an incorrect one from the same question in
+$74.7\%$ $[73.3\%,76.0\%]$ of pairs, in $57.1\%$ $[54.9\%,59.3\%]$ matched on cumulative support, and in
+$70.2\%$ $[68.5\%,72.0\%]$ matched on the final-round vote count --- all clear of the $50\%$ null. Three
+further checks leave $\beta_{\mathrm{ind}}$ positive and CI-clear-of-zero: matching the \emph{final-round}
+vote count $n_{\mathrm{final}}$ instead of cumulative support ($1.029$ $[0.963,1.095]$); clustering the
+bootstrap by (benchmark, question) rather than (config, benchmark, question), since questions are reused
+across configurations ($0.589$ $[0.472,0.707]$); and adding the number of realized rounds to absorb
+early-stopping exposure time ($0.531$ $[0.442,0.606]$). Independent origin is therefore not reducible to
+question difficulty, consensus definition, cross-configuration dependence, or exposure time.
 
 \paragraph{Incremental ranking power and operating points.}
-Candidate-level AUC is $0.841$ for total support alone, $0.811$ for independent support alone, and $0.849$
-for both --- an increment of only $+0.007$ from adding origin, quantifying the collinearity that bounds the
-selector. As operating points, rejecting $n_{\mathrm{ind}}=0$ candidates removes a pool with $\Pr(\text{correct})=0.09$
-(34\% coverage), and trusting $n_{\mathrm{ind}}\ge 2$ yields $\Pr(\text{correct})=0.77$ (25\% coverage).
+Candidate-level AUC is $0.843$ for total support alone, $0.814$ for independent support alone, and $0.850$
+for both --- an increment of only $+0.007$ from adding origin (unrounded $0.8432\to0.8501$), quantifying the collinearity that bounds the
+selector. All figures in this paragraph are on the eight-benchmark candidate set (base rate $0.31$), which is
+why they differ from the core five-benchmark values in Table~\ref{tab:prov} (e.g.\ $n_{\mathrm{sup}}$-alone AUC
+$0.843$ here vs.\ $0.863$ there; $\Pr(\text{correct}\mid n_{\mathrm{ind}}{=}0)=0.09$ here vs.\ $0.07$ there).
+As operating points, rejecting $n_{\mathrm{ind}}=0$ candidates removes a pool with $\Pr(\text{correct})=0.09$
+(33\% coverage), and trusting $n_{\mathrm{ind}}\ge 2$ yields $\Pr(\text{correct})=0.76$ (27\% coverage).
 
-\begin{figure}[h]
+\paragraph{Statistical power across generalization cells.}
+The $40$ generalization cells (Section~\ref{subsec:generalization}) are not equally powered (Table~\ref{tab:counts}).
+Seed coverage is uneven: the base ensemble \textsc{E\_orig} uses $5$ seeds on all five core benchmarks (and
+$1$ on breadth); \textsc{E\_7b}/\textsc{E\_mixed} use $4$ seeds on GSM8K/CSQA/BBH and a single seed
+elsewhere; \textsc{E\_strong}/\textsc{E\_n5} use $3$ seeds on GSM8K/StrategyQA/CSQA/BBH and $1$ elsewhere. Each cell has $100$ questions
+(\textsc{E\_orig}'s AQuA cell: $20$). The strict-significance counts (H1 $36/40$, H2 $38/40$,
+selector $13/40$) are therefore power-limited: several ``failures'' are near-ceiling or underpowered
+near-misses rather than sign reversals (all directional H1 signs are positive, $40/40$). Table~\ref{tab:counts}
+gives the per-ensemble data volumes; the full per-cell breakdown is reproducible from the released scripts.
+
+\begin{table}[h]
+\centering\small
+\caption{Data volumes by ensemble (full per-cell counts reproducible from the released scripts).
+\textsc{E\_orig} uses $5$ seeds on the five core benchmarks and $1$ on breadth; \textsc{E\_7b}/\textsc{E\_mixed}
+use $4$ seeds on GSM8K/CSQA/BBH and $1$ elsewhere; \textsc{E\_strong}/\textsc{E\_n5} use $3$ seeds on GSM8K/StrategyQA/CSQA/BBH and $1$ elsewhere. Each
+cell has $100$ questions (\textsc{E\_orig}'s AQuA cell: $20$). ``Seed-cells'' counts (benchmark, seed) log files.}
+\label{tab:counts}
+\begin{tabular}{lccc}
+\toprule
+Ensemble & Cells & Seed-cells & Candidates \\
+\midrule
+\textsc{E\_orig}   & 8 & 28 & 8{,}322 \\
+\textsc{E\_7b}     & 8 & 17 & 4{,}595 \\
+\textsc{E\_mixed}  & 8 & 17 & 4{,}616 \\
+\textsc{E\_strong} & 8 & 16 & 3{,}943 \\
+\textsc{E\_n5}     & 8 & 16 & 5{,}663 \\
+\midrule
+\textbf{Total} & \textbf{40} & \textbf{94} & \textbf{27{,}139} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Collinearity stability.}
+The partial independent-support coefficient is not a collinearity artifact. The variance inflation factor for
+$\{n_{\mathrm{ind}},n_{\mathrm{sup}}\}$ is $3.19$ (below the usual threshold of $5$; for
+$\{n_{\mathrm{ind}},n_{\mathrm{adopt}},n_{\mathrm{per}}\}$ all VIFs are $\le 2.5$), and the standardized
+$L_2$-penalized estimate of $\beta_{\mathrm{ind}}$ is flat at $0.66$ across penalties
+$C\in\{10^6,10,1,0.1,0.01\}$. Dropping persistence \emph{raises} $\beta_{\mathrm{ind}}$ ($1.02\to1.40$),
+confirming persistence absorbs part of the association rather than manufacturing it.
+
+\paragraph{Round-0 error correlation.}
+The three backbones are interaction-independent but not statistically independent. At round $0$, the rate at
+which \emph{all} agents are simultaneously wrong exceeds the product-of-marginals independence prediction by
+$1.5\times$ (TruthfulQA) to $158\times$ (ARC): e.g.\ GSM8K observed $0.099$ vs.\ predicted $0.00162$
+($61\times$), BBH $5.6\times$, CommonsenseQA $33\times$. Shared pretraining induces correlated errors, so
+independent origination is a within-debate proxy for independent evidence, not a Condorcet-style guarantee.
+
+\paragraph{Extinction is not a weak-baseline artifact.}
+Across the five core benchmarks $\Delta\mathrm{CR}$ correlates \emph{positively} with majority accuracy
+(Pearson $r=+0.45$); the weakest benchmark (TruthfulQA, majority $0.148$) has the smallest $\Delta\mathrm{CR}$
+($0.044$) because its pool rarely contains the correct answer at all, so a low base rate does not mechanically
+inflate extinction.
+
+\paragraph{Inference-cost accounting.}
+A full debate averages $2.91$ of the $3$ rounds ($91\%$ run all three rounds, $r{=}0,1,2$), i.e.\ $\approx\!8.7$ LLM calls per
+question for $N=3$; the round-$0$ independent majority uses $3$. Round-$0$ is therefore numerically close to
+the provenance selector ($0.560$ vs.\ $0.564$) at roughly one-third of the inference (we do not report a
+direct paired test of this small gap) --- the paper's blunt practical recommendation, which the
+self-consistency control below (Table~\ref{tab:selfconsistency}) directly tests.
+
+\paragraph{Self-consistency baseline (compute-matched control).}
+\label{par:selfconsistency}
+A natural reviewer question is whether debate is simply an inefficient use of inference relative to sampling a
+single model $N$ times independently \cite{wang2023selfconsistency}. We test this on the single-seed
+$500$-question core subset ($5$ benchmarks $\times$ $100$ questions), sampling each \textsc{E\_orig} backbone
+$N\in\{3,5,9\}$ times and majority-voting; \emph{SC-mixed} draws $N/3$ samples from each of the three
+backbones, so its $N=9$ setting spends $9$ calls --- matching the debate's $\approx\!8.7$
+(Table~\ref{tab:selfconsistency}). Budgets are matched by \emph{number of LLM calls}, not decoding
+temperature: self-consistency uses the standard sampling temperature $T=0.7$ \cite{wang2023selfconsistency}
+rather than the debate's per-persona temperatures ($0.3/0.5/0.5$). On this subset the debated final majority
+scores $0.530$ and the round-$0$ majority $0.542$ (vs.\ $0.528$/$0.560$ over the full seed set; the gap is
+single-seed subsampling). At the debate's inference budget, independent sampling wins by a paired-significant
+margin: the heterogeneous \emph{SC-mixed} rule reaches $0.610$ ($\Delta=+0.080$ over the debated majority,
+$95\%$ CI $[+0.042,+0.118]$; McNemar $70/30$, $p<10^{-4}$) and the best single-model self-consistency $0.596$
+($\Delta=+0.066$, $[+0.024,+0.108]$; $p<0.01$), with intervals clustered on question over the $500$ questions.
+Per benchmark, the two stronger backbones beat the debated majority on all five and \emph{SC-mixed} on four of
+five --- the lone shortfall being StrategyQA, the one net-constructive regime, exactly where our extinction
+analysis predicts debate should help (the weakest backbone, \emph{skeptic}, does not significantly beat
+debate, $\Delta=+0.008$ $[-0.032,+0.050]$). Lower budgets $N\in\{3,5\}$ preserve the ordering at smaller
+margins (Table~\ref{tab:sc_budget}). This confirms rather than undercuts the paper's thesis: at matched
+compute, \emph{independent} agreement is more reliable than agreement manufactured through peer interaction,
+and destructive debate under-uses its inference budget. A live non-destructive protocol with a
+self-consistency verifier (Section~\ref{subsec:limitations_future}) remains the natural end-to-end next step.
+
+\begin{table}[t]
+\centering\small
+\caption{Compute-matched \emph{self-consistency} control (reviewer question: is debate just inefficient
+sampling?). Single-seed $500$-question core subset; each \textsc{E\_orig} backbone is sampled $N=9$ times at
+temperature $0.7$ and majority-voted, and \emph{SC-mixed} draws $3$ samples from each of the three backbones
+($9$ calls, matching the debate's $\approx\!8.7$; budget matched by call count, not decoding temperature). At
+matched budget, independent sampling beats the debated final majority on $5/5$ benchmarks (the two stronger
+single models) and $4/5$ (mixed; exception StrategyQA, the net-constructive regime); pooled paired margins
+(question-clustered bootstrap) are $+0.080$ ($95\%$ CI $[+0.042,+0.118]$) for SC-mixed and $+0.066$
+($[+0.024,+0.108]$) for the best single model. The budget ladder $N\in\{3,5,9\}$ is in Table~\ref{tab:sc_budget}.}
+\label{tab:selfconsistency}
+\begin{tabular}{lccccc}
+\toprule
+ & Debate & \multicolumn{3}{c}{Self-consistency, single ($N{=}9$)} & SC-mixed \\
+Benchmark & final maj. & careful & skeptic & bigpic. & ($N{=}9$) \\
+\midrule
+GSM8K         & $0.760$ & $0.830$ & $0.770$ & $0.820$ & $0.900$ \\
+StrategyQA    & $0.620$ & $0.630$ & $0.550$ & $0.680$ & $0.600$ \\
+CommonsenseQA & $0.650$ & $0.750$ & $0.700$ & $0.720$ & $0.770$ \\
+BBH           & $0.480$ & $0.560$ & $0.560$ & $0.550$ & $0.580$ \\
+TruthfulQA    & $0.140$ & $0.190$ & $0.110$ & $0.210$ & $0.200$ \\
+\midrule
+\textbf{Pooled} & $\mathbf{0.530}$ & $0.592$ & $0.538$ & $\mathbf{0.596}$ & $\mathbf{0.610}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{Self-consistency \emph{pooled} accuracy by inference budget $N$ (same single-seed $500$-question
+subset). Single-model rules use $N\in\{3,5,9\}$; \emph{SC-mixed} draws an equal number of samples from each of
+the three backbones, so its budgets are $N\in\{3,6,9\}$ (its middle column is $N=6$, not $5$). Accuracy rises
+monotonically with budget for every rule; the compute-matched $N=9$ column is the one reported in
+Table~\ref{tab:selfconsistency}. The debated final majority is $0.530$ at its fixed $\approx\!8.7$-call budget.}
+\label{tab:sc_budget}
+\begin{tabular}{lccc}
+\toprule
+Rule & $N{=}3$ & $N{=}5$ ($6$ for mixed) & $N{=}9$ \\
+\midrule
+SC \emph{careful}    & $0.552$ & $0.576$ & $0.592$ \\
+SC \emph{skeptic}    & $0.450$ & $0.498$ & $0.538$ \\
+SC \emph{bigpicture} & $0.572$ & $0.574$ & $0.596$ \\
+SC-mixed             & $0.550$ & $0.580$ & $0.610$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig3_reliability.png}
-\caption{\textbf{Per-feature reliability curves} (referenced in \S\ref{subsec:provenance_correctness}).
-Reliability curves for independent support and persistence climb monotonically; late-emerging hypotheses are
-almost always wrong. Null features (late-adoption, resurrection) stay near the base rate.}
+\caption{\textbf{Per-feature reliability curves} (referenced in Section~\ref{subsec:provenance_correctness}).
+Reliability generally increases with independent support and persistence (persistence monotone on all five
+core benchmarks, independent support on $4/5$); late-emerging hypotheses are rarely correct. Null features
+(late-adoption, resurrection) stay near the base rate.}
 \label{fig:reliability}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig4_features.png}
 \caption{\textbf{Which provenance signals carry correctness information} (referenced in
-\S\ref{par:provenance_comparison}). Directional AUC of each provenance feature, with the reference at
-chance ($0.5$); independent support and persistence are the informative, monotone signals.}
+Section~\ref{par:provenance_comparison}). Directional AUC of each provenance feature, with the reference at
+chance ($0.5$); independent support and persistence are the informative signals, with the strongest (largely
+monotone) reliability trends (independent support monotone on $4/5$ core benchmarks, persistence on $5/5$).}
 \label{fig:features}
-\end{figure}
+\end{figure*}
 
 \section{Surface versus Genuine Adoption}
 \label{app:surface}
 
 We label each social adoption \emph{genuine} if the adopter's reasoning converges toward the peer's
 (lexical Jaccard residualized against the debate's baseline similarity) and \emph{surface} otherwise;
-$\approx 80\%$ of adoptions are surface. A naive event-level comparison finds genuine adoptions more correct
+$\approx 80\%$ of adoptions are surface (on the eight-benchmark candidate set; cf.\ $73\%$ on the core
+five-benchmark set of Appendix~\ref{app:anatomy}). A naive event-level comparison finds genuine adoptions more correct
 ($0.356$ vs.\ $0.292$; $\Delta=+0.064$, $[0.044,0.084]$), but a decomposition controlling for support shows
-independent support towering ($\beta=1.546$) over both genuine ($0.481$) and surface ($0.495$) adoption,
+independent support towering ($\beta=1.416$) over both genuine ($0.407$) and surface ($0.438$) adoption,
 whose difference is null ($-0.014$, $[-0.111,0.080]$). Origin matters; the convergence quality of later
 adoption does not, once magnitude is controlled. We therefore keep this as robustness for
-\S\ref{subsec:not_all_consensus_equal}, not a separate contribution.
+Section~\ref{subsec:not_all_consensus_equal}, not a separate contribution.
 
 \section{Selector Baselines, Ablations, and the External Judge}
 \label{app:selectors}
@@ -1358,7 +1731,13 @@ adoption does not, once magnitude is controlled. We therefore keep this as robus
 Over the preserved pool, every simple gold-free selector beats the deployed majority: round-0 majority
 $0.560$, anti-recency $0.558$, history frequency $0.554$, persistence $0.551$, recency $0.541$ (all CI-lo
 $>0$ vs.\ majority $0.528$). This contrasts sharply with the CATE controller (Appendix~\ref{app:benefit}),
-which is at chance --- selection is not blocked by the benefit-identifiability wall.
+which is at chance --- selection is not blocked by the benefit-identifiability wall. Per benchmark, the
+round-0 independent majority beats the debated final majority on four of five core benchmarks --- GSM8K
+($0.81$ vs.\ $0.76$), BBH ($0.494$ vs.\ $0.466$), CommonsenseQA ($0.75$ vs.\ $0.664$), TruthfulQA ($0.166$
+vs.\ $0.148$) --- and loses only on StrategyQA ($0.58$ vs.\ $0.604$), the one net-constructive regime; this
+substantiates the ``debate is net-destructive on $4/5$'' claim. The provenance selector's per-benchmark gain
+over final majority is largest on CommonsenseQA ($+0.086$) and GSM8K ($+0.048$), smaller on BBH ($+0.036$)
+and TruthfulQA ($+0.020$), and slightly negative on StrategyQA ($-0.014$).
 
 \paragraph{Deterministic arithmetic verifier.}
 Selecting the pool candidate whose value equals a valid arithmetic expression in its own reasoning
@@ -1376,22 +1755,22 @@ Crediting late consensus only on genuine reasoning convergence recovers Strategy
 ($0.580\!\to\!0.604$) but cannot beat round-0 majority pooled, because debate is net-destructive on four of
 five benchmarks and a single global rule cannot serve both regimes.
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig11_selector_ladder.png}
-\caption{\textbf{Selector ladder} (referenced in \S\ref{subsec:decision_utility}). Pooled accuracy of each
+\caption{\textbf{Selector ladder} (referenced in Section~\ref{subsec:decision_utility}). Pooled accuracy of each
 inference-time selection rule: the provenance selector beats the deployed final majority and the conference
-influence vote at zero cost, while a large oracle ceiling remains. This is the graphical form of
+influence vote with no additional LLM calls, while a large oracle ceiling remains. This is the graphical form of
 Table~\ref{tab:selector}.}
 \label{fig:ladder}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{results/figures/fig8_utility.png}
-\caption{\textbf{From mechanism to decision utility} (referenced in \S\ref{subsec:decision_utility}). The
-provenance selector captures only $\approx 14\%$ of the preservation ceiling; its per-benchmark gain
+\caption{\textbf{From epistemic signal to decision utility} (referenced in Section~\ref{subsec:decision_utility}). The
+provenance selector captures only $\approx 15\%$ of the preservation ceiling; its per-benchmark gain
 co-varies with headroom and identifiability, and vanishes (without turning significantly negative) where
 either is absent --- the applicability landscape of identifiability $\wedge$ availability.}
 \label{fig:utility}
-\end{figure}
+\end{figure*}

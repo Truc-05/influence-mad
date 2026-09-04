@@ -4,7 +4,7 @@ Reuses the FROZEN e18/e22/e23 machinery (method frozen at E23) with EXPLICIT per
 applies the PRE-REGISTERED disposition rule (paper/E25_newbench_prereg.md). Writes a SEPARATE table
 results/tables/e25_newbench.json — it NEVER touches the frozen 15-cell results/tables/e25_generalization.json.
 
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e25_newbench_verdict.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e25_newbench_verdict.py
 """
 import os, sys, glob, json
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

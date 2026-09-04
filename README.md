@@ -2,8 +2,8 @@
 ### Epistemic Provenance of Agreement in Multi-Agent LLM Debate
 
 > Multi-agent debate (MAD) is widely used to make LLM answers more reliable. We show it routinely
-> **destroys** correct answers it already found — and that the *origin* of agreement, not its magnitude
-> nor the models' mutual influence, is what tracks correctness. Preserve every hypothesis, read its
+> **destroys** correct answers it already found — and that the *origin* of agreement carries correctness
+> signal beyond its magnitude and beyond agent-level influence. Preserve every hypothesis, read its
 > **provenance**, and re-select: reliability improves at **zero extra LLM calls**.
 
 <p align="left">
@@ -13,8 +13,10 @@
 </p>
 
 This repository contains the full code, data, debate logs, results, and manuscript for the journal
-extension of our conference work on influence in multi-agent debate (*IA-MAD*). It is entirely
-reproducible from local, open-weight models served through [Ollama](https://ollama.com) — no paid APIs.
+extension of our conference work on influence in multi-agent debate (*IA-MAD*). The core results are
+entirely reproducible from local, open-weight models served through [Ollama](https://ollama.com) — no paid
+APIs. One optional robustness axis (a frontier-scale ensemble, `E_frontier`) additionally uses an
+OpenAI-compatible cloud API (DeepSeek); it is not required for any headline result.
 
 ---
 
@@ -50,7 +52,7 @@ Three observations drive the paper:
 3. **So we fix it structurally.** Instead of overwriting hypotheses, **preserve** all of them and attach a
    **provenance** record (how many agents produced it *independently*, how long it persisted, when it first
    appeared). The central result: at **matched total support**, *independently generated* agreement carries
-   far more correctness signal than *socially inherited* agreement.
+   far more correctness signal than *socially adopted* agreement.
 
 The whole pipeline — **Preserve → Track Provenance → Select** — runs *post hoc* on stored transcripts and
 adds **no** LLM inference.
@@ -64,8 +66,8 @@ adds **no** LLM inference.
 | **C1** | **Correct-hypothesis extinction is real.** A correct answer present during debate is gone by the final vote. | Recall $0.636 \to 0.760$; **+12.5pp** forgotten; debate is *net-destructive on 4/5 benchmarks*. |
 | **C2** | **Failure prediction $\neq$ benefit prediction.** Extinction is detectable and has a large oracle ceiling, but intervention benefit is not identifiable from the pre-intervention state. | Hazard ROC **0.757**; oracle **+16.5pp**; **5 pre-registered negatives**. |
 | **C3** | **Hypothesis preservation exposes a large, cheap headroom.** | Ceiling **+25pp** over deployed majority; pool $\approx 3$ candidates/question. |
-| **C4** | **Consensus is not epistemically homogeneous (the headline).** At matched total support, independent origin beats inherited support. | $\beta_{\text{ind}} = 0.649\,[0.565,0.737]$; **~2.7× per vote**; **7/8** benchmarks, **5/5** ensembles (3B–14B, $N\in\{3,5\}$). |
-| **C5** | **A zero-cost provenance selector** beats the deployed majority *and* the conference influence vote — but conditionally. | **0.528 → 0.564** (+3.5pp), influence vote *loses* (0.502); significant in 15/40 cells, no significant loss anywhere. |
+| **C4** | **Consensus is not epistemically homogeneous (the headline).** At matched total support, independent origin beats *socially adopted* support — even within the same question. | $\Delta\beta_{\text{ind}-\text{adopt}} = 0.96\,[0.88,1.05]$ (genuine adoption $\approx 0$); within-question $\beta_{\text{ind}} = 0.47$; matched-support $\beta_{\text{ind}} = 0.589$; **7/8** benchmarks, **5/5** ensembles (3B–14B, $N\in\{3,5\}$). |
+| **C5** | **A zero-cost provenance selector** beats the deployed majority *and* the conference influence vote — but conditionally. | **0.528 → 0.564** (+3.5pp), influence vote *loses* (0.502); significant in 14/40 cells, no significant loss anywhere. |
 
 ---
 
@@ -76,21 +78,21 @@ questions):
 
 | Benchmark | Majority acc | Correct in final round | Correct anywhere in history | Forgotten (ΔCR) |
 |---|---|---|---|---|
-| GSM8K | 0.732 | 0.824 | 0.920 | +0.096 |
-| BBH | 0.456 | 0.602 | 0.798 | **+0.196** |
-| StrategyQA | 0.600 | 0.750 | 0.908 | +0.158 |
-| CommonsenseQA | 0.638 | 0.806 | 0.936 | +0.130 |
-| TruthfulQA | 0.120 | 0.196 | 0.240 | +0.044 |
-| **Pooled** | **0.509** | **0.636** | **0.760** | **+0.125** |
+| GSM8K | 0.760 | 0.824 | 0.920 | +0.096 |
+| BBH | 0.466 | 0.602 | 0.798 | **+0.196** |
+| StrategyQA | 0.604 | 0.750 | 0.908 | +0.158 |
+| CommonsenseQA | 0.664 | 0.806 | 0.936 | +0.130 |
+| TruthfulQA | 0.148 | 0.196 | 0.240 | +0.044 |
+| **Pooled** | **0.528** | **0.636** | **0.760** | **+0.125** |
 
 **Not all consensus is equal** — correctness at *matched total support*, varying only the number of
 *independent* (round-0) origins:
 
 | Total support | 0 indep | 1 indep | 2 indep | 3 indep |
 |---|---|---|---|---|
-| 4 | 0.21 | 0.44 | 0.66 | 0.74 |
-| 5 | 0.28 | 0.48 | 0.71 | 0.80 |
-| 6 | — | 0.53 | 0.78 | 0.87 |
+| 4 | 0.21 | 0.42 | 0.63 | 0.66 |
+| 5 | 0.27 | 0.47 | 0.71 | 0.76 |
+| 6 | — | 0.53 | 0.77 | 0.87 |
 
 **Inference-time selectors** (gold-free, over frozen logs, zero extra LLM calls):
 
@@ -115,7 +117,7 @@ influence-mad/
 │   ├── influence_analysis/    #   good/bad/low-influence classification, correlations
 │   ├── influence_voting/      #   majority / influence-based / influence-aware voting
 │   └── utils/                 #   robust answer extraction, scoring, seeding, I/O
-├── experiments/               # One script per experiment (E1–E27) + runners
+├── experiments/               # One script per experiment (E1–E32) + runners
 │   ├── run_multiseed.py       #   generate debates for a benchmark across seeds
 │   ├── run_pipeline.py        #   single-seed collect → analyze
 │   ├── run_analysis.py        #   influence analysis + plots for one benchmark
@@ -212,9 +214,13 @@ Every experiment is a standalone script. The analysis scripts (E1–E27, except 
 | `e22_provenance.py` | **Provenance predicts correctness** (n_indep: 0.07 → 0.83) | §5.5 (main) |
 | `e23_provenance_selector.py` | **Provenance selector** beats majority & influence vote, zero cost | §5.7 (main) |
 | `e24_convergence_selector.py` | Convergence-gating recovers only the constructive regime | App. |
-| `e25_generalization.py`, `e25_newbench_verdict.py`, `e25_scale_verdict.py` | Generalization across models (3B–14B), tasks, and $N\in\{3,5\}$ | §5.8 (main) |
+| `e25_generalization.py`, `e25_newbench_verdict.py`, `e25_scale_verdict.py` (`--ext` → 24B + frontier) | Generalization across models (**3B–24B** open-weight + a frontier API), tasks, and $N\in\{3,5\}$ | §5.8 (main) |
 | `e26_independence.py` | ★ **Not all consensus is equal** (β_ind, matched support) | §5.6 (main) |
 | `e27_surface_genuine.py` | Origin matters, not the convergence-quality of later adoption | App. |
+| `e28_h3_robust.py` | H3 robustness: true-adoption decomposition + within-question control | App. |
+| `e30_reviewer_robustness.py` | Collinearity / ridge-path / ablation robustness battery | App. |
+| `e31_self_consistency.py` | Compute-matched **self-consistency** control (independent sampling beats debate) | §5 / App. |
+| `e32_multiplicity.py` | Benjamini–Hochberg FDR over the 40-cell generalization grid | App. |
 
 To collect debates for an alternate ensemble (e.g. a 14B anchor) or agent count, see the `--gen` / `--verdict`
 flags documented at the top of `experiments/e25_generalization.py`.
@@ -262,6 +268,17 @@ seeds:    [42, 43, 44, 45, 46]
   `experiments/e5_counterfactual.py`, and `experiments/e15_active_probe.py` (and are reproduced verbatim in
   the paper appendix).
 
+**Optional — frontier / cloud API (`E_frontier`).** The one robustness axis that is not local uses an
+OpenAI-compatible endpoint (DeepSeek). It is *not* needed for any headline number; the frozen logs are
+already committed. To regenerate it, set `backend: openai` and provide a key **from outside the repo** (never
+commit it):
+
+```bash
+export DEEPSEEK_API_KEY="$(cat ~/.deepseek_key)"   # chmod 600, outside the repo
+export DEEPSEEK_MODEL=deepseek-v4-flash
+python scripts/e25_frontier_gen.py --smoke          # small sanity check first
+```
+
 ---
 
 ## The manuscript
@@ -295,8 +312,8 @@ If you use this code or the findings, please cite:
 
 ## License
 
-No license file is included yet. Add a `LICENSE` (e.g. MIT for permissive use) before publishing if you
-intend others to reuse the code.
+Released under the [MIT License](LICENSE). Replace the copyright-holder line in `LICENSE` with the
+author name(s) before publishing.
 
 ## Acknowledgements
 

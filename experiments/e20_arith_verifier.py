@@ -21,7 +21,7 @@ often the deterministic check even fires. If arith_verify beats frequency signif
 verifier closes the E18 gap and the LLM-verifier (GPU) is well-justified for reasoning benches; if
 not, deterministic arithmetic is insufficient -> the selector must be semantic (GPU judge).
 Cluster-boot CI on qid. ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e20_arith_verifier.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e20_arith_verifier.py
 """
 import os, sys, glob, json, re, ast, operator
 from collections import Counter, defaultdict

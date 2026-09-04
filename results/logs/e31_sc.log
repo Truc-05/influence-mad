@@ -1,0 +1,83 @@
+  ... 200 new gens (model=careful bench=gsm8k)
+  ... 400 new gens (model=careful bench=gsm8k)
+  ... 600 new gens (model=careful bench=gsm8k)
+  ... 800 new gens (model=careful bench=gsm8k)
+  ... 1000 new gens (model=careful bench=strategyqa)
+  ... 1200 new gens (model=careful bench=strategyqa)
+  ... 1400 new gens (model=careful bench=strategyqa)
+  ... 1600 new gens (model=careful bench=strategyqa)
+  ... 1800 new gens (model=careful bench=strategyqa)
+  ... 2000 new gens (model=careful bench=commonsenseqa)
+  ... 2200 new gens (model=careful bench=commonsenseqa)
+  ... 2400 new gens (model=careful bench=commonsenseqa)
+  ... 2600 new gens (model=careful bench=commonsenseqa)
+  ... 2800 new gens (model=careful bench=bbh)
+  ... 3000 new gens (model=careful bench=bbh)
+  ... 3200 new gens (model=careful bench=bbh)
+  ... 3400 new gens (model=careful bench=bbh)
+  ... 3600 new gens (model=careful bench=bbh)
+  ... 3800 new gens (model=careful bench=truthfulqa)
+  ... 4000 new gens (model=careful bench=truthfulqa)
+  ... 4200 new gens (model=careful bench=truthfulqa)
+  ... 4400 new gens (model=careful bench=truthfulqa)
+  [done model=careful] total new gens so far 4500
+  ... 4600 new gens (model=skeptic bench=gsm8k)
+  ... 4800 new gens (model=skeptic bench=gsm8k)
+  ... 5000 new gens (model=skeptic bench=gsm8k)
+  ... 5200 new gens (model=skeptic bench=gsm8k)
+  ... 5400 new gens (model=skeptic bench=gsm8k)
+  ... 5600 new gens (model=skeptic bench=strategyqa)
+  ... 5800 new gens (model=skeptic bench=strategyqa)
+  ... 6000 new gens (model=skeptic bench=strategyqa)
+  ... 6200 new gens (model=skeptic bench=strategyqa)
+  ... 6400 new gens (model=skeptic bench=commonsenseqa)
+  ... 6600 new gens (model=skeptic bench=commonsenseqa)
+  ... 6800 new gens (model=skeptic bench=commonsenseqa)
+  ... 7000 new gens (model=skeptic bench=commonsenseqa)
+  ... 7200 new gens (model=skeptic bench=commonsenseqa)
+  ... 7400 new gens (model=skeptic bench=bbh)
+  ... 7600 new gens (model=skeptic bench=bbh)
+  ... 7800 new gens (model=skeptic bench=bbh)
+  ... 8000 new gens (model=skeptic bench=bbh)
+  ... 8200 new gens (model=skeptic bench=truthfulqa)
+  ... 8400 new gens (model=skeptic bench=truthfulqa)
+  ... 8600 new gens (model=skeptic bench=truthfulqa)
+  ... 8800 new gens (model=skeptic bench=truthfulqa)
+  ... 9000 new gens (model=skeptic bench=truthfulqa)
+  [done model=skeptic] total new gens so far 9000
+  ... 9200 new gens (model=bigpicture bench=gsm8k)
+  ... 9400 new gens (model=bigpicture bench=gsm8k)
+  ... 9600 new gens (model=bigpicture bench=gsm8k)
+  ... 9800 new gens (model=bigpicture bench=gsm8k)
+  ... 10000 new gens (model=bigpicture bench=strategyqa)
+  ... 10200 new gens (model=bigpicture bench=strategyqa)
+  ... 10400 new gens (model=bigpicture bench=strategyqa)
+  ... 10600 new gens (model=bigpicture bench=strategyqa)
+  ... 10800 new gens (model=bigpicture bench=strategyqa)
+  ... 11000 new gens (model=bigpicture bench=commonsenseqa)
+  ... 11200 new gens (model=bigpicture bench=commonsenseqa)
+  ... 11400 new gens (model=bigpicture bench=commonsenseqa)
+  ... 11600 new gens (model=bigpicture bench=commonsenseqa)
+  ... 11800 new gens (model=bigpicture bench=bbh)
+  ... 12000 new gens (model=bigpicture bench=bbh)
+  ... 12200 new gens (model=bigpicture bench=bbh)
+  ... 12400 new gens (model=bigpicture bench=bbh)
+  ... 12600 new gens (model=bigpicture bench=bbh)
+  ... 12800 new gens (model=bigpicture bench=truthfulqa)
+  ... 13000 new gens (model=bigpicture bench=truthfulqa)
+  ... 13200 new gens (model=bigpicture bench=truthfulqa)
+  ... 13400 new gens (model=bigpicture bench=truthfulqa)
+  [done model=bigpicture] total new gens so far 13500
+[gsm8k] round0=0.76 final=0.76  SC(qwen N=9)=0.83 SC(best N=9)=0.83 mixed N=9=0.9
+[strategyqa] round0=0.62 final=0.62  SC(qwen N=9)=0.63 SC(best N=9)=0.68 mixed N=9=0.6
+[commonsenseqa] round0=0.76 final=0.65  SC(qwen N=9)=0.75 SC(best N=9)=0.75 mixed N=9=0.77
+[bbh] round0=0.46 final=0.48  SC(qwen N=9)=0.56 SC(best N=9)=0.56 mixed N=9=0.58
+[truthfulqa] round0=0.11 final=0.14  SC(qwen N=9)=0.19 SC(best N=9)=0.21 mixed N=9=0.2
+
+==== POOLED ====
+round0_majority 0.542  final_majority 0.53
+  SC careful        {'N=3': 0.552, 'N=5': 0.576, 'N=9': 0.592}
+  SC skeptic        {'N=3': 0.45, 'N=5': 0.498, 'N=9': 0.538}
+  SC bigpicture     {'N=3': 0.572, 'N=5': 0.574, 'N=9': 0.596}
+  SC mixed_3models  {'N=3': 0.55, 'N=6': 0.58, 'N=9': 0.61}
+[OK] results/tables/e31_self_consistency.json

@@ -10,7 +10,7 @@ E_strong/E_n5 are ROBUSTNESS AXES: the question is "does the phenomenon survive 
 N=5?". So the primary output is a PER-CELL sign summary across the full 9-bench set (parallels the Stage-1
 15-cell summary), with the Step-A validity gate applied per cell.
 
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e25_scale_verdict.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e25_scale_verdict.py
 """
 import os, sys, glob, json
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -85,10 +85,10 @@ def _flag(cell, key):
     return "  ✓ " if cell[key]["pass"] else "  ✗ "
 
 
-def run():
-    out = {"labels": LABELS, "benches": BENCHES, "cells": {}, "summary": {},
+def run(labels=LABELS, out_path=OUT, title="E25 SCALE (E_strong 14B-anchor, E_n5 N=5)"):
+    out = {"labels": labels, "benches": BENCHES, "cells": {}, "summary": {},
            "prereg": "paper/E25_newbench_prereg.md (ADDENDUM)"}
-    for label in LABELS:
+    for label in labels:
         for bench in BENCHES:
             c = cell_verdict(label, bench)
             if c is None:
@@ -98,10 +98,10 @@ def run():
 
     # ---- per-cell table ----
     print("\n" + "=" * 78)
-    print("E25 SCALE (E_strong 14B-anchor, E_n5 N=5) — per-cell verdict, full 9-bench set")
+    print(f"{title} — per-cell verdict, full 9-bench set")
     print("=" * 78)
     print(f"{'ensemble/bench':24} {'valid':6} {'H1':4} {'H2':4} {'H3':4}  notes")
-    for label in LABELS:
+    for label in labels:
         for bench in BENCHES:
             c = out["cells"].get(label, {}).get(bench)
             if not c:
@@ -115,7 +115,7 @@ def run():
     print("SIGN SUMMARY  (H_k pass count; H3 counted among Step-A-VALID cells)")
     print("-" * 78)
     pooled = {"H1": [0, 0], "H2": [0, 0], "H3": [0, 0], "valid": 0, "total": 0}
-    for label in LABELS:
+    for label in labels:
         cells = list(out["cells"].get(label, {}).values())
         valid = [c for c in cells if c["valid"]]
         s = {"n_cells": len(cells), "n_valid": len(valid)}
@@ -137,11 +137,18 @@ def run():
     ps = out["summary"]["pooled"]
     print(f"  {'POOLED':9}: valid {ps['valid']}  |  H1 {ps['H1']}   H2 {ps['H2']}   H3 {ps['H3']} (of valid)")
 
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    json.dump(out, open(OUT, "w"), indent=2)
-    print(f"\n[OK] {OUT}")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    json.dump(out, open(out_path, "w"), indent=2)
+    print(f"\n[OK] {out_path}")
     return out
 
 
 if __name__ == "__main__":
-    run()
+    if "--ext" in sys.argv:
+        # scale EXTENSION axes, reported SEPARATELY from the pre-registered 40-cell grid so that
+        # grid's counts never drift: E_strong24 (24B open-weight anchor) + E_frontier
+        # (deepseek-v4-flash cloud API). Writes results/tables/e25_scale_ext.json.
+        run(labels=["E_strong24", "E_frontier"], out_path="results/tables/e25_scale_ext.json",
+            title="E25 SCALE-EXT (E_strong24 24B-anchor, E_frontier deepseek-v4-flash)")
+    else:
+        run()

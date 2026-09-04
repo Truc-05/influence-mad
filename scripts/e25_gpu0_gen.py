@@ -11,7 +11,7 @@ GPU discipline ([[gpu-run-pinning]]): gpu0-pinned Ollama :11436 ONLY (CUDA_VISIB
 OLLAMA_VULKAN=0). Leave the gpu1 :11435 new-bench pilot PID untouched. Resumable (gen_cell skips
 done question_ids). Ordered by ensemble to keep each ensemble's models hot across its 8 benches.
 
-  /home/alex/venvs/env/bin/python scripts/e25_gpu0_gen.py
+  python scripts/e25_gpu0_gen.py
 """
 import os, sys, time
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

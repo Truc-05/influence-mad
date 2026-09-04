@@ -26,7 +26,7 @@ answer is not being lost, preservation buys nothing → STOP.
 Also reports current majority accuracy (mode of final buckets) as the deployed baseline, and pool
 size/cost (distinct hypotheses to adjudicate). Cluster-bootstrap CI on ΔCR over qid (seeds of a
 question are correlated repeats). ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e18_hypothesis_preservation.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e18_hypothesis_preservation.py
 """
 import os, sys, glob, json
 from collections import Counter, defaultdict

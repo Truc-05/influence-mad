@@ -22,17 +22,17 @@ http://localhost:11435 (never :11434 / gpu0). Verdict is ZERO-GPU.
 
 Usage:
   # 0) wiring self-test (mock backend, no GPU): gen tiny logs + run the full verdict on them
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e25_generalization.py --selftest
+  CUDA_VISIBLE_DEVICES="" python experiments/e25_generalization.py --selftest
 
   # 1) generate one cell (gpu1-pinned). Resumable: re-run to continue where it stopped.
-  /home/alex/venvs/env/bin/python experiments/e25_generalization.py \
+  python experiments/e25_generalization.py \
         --gen --ensemble E_7b --bench gsm8k --seed 42 --n 100
 
   # 2) generate the whole pilot (loops the PILOT matrix; skips E_orig = reuses frozen logs)
-  /home/alex/venvs/env/bin/python experiments/e25_generalization.py --gen-pilot
+  python experiments/e25_generalization.py --gen-pilot
 
   # 3) verdict over whatever cells exist (zero-GPU), writes results/tables/e25_generalization.json
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e25_generalization.py --verdict
+  CUDA_VISIBLE_DEVICES="" python experiments/e25_generalization.py --verdict
 """
 import os, sys, json, argparse, random
 from collections import defaultdict
@@ -80,6 +80,18 @@ ENSEMBLES = {
     # parallels E_mixed (Gemma9B->Qwen14B, same Phi+Llama3B) to isolate the strong-anchor effect.
     "E_strong": [("careful", "qwen2.5:14b", 0.3), ("skeptic", "phi4-mini:latest", 0.5),
                  ("bigpicture", "llama3.2:3b", 0.5)],
+    # larger open-weight anchor (24B): pushes the tested range 3B->24B to blunt the "only tiny
+    # models" objection. mistral-small3.1:24b is 15 GB -> cannot co-reside with the two small peers
+    # in 16 GB, so Ollama swaps the anchor per round (slow); run gpu0-pinned :11436, generous timeout.
+    "E_strong24": [("careful", "mistral-small3.1:24b", 0.3), ("skeptic", "phi4-mini:latest", 0.5),
+                   ("bigpicture", "llama3.2:3b", 0.5)],
+    # FRONTIER via cloud API (OpenAI-compatible, e.g. DeepSeek): homogeneous-backbone ensemble (3 personas)
+    # so it is PURE API -> zero local GPU -> no conflict with a running Ollama job. Model id from
+    # $DEEPSEEK_MODEL (confirm the exact "v4 flash" id before launch). Round-0 diversity comes from the
+    # 3 personas + temperature. Directly addresses the "no frontier model" reviewer objection.
+    "E_frontier": [("careful", os.environ.get("DEEPSEEK_MODEL", "deepseek-chat"), 0.3),
+                   ("skeptic", os.environ.get("DEEPSEEK_MODEL", "deepseek-chat"), 0.5),
+                   ("bigpicture", os.environ.get("DEEPSEEK_MODEL", "deepseek-chat"), 0.5)],
     # N=5 structural stress test: E_orig's 3 + two mid agents. 4-tuple = (name, model, temp,
     # persona); names UNIQUE (run_debate keys by name) but personas reused (PERSONAS has only 3).
     # Fits 16GB (1.9+2.5+2.0+4.4+4.7=15.5GB).

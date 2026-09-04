@@ -1,126 +1,94 @@
-# FailSafe-MAD — Predicting Failure Is Not Predicting Benefit: Preservation & Provenance in Multi-Agent LLM Debate
+# Not All Consensus Is Equal — Epistemic Provenance of Agreement in Multi-Agent LLM Debate
 
-Journal extension of the conference IA-MAD paper. Three peer LLMs (`careful` qwen2.5:3b, `skeptic`
-phi4-mini, `bigpicture` llama3.2:3b) debate for ≤3 rounds over GSM8K / StrategyQA / CommonsenseQA /
-BBH / TruthfulQA, 5 seeds × 100 questions. Everything below is a replay of the frozen transcripts in
-`data/debate_logs/`; the two GPU steps are marked.
+Journal extension of the conference IA-MAD paper (working manuscript: `paper/paper.tex`). Three peer LLMs
+(`careful` qwen2.5:3b, `skeptic` phi4-mini, `bigpicture` llama3.2:3b) debate for ≤3 rounds over GSM8K /
+StrategyQA / CommonsenseQA / BBH / TruthfulQA (5 seeds × 100 q), plus AQuA / ARC / MMLU for breadth and
+alternative ensembles (7B, mixed-9B, 14B anchor, N=5, a 24B anchor, and a frontier API model) for
+generalization. Every analysis is a replay of frozen transcripts in `data/debate_logs/`; GPU / API steps
+are marked.
+
+> **This document is the detailed engineering log.** The short project intro is `README.md`; the
+> submission narrative is `paper/paper.tex`; the running research memory is in the maintainer's notes.
 
 ---
 
 ## TL;DR
 
 Multi-agent debate (MAD) is supposed to make answers more reliable. We show it routinely **destroys**
-correct answers: on 4 of 5 benchmarks a correct hypothesis that existed during the debate is gone by
-the final vote, and simply trusting the pre-debate **independent** answers beats the debated majority
-(56.0% vs 52.8% pooled). The obvious fix — detect failing debates and intervene — runs into a wall:
-*when* a debate fails is predictable (hazard ROC 0.73) and intervention has a large **oracle** ceiling
-(+16pp), but *which* debate benefits is **not identifiable** from the pre-intervention state. So we
-stop targeting and fix the loss structurally: **preserve every hypothesis** (never let interaction
-erase one) and **re-select by provenance**. Preservation lifts correct-answer recall 63.6% → 76.0%,
-and a zero-extra-cost provenance selector beats the deployed majority by **+3.5pp** (and beats the
-conference influence-vote, which itself loses to majority).
+correct answers: on 4 of 5 benchmarks a correct hypothesis that existed during the debate is gone by the
+final vote, and simply trusting the pre-debate **independent** answers beats the debated majority. The
+obvious fix — detect failing debates and intervene — hits a wall: *when* a debate fails is predictable
+(hazard ROC 0.73–0.76) with a large **oracle** ceiling (+16pp), but *which* debate benefits is **not
+identifiable** from the pre-intervention state (five pre-registered rescues fail). So we stop targeting
+and fix the loss structurally: **preserve every hypothesis** and read its **provenance**.
+
+The central scientific finding: **consensus is not epistemically homogeneous.** At matched total support,
+an *independently generated* supporter carries far more correctness signal than a *socially adopted* one
+(per-origin log-odds 0.92 vs −0.04; Δβ = 0.96). A compute-matched **self-consistency** control confirms
+the mechanism from the other side: at equal inference budget, keeping samples independent (0.610) beats
+letting them become socially coupled through debate (0.530).
+
+**Contribution hierarchy (how to read the paper):**
+
+```
+   Scientific finding            Not all consensus is equal — origin beyond magnitude (H1/H2/H3)
+        >  Diagnostic framework  Preserve every hypothesis + track its provenance (no extra LLM calls)
+             >  Application       A provenance-aware selector (+3.5pp; a proof-of-usefulness, NOT a
+                                  deployment method competitive with self-consistency)
+```
 
 **Method:** `Preserve → Track Provenance → Select` — no extra LLM calls, no external judge.
 
 ---
 
-## The pipeline: five research questions
+## The pipeline: research questions & the three hypotheses
 
 ```
-RQ1  Does debate FORGET correct answers?                                         → YES
-     A correct hypothesis appears, then goes extinct through social interaction.
-     11.6% of accuracy is online-recoverable; the correct answer is present-but-forgotten in
-     12.5pp of debates; debate is NET-DESTRUCTIVE (round-0 independent > debated final on 4/5).
-        │  (e1_cascade_headroom, e1e4a_clean, e4a_extinction_anatomy)
+RQ1  Does debate FORGET correct answers?                                          → YES  (H1)
+     A correct hypothesis appears, then goes extinct through interaction. 11.6% of accuracy is
+     online-recoverable; correct-but-forgotten in 12.5pp of debates; debate is NET-DESTRUCTIVE
+     (round-0 independent > debated final on 4/5).      (e1_cascade_headroom, e1e4a_clean, e4a_*)
         ▼
-RQ2  Can influence / failure prediction tell us WHAT ACTION HELPS?               → NO
-     Global influence can't diagnose the mechanism (AUC 0.49); failure IS predictable
-     (hazard ROC 0.73–0.76) and intervention CAN rescue (+16pp preservation, E5); yet
-     intervention BENEFIT is unpredictable (AUC 0.58, targeting ≈ random) despite a +16pp
-     oracle ceiling. StrategyQA is the clean proof: failure ROC 0.87 but headroom +0.8pp.
-     ⇒  PREDICTABILITY ≠ ACTIONABILITY.
-        │  (e2_mechanism_influence, e3_router, e5_counterfactual, e11_*, e13_benefit_aware)
+RQ2  Is INFLUENCE the right lever to recover them?                                → NO (bridge)
+     Influence tracks stubbornness (r=0.69), not competence (r=0.15); an influence-weighted vote
+     LOSES to plain majority (0.502 < 0.528).                     (e2_mechanism_influence, voting)
         ▼
-RQ3  Can PRESERVING hypotheses prevent the irreversible loss?                    → YES
-     Never destructively overwrite a hypothesis (H_t ⊆ H_{t+1}); select from the full history.
-     Candidate recall 0.636 → 0.760 (ΔCR +12.5pp, significant on all 5 benchmarks), pool ≈ 3.
-        │  (e18_hypothesis_preservation)
+RQ3  Can we PREDICT which debates to fix and ACT on it?                           → predict≠act
+     Failure IS predictable (hazard ROC 0.757) with a +16.5pp ORACLE ceiling, yet intervention
+     BENEFIT is unidentifiable — 5 pre-registered rescues fail (cheap/semantic/probe/dose/traj).
+        │  (e3_router, e5_counterfactual, e13_benefit_aware, e11_*, e14–e17)  [DEMOTED to a bridge]
         ▼
-RQ4  Is a hypothesis's PROVENANCE predictive of its correctness?                 → YES, strongly
-     Produced independently by 3 agents → 83% correct; by 1 → 17%; only emerges in debate → 7%.
-     n_independent AUC 0.82, persistence 0.81, first-round 0.70.
-        │  (e22_provenance)
+RQ4  Can PRESERVING hypotheses prevent the irreversible loss?                     → YES  (H1)
+     Never destructively overwrite (H_t ⊆ H_{t+1}); select from the full history. CR 0.636→0.760
+     (ΔCR +12.5pp, significant on all 5), pool ≈ 3 candidates.               (e18_hypothesis_preservation)
         ▼
-RQ5  Can PROVENANCE-AWARE selection improve decisions with NO extra inference?   → YES
-     Preserve → Track Provenance → Select: 52.8% → 56.4% (+3.5pp, CI>0, 4/5 benches, 0 extra calls),
-     beating the deployed majority AND the conference influence-vote (50.2%). It ties the strong
-     round-0 baseline — because debate is mostly destructive — which we report and explain.
-        │  (e19_selector_bakeoff, e23_provenance_selector, e24_convergence_selector)
+RQ5  Is a hypothesis's PROVENANCE predictive of correctness?                      → YES  (H2)
+     3 independent origins → 83% correct; 1 → 17%; emerges only in debate → 7%.
+     n_independent dir-AUC 0.82, persistence 0.81.                                    (e22_provenance)
         ▼
-RQ6  Does it GENERALIZE across model families / N-agents?                        → PILOT RUNNING (E25)
-     Freeze the E23 method; re-generate debates for alternative ensembles and re-run the
-     EXACT frozen verdict. Pilot: 3 ensembles × {gsm8k, strategyqa, csqa} × N=3.
-        │  (e25_generalization)
+RQ6  Beyond MAGNITUDE — does ORIGIN matter at matched support?                    → YES  (H3, HEADLINE)
+     Controlling total support (they are r=0.83 collinear), an extra INDEPENDENT origin still
+     predicts correctness (β_ind=0.589 [.512,.671]); decomposition β_ind 0.92 vs β_adopt −0.04
+     (Δβ=0.96); survives within-question conditional logit (0.47 [.42,.53]).      (e26_independence)
+        ▼
+RQ7  Does provenance-aware selection improve decisions at NO extra cost?          → YES, conditional
+     0.528→0.564 (+3.5pp), beats deployed majority & influence-vote; ~15% of the +23pp ceiling;
+     regime-bound. Self-consistency control confirms "trust independent" direction.
+        │  (e19_selector_bakeoff, e23_provenance_selector, e24_convergence_selector, e31_self_consistency)
+        ▼
+RQ8  Does it GENERALIZE across model families / scale / N?                        → broadly (see below)
+     40-cell grid: H1 36/40 (40/40 positive), H2 38/40, selector 13/40. 3B→14B→24B open-weight
+     + a frontier API model (deepseek-v4-flash).      (e25_*, e32_multiplicity)
 ```
-
-**Five results the reader should see:** `forget (RQ1) → predict≠act (RQ2) → preserve (RQ3) →
-provenance (RQ4) → select (RQ5)`.
 
 ---
 
-## Key numbers (frozen, robust re-scoring; pooled over the 4 main benchmarks × 5 seeds unless noted)
+## Key numbers (frozen, robust re-scoring; pooled over the core benchmarks unless noted)
 
-Numbers use the robust extractor (`src/utils/answer_extract.py`): it recovers `\boxed{}` answers hidden
-by 512-token truncation and **censors** genuinely-truncated ones so they don't inflate the headroom.
+Numbers use the robust extractor (`src/utils/answer_extract.py`): recovers `\boxed{}` answers hidden by
+512-token truncation and **censors** genuinely-truncated ones.
 
-### RQ1 — Debate forgets correct answers
-
-**Recovery headroom** (`e1e4a_clean.json`):
-
-| Benchmark | Final majority | Online-recoverable | **Behavioral** (censored removed) |
-|---|--:|--:|--:|
-| GSM8K | 73.2% | 8.8% | 7.4% |
-| StrategyQA | 60.0% | 11.0% | 11.0% |
-| CommonsenseQA | 63.8% | 12.4% | 12.0% |
-| BBH | 45.6% | 17.8% | 15.8% |
-| **Pooled** | **60.7%** | **12.5%** | **11.6%** |
-
-**Extinction anatomy** (`e4a_extinction_anatomy.json`): two behavioral mechanisms — social adoption and
-self-error drift; the GSM8K open-answer anchor is self-error-led (self 57% ≥ social 43%). **73% of
-adoptions are "surface"**: the answer copies a peer while the reasoning does *not* converge.
-
-**Net-destructive** (5 benches, from RQ5's selector analysis): the pre-debate **round-0 independent
-majority (56.0%) beats the debated final majority (52.8%)** — debate erases part of the wisdom of the
-independent agents.
-
-### RQ2 — Predictability ≠ actionability
-
-**Influence can't diagnose the mechanism** (`e2_mechanism_influence.json`, `|A|`-controlled, grouped-CV):
-
-| Feature set | AUC (social vs self) |
-|---|--:|
-| Influence-only (PageRank, stubbornness, Mᵢⱼ) | **0.49** ≈ chance |
-| Structural-only (positive control) | 0.63 |
-
-**Failure IS predictable** (`e3_router.json`, Stage-A hazard): AUPRC 0.24 (lift ~2×), ROC **0.757**;
-LOBO across benchmarks 0.67–0.75 — generalizes, including open-answer. (Ranks well; no high-precision
-operating point at 12% prevalence.)
-
-**Intervention CAN rescue** (`e5_counterfactual.json`, first GPU run; re-query forward from the trigger
-prefix, gold-free): the `combined` (self-verify + influence-resistant) arm lifts preservation **+12pp**
-macro / **+16pp** pooled and final-majority recovery **+7pp** at ~equal call count (n=116).
-
-**But benefit is unidentifiable** (`e13_benefit_aware.json`): both counterfactual arms are stored, so
-ITE is observed. The **oracle** ceiling is large (**+16.5pp** pooled, reached at ~20% budget), but the
-individual effect is unpredictable — Y0 predictable (AUC 0.73 = the hazard), Y1 predictable (0.67),
-their **difference not** (effect AUC 0.58, sign anti-correlated); a learned CATE controller does **not**
-beat random. **StrategyQA is the clean example** (`e11_*`): failure ROC **0.87** yet intervention
-headroom is **+0.8pp** — detectability without actionability.
-
-### RQ3 — Hypothesis preservation (`e18_hypothesis_preservation.json`)
-
-Correct-answer recall at the final round vs across the whole history; ΔCR = forgotten-correct rate
-(cluster-boot 95% CI over questions):
+### H1 — Debate forgets correct answers; preservation ceiling (`e18_hypothesis_preservation.json`)
 
 | Benchmark | Maj. acc | CR_final | CR_history | **ΔCR [95% CI]** | Pool |
 |---|--:|--:|--:|:--|--:|
@@ -131,10 +99,10 @@ Correct-answer recall at the final round vs across the whole history; ΔCR = for
 | TruthfulQA | 0.120 | 0.196 | 0.240 | +0.044 [.022,.068] | 6.31 |
 | **Pooled** | **0.509** | **0.636** | **0.760** | **+0.125 [.108,.142]** | 3.09 |
 
-Significant on all 5 benchmarks; total headroom over the deployed majority is **+25pp**; the pool holds
-only ~3 hypotheses, so the recovered answers are not noise. Largest on BBH — where targeting failed most.
+Total headroom over the deployed majority ≈ **+25pp** (12.5 structural preservation + 12.7 selection).
+Round-0 **independent** majority (0.560) beats the debated final majority (0.528) — debate is net-destructive.
 
-### RQ4 — Provenance predicts correctness (`e22_provenance.json`, candidate-level)
+### H2 — Provenance predicts correctness (`e22_provenance.json`, candidate-level)
 
 | Signal | dir. AUC [95% CI] | monotone | P(correct \| value) |
 |---|--:|:--|:--|
@@ -143,7 +111,33 @@ only ~3 hypotheses, so the recovered answers are not noise. Largest on BBH — w
 | n_support (total votes) | 0.857 [.836,.877] | 2/5 | .05 → .84 |
 | first round (late emergence) | 0.695 [.681,.709] | 4/5 | r0:.37 · r1:.08 · r2:.04 |
 
-### RQ5 — Provenance-aware selection (`e23_provenance_selector.json`, 5 benches × 5 seeds, gold-free)
+### H3 — Origin beyond magnitude (HEADLINE, `e26_independence.json`, 27,139 candidates, 5 ens × 8 bench)
+
+Independent and total support are **collinear (r=0.83)**, so we compare at **matched total support**:
+
+| n_sup | n_ind=0 | n_ind=1 | n_ind=2 | n_ind=3 |
+|---|--:|--:|--:|--:|
+| 4 | 0.21 [.15,.28] (156) | 0.44 [.40,.47] (739) | 0.66 [.62,.70] (458) | 0.74 [.60,.85] (43) |
+
+At fixed support, correctness rises monotonically with the number of independent origins (Wilson CIs;
+the overall rise is significant — n_ind=0/1/2 intervals non-overlapping — only the n=43 top cell is noisy).
+
+- **Partial effect ctrl. total support:** β_ind = **0.589** [.512, .671]; +FE 0.590.
+- **True decomposition:** per-origin log-odds β_ind **0.92** vs genuine peer-adoption β_adopt **−0.04**
+  (n.s.) → **Δβ = 0.96** [.88, 1.05]. Persistence positive (0.83); adoption null after controlling it.
+- **Not question difficulty:** within-question conditional logit β_ind = **0.474** [.419, .528]; within
+  the same question the correct hypothesis carries more independent origins in 75% of pairs (57% at
+  matched support).
+- **Robust:** survives final-round-vote matching (1.03), conservative (bench,question) clustering (0.589),
+  exposure-time adjustment (0.531). Significant on **7/8 benchmarks** (StrategyQA the boundary) and **5/5
+  ensembles** (incl. 14B anchor, N=5).
+- **Why the selector is only modest:** incremental candidate-AUC of n_ind over n_support is just **+0.007**
+  (redundancy, VIF 3.2, ridge-stable) — a strong conditional signal need not give a large *ranking* gain.
+- **E27 (`e27_surface_genuine.json`):** splitting adoption into surface vs genuine, the genuine−surface
+  contrast **vanishes after controlling support** (−0.014 [−.111,.080]) → what matters is *origin*, not the
+  reasoning-quality of social adoption. Appendix-only.
+
+### RQ7 — Provenance-aware selection (`e23_provenance_selector.json`, 5 bench × 5 seed, gold-free)
 
 | Selector | Pooled acc | Δ vs deployed majority [95% CI] | Extra LLM calls |
 |---|--:|:--|--:|
@@ -153,150 +147,208 @@ only ~3 hypotheses, so the recovered answers are not noise. Largest on BBH — w
 | **Provenance selector (ours)** | **0.564** | **+0.035 [.022,.049]** | **0** |
 | Oracle (history-pool ceiling) | 0.760 | +0.232 | — |
 
-`S(h) = w₁·n_independent + w₂·n_persist + w₃·n_support − w₄·first_round` (equal-weight, or logistic
-weights **cross-fit by question** so no weight sees its own test fold). Per-bench Δ vs majority: gsm8k
-+0.048, csqa +0.084, bbh +0.036, tqa +0.020, strategyqa −0.012. It **ties** round-0-majority (both
-0.560) — reported, not hidden — because debate is net-destructive; a convergence-gated variant
-(`e24`) correctly recovers the one **constructive-debate** benchmark (StrategyQA, 0.580→0.604) but a
-single global rule cannot win both regimes. This is why provenance (which *keeps* independent evidence
-while *allowing* genuine revision) is the right framework, not a hard "always trust round-0" rule.
+Captures ~15% of the +23pp ceiling; **numerically close to** round-0-majority (0.564 vs 0.560; we report
+**no direct paired test** of that small gap). Positioned as a downstream *application*, not a deployment
+method competitive with self-consistency.
 
-### RQ6 — Generalization of the frozen method
+### Self-consistency control (`e31_self_consistency.json`, single-seed 500-q subset)
 
-The E23 method is **frozen** — we do not tune it. We re-generate debates for alternative ensembles and
-re-run the *exact* frozen verdict (`e25_generalization.py` reuses `e18/e22/e23` through a `logdir=` seam)
-to test three pre-committed hypotheses, cell by cell:
+Reviewer question — is debate just inefficient sampling? Each E_orig backbone sampled N∈{3,5,9}× at T=0.7,
+majority-voted; **SC-mixed** = N/3 samples from each backbone. **Budget matched by call count, not decoding
+temperature.**
 
-- **H1** extinction generalizes — ΔCR > 0 (reuses E18)
-- **H2** independent provenance predicts correctness — `n_independent` dir. AUC > chance (reuses E22)
-- **H3** provenance selector still beats the deployed final-majority — ΔAcc CI-lo > 0 (reuses E23)
+| Rule (N=9 ≈ debate's ~8.7 calls) | Pooled | Δ vs debate [95% CI], McNemar |
+|---|--:|:--|
+| Debate final majority | 0.530 | — |
+| Round-0 majority | 0.542 | — |
+| Best single-model SC (llama3.2:3b) | 0.596 | **+0.066** [.024,.108], p<0.01 |
+| **SC-mixed (heterogeneous)** | **0.610** | **+0.080** [.042,.118], p<1e-4 |
 
-Alt-ensemble logs go to `data/debate_logs/gen/<ensemble>/` so the frozen originals are **never touched**;
-generation is GPU-pinned, the verdict is zero-GPU and **N-agnostic** (validated on mock N=5 logs).
+At matched budget, independent sampling beats destructive debate (5/5 benches for the two stronger single
+models; 4/5 for mixed, the exception being StrategyQA — the one net-constructive regime). This **confirms**
+the thesis; it is not a baseline that defeats our method. Budget ladder N=3/5/9 in `tab:sc_budget`.
 
-**Stage 1 — model family × 5 core benchmarks (DONE, `e25_generalization.json`).** Three N=3 ensembles
-across gsm8k / strategyqa / csqa / bbh / truthfulqa, seeds 42–45 on the important cells:
+### Multiplicity — Benjamini–Hochberg FDR (`e32_multiplicity.json`, 40-cell grid, q=0.05)
 
-| Ensemble | Backbones (careful / skeptic / bigpicture) | Role |
-|---|---|---|
-| `E_orig` (reference) | qwen2.5:3b / phi4-mini / llama3.2:3b | small (reuses frozen logs) |
-| `E_7b` | qwen2.5:7b / mistral:7b / llama3.1:8b | mid, cross-family |
-| `E_mixed` | gemma2:9b / phi4-mini / llama3.2:3b | mixed capability |
+| Family | raw sig /40 | **BH-FDR /40** |
+|---|--:|--:|
+| H1 extinction (ΔCR>0) | 35 | **35** (unchanged) |
+| H2 provenance→correctness (dir-AUC>0.5) | 39 | **39** (unchanged) |
+| selector ΔAcc>0 (conditional utility) | 14 | **8** |
 
-Result (sign test, 15 cells): **H1 15/15 · H2 14/15 · H3 7/15**. The two *scientific* claims generalize
-across families including BBH (H2 fails only on `E_7b`/strategyqa — binary y/n → weak independent signal).
-The selector's *accuracy* win (H3) is **regime-structured, not intermittent**: **7/9 on multi-answer
-reasoning** (gsm8k/csqa/bbh) vs **0/6 on degenerate benches** (strategyqa/truthfulqa). Two applicability
-conditions explain every cell — reranking helps ⟺ **identifiability** (provenance is informative;
-StrategyQA's binary y/n is ≈chance) **∧ availability** (the correct hypothesis is in the pool;
-TruthfulQA's ceiling tops at ~24–31%). No fail cell shows a *significant* loss (every CI includes 0).
-Analysis: `paper/E25_H3_generalization_analysis.md`.
+The two *scientific* families are untouched by multiplicity correction; only the *conditional-utility*
+family shrinks — exactly the paper's position. (Paper's "14/40" = either frozen variant; primary cross-fit
+logistic alone = 13/40, 9/40 after BH-FDR.) Primary inference is the pooled/global H1–H3 tests; the 40-cell grid is
+generalization/heterogeneity.
 
-**Stage 2 — breadth + scale (in progress, pre-registered).** `paper/E25_newbench_prereg.md` (+ addendum)
-locks the disposition of every new cell *before* results, as an out-of-sample test of the
-identifiability∧availability framework — **not** a hunt for more H3 passes:
+---
 
-| Axis | Cells | GPU | Status |
+## Generalization grid (`e25_*`, frozen E23 method — never tuned)
+
+Alt-ensemble logs go to `data/debate_logs/gen/<ensemble>/`; frozen originals are never touched. Generation
+is GPU-/API-pinned; the verdict is zero-GPU and N-agnostic.
+
+| Ensemble | Backbones (careful / skeptic / bigpicture) | Role | Status |
 |---|---|---|---|
-| **+4 benchmarks** AQuA-RAT · ARC-Challenge · MMLU · MATH | `E_7b`/`E_mixed`/`E_orig3b` × 4 new benches, seed42 n=100 | gpu1 `:11435` | generating |
-| **+strong-anchor** `E_strong` = qwen2.5:14b / phi4-mini / llama3.2:3b (parallels `E_mixed`, isolates the 14B anchor; 13.5 GB fits one card) | × 9 benches, seed42 n=100 | gpu0 `:11436` | generating |
-| **+N=5** `E_n5` = qwen2.5:3b / phi4-mini / llama3.2:3b / mistral:7b / qwen2.5:7b (E_orig + 2 mid) | × 9 benches, seed42 n=100 | gpu0 `:11436` | generating |
+| `E_orig` (reference) | qwen2.5:3b / phi4-mini / llama3.2:3b | small (frozen logs) | done |
+| `E_7b` | qwen2.5:7b / mistral:7b / llama3.1:8b | mid, cross-family | done |
+| `E_mixed` | gemma2:9b / phi4-mini / llama3.2:3b | mixed capability | done |
+| `E_strong` | qwen2.5:14b / phi4-mini / llama3.2:3b | 14B anchor (13.5 GB) | done |
+| `E_n5` | + mistral:7b + qwen2.5:7b (N=5) | agent-count stress | done |
+| **`E_strong24`** | **mistral-small3.1:24b** / phi4-mini / llama3.2:3b | **24B anchor** | **done** (H1 7/8, H2 8/8, selector 5/7 valid) |
+| **`E_frontier`** | **deepseek-v4-flash ×3 personas** (cloud API) | **frontier-scale** | **done** (H1 8/8, H2 7/8; only 2/8 cells pass validity gate — outputs often unparseable) |
 
-Cells escalate to seeds 43–44 **only** if they pass the Step-A validity gate (parse ≤ 15% censored,
-0.10 ≤ maj-acc ≤ 0.95, CR_history ≥ 0.15) **and** show H1∧H2 — an H3 near-miss is never a reason to
-expand (anti-chasing). Pre-registered prediction: the four MC/sticky benchmarks are **H3-difficult** for
-named reasons while H1/H2 hold where the regime is valid; a confirmed prediction turns the post-hoc §9
-characterization into a predictive theory. Final ladder = **small → mid → mixed → strong** + **N=3 → N=5**,
-≈7 checkpoints across 5 families (Qwen/Phi/Llama/Mistral/Gemma), 3B–14B. The controller (E6–E12) is
-**not** re-generalized — it is dead (RQ2).
+Benchmarks: 5 core + AQuA / ARC / MMLU (MATH was collected then **removed** by decision). Sign summary over
+the 40-cell grid: **H1 36/40 (40/40 positive), H2 38/40, selector 13/40** (regime-bound, no significant
+loss). Extension axes reported separately (`e25_scale_ext.json`, Fig. 13): E_strong24 (24B), E_frontier (deepseek). Applicability conditions (predictive, pre-registered in `paper/E25_newbench_prereg.md`): reranking
+helps ⟺ **identifiability** (provenance informative; violated by binary StrategyQA) **∧ availability**
+(a correct hypothesis is in the pool; TruthfulQA tops at ~24–31%). Analysis: `paper/E25_H3_generalization_analysis.md`.
+
+---
+
+## 2026-09 reviewer-response work & extensions
+
+A tough ICML/NeurIPS-style meta-review drove the following. **Status tracker (2026-09-02):**
+
+| Reviewer point | Status | Where / how |
+|---|---|---|
+| **#1** Scale too small / no frontier | ✅ done | E_strong24 (24B: H1 7/8, H2 8/8) + E_frontier (deepseek-v4-flash: H1 8/8, H2 7/8, only 2/8 cells inside validity gate) → range **3B→24B + frontier-scale API**; proprietary-frontier (GPT-4/Claude/Gemini) still open |
+| **#2** E_strong(14B)/E_n5 only 1 seed | ✅ done | `scripts/e25_seed_topup_gen.py` generated seeds 43-44; E_strong/E_n5 now **3 seeds** on {gsm8k, commonsenseqa, bbh, strategyqa}; new 24B/frontier 3-seed on core |
+| **#3** Contribution-vs-recommendation tension | ✅ done | diagnostic reframe (item 6) |
+| **#4** "independent = self-consistency renamed" | ✅ done | novelty lock in Related Work + Intro (item 6); E_frontier homogeneous adds an empirical control |
+| **#5** No multiplicity correction | ✅ done | BH-FDR E32 (item 5) |
+| minor — matched-support cell n=43 no CI | ✅ done | Wilson CIs, 0.74 [0.60,0.85] (item 4) |
+| minor — StrategyQA post-hoc claim | ✅ done | already hedged: "a boundary rather than a demonstrated cause" |
+| minor — persona⊥backbone confound | ✅ acknowledged | Limitations (future work); E_frontier (same backbone, persona-only diversity) = partial control |
+| minor — no confidence / ReConcile baseline | ✅ done | Limitations statement: frequency-confidence ≈ round-0/support baselines; calibrated/self-reported confidence + ReConcile-style aggregators = future work (backend exposes no logprobs) |
+| minor — prose too number-dense | 🟡 substantial | addressed by the 20-25% trim (item 1); further micro-pass optional |
+
+Detail:
+
+1. **Main-text trim & restructure** — 6 main figures (`figure*`, full width), rest → appendix, every
+   figure/table cited (`Figure X` / `Table X`, no "main vs appendix" wording). Discussion 5→3 subsections;
+   selector 6→1 paragraphs; generalization 4→1; removed a redundant subsection. Main body ≈ 9.5k words.
+2. **Correctness fixes** (all verified against source): `n_inh` cumulative-vs-peer-conditioned bug → true
+   peer-conditioned adoption decomposition (`e28_h3_robust.py`); unified baseline 0.528; AQuA N=1302 (100 q,
+   E_orig 20-pilot subset); algorithm pseudocode O(NT) precompute; consistent cross-references.
+3. **Self-consistency baseline (E31)** — `experiments/e31_self_consistency.py` (+`--ci` cache-only paired
+   bootstrap/McNemar → merged into `e31_self_consistency.json`). Integrated at 4 spots (Intro, §5.7,
+   appendix `tab:selfconsistency` + budget ladder `tab:sc_budget`, Limitations). Framed as **confirmatory**.
+4. **Matched-support Wilson CIs** — added to `tab:matched` prose + caption (flagged n=43 cell → [0.60,0.85]).
+5. **BH-FDR multiplicity (E32)** — `experiments/e32_multiplicity.py`; fixed a data gap first
+   (`e25_generalization.json` had 9 cells not 15 — the "bare `--verdict` = 3 pilot benches" bug; regenerated,
+   9 originals byte-identical). Result: H1/H2 unchanged, selector 14→8. Integrated in §5.1 + appendix.
+6. **Diagnostic reframe** — locked the hierarchy *finding > framework > selector*; locked the
+   novelty-vs-self-consistency distinction in Related Work ("SC aggregates independent samples; we ask
+   whether, once agents interact, equal observed consensus retains equal evidential value — it does not");
+   stated the selector does not compete with SC as a deployment method.
+7. **Larger open-weight anchor (E_strong24, 24B)** and **frontier API model (E_frontier,
+   deepseek-v4-flash)** — see the grid above; both **launched 2026-09-02**, logs under `results/logs/`.
+   To wire the cloud model, an **OpenAI-compatible backend** was added to the framework (was Ollama-only):
+   `src/agents/base_agent.py::_call_openai_chat`, threaded through `run_debate._build_agents`
+   (`backend` / `api_key_env`); default stays `ollama` so nothing else changed.
+8. **Seed top-up (#2)** — `scripts/e25_seed_topup_gen.py`: waits for E_strong24 to finish, then generates
+   seeds 43-44 for E_strong (14B) + E_n5 on {gsm8k, commonsenseqa, bbh, strategyqa} so those exact cells get
+   3 seeds. Launched (queued) 2026-09-02, gpu0-pinned, resumable.
+9. **Confidence / ReConcile baseline statement** — added to Limitations (cites `chen2024reconcile`), closing
+   the "weak baselines" minor point honestly (frequency-confidence already subsumed by round-0/support;
+   calibrated/self-reported confidence unavailable from the backend).
+
+**Live runs (2026-09-02):**
+
+| Run | Resource | Purpose | Status |
+|---|---|---|---|
+| `e25_strong24_gen.py` | gpu0 `:11436` (Mistral-24B, ~89 s/debate) | #1 larger anchor | ✅ done, 16 cells (verdict `e25_scale_ext.json`) |
+| `e25_frontier_gen.py` | cloud API (deepseek-v4-flash) | #1 frontier-scale | ✅ done, 16 cells (billing-402 resume used `deepseek-chat` = same underlying v4-flash) |
+| `e25_seed_topup_gen.py` | gpu0/gpu1 ollama | #2 seed variance | ✅ done (seeds 43-44 on core) |
+
+**Done 2026-09-04:** final numerical audit + paper claim updates — all verdict tables, `fig_cells`, e26/e28/e30/e32
+and figures regenerated over the complete logs (27,139 candidates); paper.tex + README numbers updated (range
+"3B–14B"→"3B–24B + frontier-scale API"); E_strong24 / E_frontier wired into `e25_scale_ext.json` + Fig. 13.
+
+**Still open (by decision):** (#6) release scope of derived candidate/provenance tables (awaiting sign-off);
+proprietary-frontier validation (#1 residual — deepseek-v4-flash is frontier-*scale API*, not GPT-4/Claude/Gemini).
 
 ---
 
 ## Conference → journal bridge
 
-The IA-MAD analysis still runs and is now a **baseline layer**: influence does not track competence
-(r = 0.15) but tracks stubbornness (r = 0.69), and influence rank is stable across benchmarks
-(Spearman 0.80). The journal shows its limit: influence **cannot** diagnose the failure mechanism (RQ2,
-AUC 0.49) and the influence-aware **vote loses to plain majority** (RQ5, 50.2% vs 52.8%). The story
-moves from *influence* to *preservation & provenance*. (`experiments/analyze_all.py`.)
+The IA-MAD influence analysis still runs and is now a **baseline layer** (RQ2): influence tracks stubbornness
+(r=0.69) not competence (r=0.15); rank is stable across benchmarks (Spearman 0.80); but the influence-aware
+**vote loses to plain majority** (0.502 vs 0.528). The story moves from *influence* to *preservation &
+provenance*. (`experiments/analyze_all.py`.)
 
 ---
 
 ## Alternative approaches tested (supplementary, not in the main narrative)
 
-To reach the method above we ruled out several alternatives; each is a script + result table, kept for
-completeness only: a semantic mechanism router (`e3b_*`); a hazard-guided adaptive **controller** and
-its robustness battery (`e6`,`e7`,`e8`,`e9`,`e12`) — it matches always-on at ~half the interventions
-but its detector edge over a random budget is ≈0, which is *why* RQ2 concludes targeting is the hard
-part; four benefit-prediction rescues (`e14` semantic, `e15` active probe, `e16` dose-response, `e17`
-trajectory) — all fail the same preregistered gate, confirming benefit is unidentifiable; a
-deterministic arithmetic verifier (`e20`); and an external LLM judge over the pool (`e21`) — a capable
-judge does better solving than selecting from a weak pool. None enters the main text.
+Ruled out en route to the method; each is a script + result table kept for completeness: semantic mechanism
+router (`e3b_*`); hazard-guided **controller** + robustness battery (`e6`–`e9`, `e12`) — matches always-on at
+~half the interventions but its edge over a random budget is ≈0, which is *why* RQ3 concludes targeting is
+hard; four benefit-prediction rescues (`e14` semantic, `e15` active probe, `e16` dose-response, `e17`
+trajectory) — all fail the same pre-registered gate; deterministic arithmetic verifier (`e20`); external LLM
+judge over the pool (`e21`) — a capable judge does better *solving* than *selecting* from a weak pool.
 
 ---
 
 ## Setup
 
-3 peer LLMs debate ≤3 rounds; each sees the others' answers and may revise. Everything is logged
-(per-round answer, whether it changed). Local inference via **Ollama**.
+3 peer LLMs debate ≤3 rounds; each sees the others' answers and may revise. Local inference via **Ollama**;
+frontier via an **OpenAI-compatible cloud API** (DeepSeek).
 
-| Role (persona) | Model |
-|---|---|
-| `careful` | `qwen2.5:3b-instruct` |
-| `skeptic` | `phi4-mini:latest` |
-| `bigpicture` | `llama3.2:3b` |
+| Role (persona) | Base model (E_orig) | Temp |
+|---|---|--:|
+| `careful` | `qwen2.5:3b-instruct` | 0.3 |
+| `skeptic` | `phi4-mini:latest` | 0.5 |
+| `bigpicture` | `llama3.2:3b` | 0.5 |
 
-Benchmarks: **GSM8K, StrategyQA, CommonsenseQA, BBH, TruthfulQA** (TruthfulQA off the main axis —
-open-ended, ~12% baseline). Seeds `[42–46]`, 100 questions/seed → 500/benchmark. See `config/config.yaml`.
+Benchmarks: GSM8K, StrategyQA, CommonsenseQA, BBH, TruthfulQA (core) + AQuA, ARC, MMLU (breadth). Seeds
+`[42–46]`. See `config/config.yaml`.
 
 ---
 
 ## How to run
 
-**Core pipeline — all zero-GPU** (replays `data/debate_logs/*.jsonl`), grouped by research question:
+**Core pipeline — all zero-GPU** (replays `data/debate_logs/*.jsonl`):
 
 ```bash
 pip install -r requirements.txt
-
-# RQ1 — debate forgets correct answers
-python experiments/e1_cascade_headroom.py        # headroom decomposition (+ figure)
-python experiments/e1e4a_clean.py                # frozen E1+E4a numbers under robust extraction
-python experiments/e4a_extinction_anatomy.py     # extinction mechanisms (+ figure)
-
-# RQ2 — predictability != actionability
-python experiments/e2_mechanism_influence.py     # influence cannot diagnose the mechanism (AUC 0.49)
-python experiments/e3_router.py                  # Stage-A hazard detector (ROC 0.757, LOBO)
-python experiments/e13_benefit_aware.py          # failure != benefit: oracle +16.5pp, CATE ~ random
-python experiments/e11_benchmark_expansion.py    # detectability landscape; StrategyQA ROC 0.87
-#   E5 intervention is GPU (Ollama); eval reuses the stored arms — see below
-
-# RQ3/RQ4/RQ5 — preserve, provenance, select
-python experiments/e18_hypothesis_preservation.py  # preservation ceiling: CR 0.636 -> 0.760
-python experiments/e22_provenance.py               # provenance predicts correctness
-python experiments/e19_selector_bakeoff.py         # gold-free selector baselines (round-0 etc.)
-python experiments/e23_provenance_selector.py      # the method: Preserve -> Provenance -> Select (+3.5pp)
-python experiments/e24_convergence_selector.py     # round-0 analysis + constructive/destructive regimes
+CUDA_VISIBLE_DEVICES="" python experiments/e1e4a_clean.py            # H1 recovery headroom
+CUDA_VISIBLE_DEVICES="" python experiments/e4a_extinction_anatomy.py # extinction mechanisms
+CUDA_VISIBLE_DEVICES="" python experiments/e2_mechanism_influence.py # influence can't diagnose (AUC 0.49)
+CUDA_VISIBLE_DEVICES="" python experiments/e3_router.py              # hazard detector (ROC 0.757)
+CUDA_VISIBLE_DEVICES="" python experiments/e13_benefit_aware.py      # failure != benefit (oracle +16.5pp)
+CUDA_VISIBLE_DEVICES="" python experiments/e18_hypothesis_preservation.py  # CR 0.636 -> 0.760
+CUDA_VISIBLE_DEVICES="" python experiments/e22_provenance.py         # provenance predicts correctness (H2)
+CUDA_VISIBLE_DEVICES="" python experiments/e26_independence.py       # origin beyond magnitude (H3 headline)
+CUDA_VISIBLE_DEVICES="" python experiments/e28_h3_robust.py          # true adoption decomposition + robustness
+CUDA_VISIBLE_DEVICES="" python experiments/e27_surface_genuine.py    # surface vs genuine adoption (appendix)
+CUDA_VISIBLE_DEVICES="" python experiments/e23_provenance_selector.py  # the selector (+3.5pp)
+CUDA_VISIBLE_DEVICES="" python experiments/e30_reviewer_robustness.py  # VIF/ridge/error-corr/counts
+CUDA_VISIBLE_DEVICES="" python experiments/e31_self_consistency.py --ci  # SC paired CIs (needs cache; see below)
+CUDA_VISIBLE_DEVICES="" python experiments/e32_multiplicity.py       # BH-FDR over the 40-cell grid
 ```
 
-**GPU steps (Ollama, gpu1-pinned)** — data collection + the E5 counterfactual intervention:
+**GPU / API generation** (never run analysis on the GPU):
 
 ```bash
-ollama pull qwen2.5:3b-instruct && ollama pull phi4-mini && ollama pull llama3.2:3b
-python experiments/run_pipeline.py --benchmark gsm8k --config config/config.yaml   # (re)collect transcripts
-python experiments/e5_counterfactual.py --bench gsm8k,bbh --per-bench 40            # intervention (rescue)
+# 24B larger anchor — gpu0-pinned Ollama :11436, detached, resumable
+CUDA_VISIBLE_DEVICES="" setsid nohup python scripts/e25_strong24_gen.py > results/logs/e25_strong24.log 2>&1 &
 
-# RQ6 — generalization of the FROZEN method (E25): GPU generation + zero-GPU verdict
-python experiments/e25_generalization.py --selftest    # mock wiring check (no GPU)
-python experiments/e25_generalization.py --gen-pilot   # gpu1-pinned: 3-ensemble × 5-bench debates (data/debate_logs/gen/)
-python experiments/e25_generalization.py --verdict     # Stage-1 H1/H2/H3 across cells (zero-GPU) -> e25_generalization.json
-# Stage 2 — pre-registered breadth + scale (paper/E25_newbench_prereg.md):
-python scripts/e25_newbench_gen.py                     # gpu1 :11435 — +AQuA/MATH/MMLU/ARC on E_7b/E_mixed/E_orig3b
-python scripts/e25_gpu0_gen.py                         # gpu0 :11436 — E_strong (14B) + E_n5 (N=5) × 9 benches
-python experiments/e25_newbench_verdict.py             # zero-GPU verdict + §3 disposition (per-cell logdir)
+# Frontier via cloud API — PURE API, zero GPU. Key from a file OUTSIDE the repo.
+export DEEPSEEK_API_KEY="$(cat ~/.deepseek_key)"   # never commit; read at launch
+export DEEPSEEK_MODEL=deepseek-v4-flash
+python scripts/e25_frontier_gen.py --smoke         # 2-debate sanity check first
+CUDA_VISIBLE_DEVICES="" setsid nohup python scripts/e25_frontier_gen.py > results/logs/e25_frontier.log 2>&1 &
+
+# self-consistency generation (gpu0 :11436) then paired CIs
+CUDA_VISIBLE_DEVICES="" python experiments/e31_self_consistency.py   # generate + eval (resumable cache)
+
+# generalization verdict (zero-GPU) once logs exist
+CUDA_VISIBLE_DEVICES="" python -c "import experiments.e25_generalization as e; \
+  e.verdict(ensembles=['E_orig','E_7b','E_mixed'], benches=['gsm8k','strategyqa','commonsenseqa','bbh','truthfulqa'])"
+CUDA_VISIBLE_DEVICES="" python experiments/e25_newbench_verdict.py   # breadth + scale disposition
 ```
-
-Supplementary experiments (alternatives above) live under the same `experiments/e*` prefix and write to
-`results/tables/`; they are not needed to reproduce the main pipeline.
 
 ---
 
@@ -304,24 +356,25 @@ Supplementary experiments (alternatives above) live under the same `experiments/
 
 ```
 influence-mad/
-├── config/config.yaml              # agents (persona↔model), benchmarks, seeds, debate params
-├── data/debate_logs/               # {bench}_seed{42..46}.jsonl  ← raw transcripts (input to ALL analysis)
+├── config/config.yaml                # agents (persona↔model), benchmarks, seeds, debate params
+├── data/debate_logs/                 # {bench}_seed{42..46}.jsonl  ← frozen transcripts (input to ALL analysis)
+│   └── gen/<ensemble>/               # alt-ensemble logs (E_7b, E_mixed, E_strong, E_n5, E_strong24, E_frontier)
 ├── src/
-│   ├── agents/                     # PeerAgent + personas, Ollama wrappers (data collection & E5)
-│   ├── influence_estimation/       # influence matrix + PageRank            (conference; baseline layer)
-│   ├── influence_voting/           # majority / influence-aware voting       (conference baseline)
+│   ├── agents/base_agent.py          # Ollama /api/generate + OpenAI-compatible /chat/completions backends
+│   ├── agents/peer_agent.py          # personas + INIT/REFINE prompts
+│   ├── influence_estimation/ voting/ # conference layer (PageRank, influence-aware vote) = baseline
 │   └── utils/{scoring,answer_extract}.py   # is_correct + robust_answer (recover \boxed{}, censor truncation)
 ├── experiments/
-│   │ # --- core pipeline (RQ1→RQ5) ---
-│   ├── e1_cascade_headroom.py e1e4a_clean.py e4a_extinction_anatomy.py     # RQ1
-│   ├── e2_mechanism_influence.py e3_router.py e5_counterfactual.py         # RQ2
-│   ├── e11_benchmark_expansion.py e13_benefit_aware.py                     # RQ2
-│   ├── e18_hypothesis_preservation.py                                      # RQ3
-│   ├── e22_provenance.py                                                   # RQ4
-│   ├── e19_selector_bakeoff.py e23_provenance_selector.py e24_convergence_selector.py  # RQ5
-│   └── … (supplementary alternatives: e3b_*, e6–e9, e12, e14–e17, e20, e21)
+│   ├── e1*/e4a*                       # H1 extinction & headroom
+│   ├── e2*/e3*/e5*/e11*/e13*          # RQ2/RQ3 influence + predict≠act (bridge)
+│   ├── e18*                           # H1 preservation ceiling
+│   ├── e22*/e26*/e27*/e28*           # H2 provenance + H3 origin-beyond-magnitude + robustness
+│   ├── e19*/e23*/e24*/e31*           # selector + self-consistency control
+│   ├── e25_generalization.py e25_newbench_verdict.py e25_scale_verdict.py e32_multiplicity.py  # grid + FDR
+│   └── … (supplementary: e3b_*, e6–e9, e12, e14–e17, e20, e21)
+├── scripts/                          # e25_gpu0_gen.py, e25_newbench_gen.py, e25_strong24_gen.py, e25_frontier_gen.py
 ├── results/{tables,figures,logs}/
-├── paper/                          # PAPER_OUTLINE.md (C1–C4 spine), HPMAD_results.tex (RQ3–RQ5), *.tex, *.bib
+├── paper/                            # paper.tex (manuscript), references.bib, E25_*_prereg.md, figures
 └── requirements.txt
 ```
 
@@ -329,33 +382,30 @@ influence-mad/
 
 ## Honest caveats (kept in the paper)
 
-- **The provenance selector is modest** (+3.5pp, ~14% of the ceiling) and **ties round-0-majority** —
-  independent agreement is what wins, not the score's sophistication. Framed as "provenance generalizes
-  trust-early to the constructive-debate case at equal cost." ~86% of the ceiling is the open problem.
-- **Gains are benchmark-regime-dependent**: debate is net-destructive on 4/5 benches; StrategyQA is the
-  constructive counterexample. Beating round-0 pooled would need per-instance "is this revision
-  constructive?", which is the (chance-level) attribution problem of RQ2.
-- **Generalization is under way and pre-registered.** Stage 1 (3 model-family ensembles × 5 benches,
-  N=3) gives H1 15/15, H2 14/15, H3 7/15 (regime-structured). Stage 2 extends to 4 more benchmarks, a
-  strong 14B anchor (`E_strong`), and N=5 (`E_n5`); every cell's disposition is locked in advance
-  (`E25_newbench_prereg.md`). The persona⊥backbone tie and N-scaling are the axes being closed; the
-  claims to replicate are RQ1 extinction, round-0-vs-final degradation, the provenance→correctness
-  signal, and the provenance-selector gain.
-- **All selection numbers are offline replays** of a frozen destructive-protocol debate; an end-to-end
-  live non-destructive protocol is future work.
-- **Hazard detector has no high-precision operating point** at 12% prevalence (RQ2) — it ranks, it does
-  not cleanly threshold.
+- **The selector is modest** (+3.5pp, ~15% of the ceiling) and is only *numerically close* to
+  round-0-majority (no paired test of the small gap) — independent agreement is what wins, not the score's
+  sophistication. ~85% of the ceiling is the standing open problem. It is a *proof-of-usefulness*, not a
+  deployment method that beats self-consistency.
+- **H3 is observational** (a logistic association, not a manipulation): survives a within-question control
+  but residual candidate-level confounding is possible; "independent" = interaction-independent, not
+  statistically independent (round-0 errors are correlated 1.5–158× over the independence prediction).
+- **Gains are regime-dependent**: debate is net-destructive on 4/5 benches; StrategyQA is the constructive
+  counterexample (H3 boundary); TruthfulQA fails availability.
+- **All selection numbers are offline replays** of a frozen destructive-protocol debate; a live
+  non-destructive protocol (HP-MAD) with a matched-class / self-consistency verifier is future work.
+- **Scale, not proprietary-frontier**: the range is 3B → 24B open-weight + deepseek-v4-flash (a
+  frontier-scale *API* model). No GPT-4/Claude/Gemini data point yet.
+- **Self-consistency at matched budget beats destructive debate** — reported as confirmatory evidence for
+  the thesis, and as the honest practical recommendation (answer independently rather than debate).
 
 ---
 
-> **GPU protocol.** Debate generation runs through a **dedicated GPU-pinned** Ollama instance, one per
-> card, to avoid disturbing the other user's job:
-> `CUDA_VISIBLE_DEVICES=1 OLLAMA_VULKAN=0 OLLAMA_HOST=127.0.0.1:11435
-> OLLAMA_MODELS=/usr/share/ollama/.ollama/models ollama serve` pins **gpu1**; the mirror with
-> `CUDA_VISIBLE_DEVICES=0 … OLLAMA_HOST=127.0.0.1:11436` pins **gpu0**, and both can run in parallel
-> (RQ6 Stage 2 uses both). Pinning the client is **not** enough — the system server on :11434 is
-> unpinned, and `OLLAMA_VULKAN=0` is required or Ollama re-enumerates the other card via Vulkan. Verify a
-> test load lands on the intended `pci.bus_id` (gpu0 = `01:00.0`, gpu1 = `03:00.0`), and always launch
-> detached (`setsid nohup … < /dev/null &`) so a closing session can't kill it. Whichever card the other
-> user is on, **yield it — never preempt.** Zero-GPU analyses run under
-> `CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python`.
+> **GPU protocol.** Debate generation runs through a **dedicated GPU-pinned** Ollama instance, one per card,
+> to avoid disturbing the other user's job: `CUDA_VISIBLE_DEVICES=0 OLLAMA_VULKAN=0
+> OLLAMA_HOST=127.0.0.1:11436 ollama serve` pins **gpu0**; the mirror on `:11435` / `CUDA_VISIBLE_DEVICES=1`
+> pins **gpu1**. Pinning the client is **not** enough — the system server on `:11434` is unpinned, and
+> `OLLAMA_VULKAN=0` is required or Ollama re-enumerates the other card via Vulkan. Always launch detached
+> (`setsid nohup … < /dev/null &`) so a closing session can't kill it, and **yield whichever card the other
+> user is on — never preempt.** Frontier runs use a cloud **API** (no GPU). Cloud API keys live **outside the
+> repo** (e.g. `~/.deepseek_key`, chmod 600), read at launch via `$(cat …)` — never committed, never echoed.
+> Zero-GPU analyses run under `CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python`.

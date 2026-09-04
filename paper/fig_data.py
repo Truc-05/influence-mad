@@ -3,7 +3,7 @@ Pulls existing cells from the e25 verdict JSONs; fills the 6 missing base-ensemb
 cells by running the SAME frozen e18/e22/e23 verdicts on their logs. Caches -> results/tables/fig_cells.json.
 """
 import os, sys, json, glob
-_ROOT="/home/alex/venvs/manew/influence-mad"; sys.path.insert(0,_ROOT); os.chdir(_ROOT)
+_ROOT=os.path.abspath(os.path.join(os.path.dirname(__file__),"..")); sys.path.insert(0,_ROOT); os.chdir(_ROOT)
 import numpy as np
 import experiments.e18_hypothesis_preservation as e18
 import experiments.e22_provenance as e22

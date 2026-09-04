@@ -1,0 +1,675 @@
+[2026-09-02 20:24:25] === E25 E_frontier gen: 16 cells, model=deepseek-v4-flash, url=https://api.deepseek.com ===
+[2026-09-02 20:24:25] >>> (1/16) E_frontier/gsm8k_seed42
+[gen ] E_frontier/gsm8k_seed42: 2 done, 98 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/gsm8k_seed42: data/debate_logs/gen/E_frontier/gsm8k_seed42.jsonl
+[2026-09-02 20:56:26] <<< DONE E_frontier/gsm8k_seed42
+[2026-09-02 20:56:26] >>> (2/16) E_frontier/commonsenseqa_seed42
+[gen ] E_frontier/commonsenseqa_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/commonsenseqa_seed42: data/debate_logs/gen/E_frontier/commonsenseqa_seed42.jsonl
+[2026-09-02 21:32:30] <<< DONE E_frontier/commonsenseqa_seed42
+[2026-09-02 21:32:30] >>> (3/16) E_frontier/bbh_seed42
+[gen ] E_frontier/bbh_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/bbh_seed42: data/debate_logs/gen/E_frontier/bbh_seed42.jsonl
+[2026-09-02 22:11:16] <<< DONE E_frontier/bbh_seed42
+[2026-09-02 22:11:16] >>> (4/16) E_frontier/strategyqa_seed42
+[gen ] E_frontier/strategyqa_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/strategyqa_seed42: data/debate_logs/gen/E_frontier/strategyqa_seed42.jsonl
+[2026-09-02 22:58:13] <<< DONE E_frontier/strategyqa_seed42
+[2026-09-02 22:58:13] >>> (5/16) E_frontier/truthfulqa_seed42
+[gen ] E_frontier/truthfulqa_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/truthfulqa_seed42: data/debate_logs/gen/E_frontier/truthfulqa_seed42.jsonl
+[2026-09-02 23:50:12] <<< DONE E_frontier/truthfulqa_seed42
+[2026-09-02 23:50:12] >>> (6/16) E_frontier/aqua_seed42
+[gen ] E_frontier/aqua_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/aqua_seed42: data/debate_logs/gen/E_frontier/aqua_seed42.jsonl
+[2026-09-03 00:25:48] <<< DONE E_frontier/aqua_seed42
+[2026-09-03 00:25:48] >>> (7/16) E_frontier/arc_seed42
+[gen ] E_frontier/arc_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/arc_seed42: data/debate_logs/gen/E_frontier/arc_seed42.jsonl
+[2026-09-03 00:52:43] <<< DONE E_frontier/arc_seed42
+[2026-09-03 00:52:43] >>> (8/16) E_frontier/mmlu_seed42
+[gen ] E_frontier/mmlu_seed42: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/mmlu_seed42: data/debate_logs/gen/E_frontier/mmlu_seed42.jsonl
+[2026-09-03 01:30:18] <<< DONE E_frontier/mmlu_seed42
+[2026-09-03 01:30:18] >>> (9/16) E_frontier/gsm8k_seed43
+[gen ] E_frontier/gsm8k_seed43: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/gsm8k_seed43: data/debate_logs/gen/E_frontier/gsm8k_seed43.jsonl
+[2026-09-03 02:00:42] <<< DONE E_frontier/gsm8k_seed43
+[2026-09-03 02:00:42] >>> (10/16) E_frontier/commonsenseqa_seed43
+[gen ] E_frontier/commonsenseqa_seed43: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [92/100] commonsenseqa_12 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] commonsenseqa_1178 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] commonsenseqa_886 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] commonsenseqa_1029 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] commonsenseqa_286 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] commonsenseqa_4 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] commonsenseqa_849 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] commonsenseqa_540 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] commonsenseqa_1065 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/commonsenseqa_seed43: data/debate_logs/gen/E_frontier/commonsenseqa_seed43.jsonl
+[2026-09-03 02:33:54] <<< DONE E_frontier/commonsenseqa_seed43
+[2026-09-03 02:33:54] >>> (11/16) E_frontier/bbh_seed43
+[gen ] E_frontier/bbh_seed43: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [1/100] bbh_hyperbaton_235 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [2/100] bbh_hyperbaton_200 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [3/100] bbh_reasoning_about_colored_objects_201 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [4/100] bbh_logical_deduction_five_objects_31 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [5/100] bbh_date_understanding_15 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [6/100] bbh_date_understanding_228 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [7/100] bbh_tracking_shuffled_objects_three_objects_218 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [8/100] bbh_logical_deduction_five_objects_177 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [9/100] bbh_tracking_shuffled_objects_seven_objects_197 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [10/100] bbh_salient_translation_error_detection_116 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [11/100] bbh_temporal_sequences_216 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [12/100] bbh_tracking_shuffled_objects_three_objects_83 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [13/100] bbh_reasoning_about_colored_objects_246 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [14/100] bbh_penguins_in_a_table_129 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [15/100] bbh_date_understanding_49 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [16/100] bbh_geometric_shapes_224 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [17/100] bbh_ruin_names_184 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [18/100] bbh_logical_deduction_three_objects_153 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [19/100] bbh_logical_deduction_seven_objects_215 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [20/100] bbh_temporal_sequences_219 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [21/100] bbh_tracking_shuffled_objects_three_objects_211 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [22/100] bbh_geometric_shapes_52 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [23/100] bbh_date_understanding_112 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [24/100] bbh_salient_translation_error_detection_135 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [25/100] bbh_penguins_in_a_table_127 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [26/100] bbh_geometric_shapes_232 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [27/100] bbh_ruin_names_152 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [28/100] bbh_penguins_in_a_table_69 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [29/100] bbh_ruin_names_76 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [30/100] bbh_tracking_shuffled_objects_three_objects_29 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [31/100] bbh_tracking_shuffled_objects_seven_objects_117 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [32/100] bbh_temporal_sequences_26 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [33/100] bbh_logical_deduction_seven_objects_185 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [34/100] bbh_geometric_shapes_199 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [35/100] bbh_hyperbaton_143 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [36/100] bbh_reasoning_about_colored_objects_185 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [37/100] bbh_tracking_shuffled_objects_five_objects_155 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [38/100] bbh_logical_deduction_seven_objects_180 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [39/100] bbh_geometric_shapes_202 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [40/100] bbh_reasoning_about_colored_objects_130 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [41/100] bbh_reasoning_about_colored_objects_86 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [42/100] bbh_tracking_shuffled_objects_three_objects_224 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [43/100] bbh_geometric_shapes_30 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [44/100] bbh_logical_deduction_seven_objects_51 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [45/100] bbh_movie_recommendation_32 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [46/100] bbh_ruin_names_148 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [47/100] bbh_temporal_sequences_72 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [48/100] bbh_logical_deduction_three_objects_82 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [49/100] bbh_geometric_shapes_167 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [50/100] bbh_logical_deduction_three_objects_146 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [51/100] bbh_tracking_shuffled_objects_three_objects_75 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [52/100] bbh_tracking_shuffled_objects_seven_objects_67 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [53/100] bbh_tracking_shuffled_objects_seven_objects_114 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [54/100] bbh_tracking_shuffled_objects_seven_objects_227 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [55/100] bbh_tracking_shuffled_objects_three_objects_167 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [56/100] bbh_tracking_shuffled_objects_three_objects_124 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [57/100] bbh_tracking_shuffled_objects_three_objects_235 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [58/100] bbh_geometric_shapes_44 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [59/100] bbh_ruin_names_243 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [60/100] bbh_logical_deduction_seven_objects_176 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [61/100] bbh_snarks_114 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [62/100] bbh_movie_recommendation_229 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [63/100] bbh_tracking_shuffled_objects_five_objects_185 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [64/100] bbh_temporal_sequences_81 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [65/100] bbh_tracking_shuffled_objects_three_objects_13 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [66/100] bbh_hyperbaton_93 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [67/100] bbh_geometric_shapes_20 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [68/100] bbh_penguins_in_a_table_66 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [69/100] bbh_date_understanding_55 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [70/100] bbh_salient_translation_error_detection_134 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [71/100] bbh_ruin_names_190 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [72/100] bbh_disambiguation_qa_154 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [73/100] bbh_hyperbaton_31 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [74/100] bbh_ruin_names_147 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [75/100] bbh_hyperbaton_71 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [76/100] bbh_logical_deduction_seven_objects_189 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [77/100] bbh_geometric_shapes_184 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [78/100] bbh_reasoning_about_colored_objects_192 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [79/100] bbh_salient_translation_error_detection_171 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [80/100] bbh_reasoning_about_colored_objects_98 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [81/100] bbh_tracking_shuffled_objects_five_objects_209 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [82/100] bbh_tracking_shuffled_objects_five_objects_57 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [83/100] bbh_ruin_names_93 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [84/100] bbh_reasoning_about_colored_objects_31 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [85/100] bbh_date_understanding_236 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [86/100] bbh_logical_deduction_three_objects_37 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [87/100] bbh_movie_recommendation_106 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [88/100] bbh_temporal_sequences_212 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [89/100] bbh_tracking_shuffled_objects_seven_objects_109 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [90/100] bbh_temporal_sequences_209 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [91/100] bbh_logical_deduction_five_objects_84 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [92/100] bbh_salient_translation_error_detection_119 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] bbh_logical_deduction_seven_objects_223 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] bbh_temporal_sequences_28 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] bbh_temporal_sequences_237 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] bbh_salient_translation_error_detection_51 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] bbh_disambiguation_qa_116 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] bbh_salient_translation_error_detection_230 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] bbh_tracking_shuffled_objects_three_objects_26 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] bbh_date_understanding_194 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/bbh_seed43: data/debate_logs/gen/E_frontier/bbh_seed43.jsonl
+[2026-09-03 02:52:55] <<< DONE E_frontier/bbh_seed43
+[2026-09-03 02:52:55] >>> (12/16) E_frontier/strategyqa_seed43
+[gen ] E_frontier/strategyqa_seed43: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [1/100] strategyqa_8 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [2/100] strategyqa_366 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [3/100] strategyqa_427 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [4/100] strategyqa_495 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [5/100] strategyqa_623 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [6/100] strategyqa_74 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [7/100] strategyqa_420 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [8/100] strategyqa_115 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [9/100] strategyqa_162 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [10/100] strategyqa_417 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [11/100] strategyqa_280 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [12/100] strategyqa_2 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [13/100] strategyqa_518 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [14/100] strategyqa_265 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [15/100] strategyqa_629 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [16/100] strategyqa_251 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [17/100] strategyqa_39 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [18/100] strategyqa_256 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [19/100] strategyqa_237 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [20/100] strategyqa_69 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [21/100] strategyqa_550 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [22/100] strategyqa_212 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [23/100] strategyqa_5 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [24/100] strategyqa_584 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [25/100] strategyqa_404 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [26/100] strategyqa_290 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [27/100] strategyqa_399 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [28/100] strategyqa_612 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [29/100] strategyqa_491 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [30/100] strategyqa_530 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [31/100] strategyqa_100 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [32/100] strategyqa_213 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [33/100] strategyqa_380 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [34/100] strategyqa_423 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [35/100] strategyqa_386 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [36/100] strategyqa_14 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [37/100] strategyqa_200 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [38/100] strategyqa_174 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [39/100] strategyqa_355 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [40/100] strategyqa_302 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [41/100] strategyqa_514 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [42/100] strategyqa_548 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [43/100] strategyqa_422 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [44/100] strategyqa_143 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [45/100] strategyqa_306 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [46/100] strategyqa_544 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [47/100] strategyqa_617 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [48/100] strategyqa_227 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [49/100] strategyqa_307 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [50/100] strategyqa_369 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [51/100] strategyqa_24 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [52/100] strategyqa_118 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [53/100] strategyqa_515 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [54/100] strategyqa_503 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [55/100] strategyqa_631 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [56/100] strategyqa_415 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [57/100] strategyqa_649 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [58/100] strategyqa_312 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [59/100] strategyqa_542 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [60/100] strategyqa_303 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [61/100] strategyqa_501 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [62/100] strategyqa_504 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [63/100] strategyqa_593 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [64/100] strategyqa_138 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [65/100] strategyqa_477 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [66/100] strategyqa_475 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [67/100] strategyqa_538 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [68/100] strategyqa_149 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [69/100] strategyqa_509 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [70/100] strategyqa_92 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [71/100] strategyqa_42 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [72/100] strategyqa_377 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [73/100] strategyqa_571 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [74/100] strategyqa_492 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [75/100] strategyqa_365 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [76/100] strategyqa_536 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [77/100] strategyqa_180 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [78/100] strategyqa_419 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [79/100] strategyqa_132 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [80/100] strategyqa_105 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [81/100] strategyqa_606 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [82/100] strategyqa_101 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [83/100] strategyqa_33 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [84/100] strategyqa_86 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [85/100] strategyqa_325 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [86/100] strategyqa_339 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [87/100] strategyqa_193 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [88/100] strategyqa_528 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [89/100] strategyqa_176 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [90/100] strategyqa_64 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [91/100] strategyqa_638 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [92/100] strategyqa_547 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] strategyqa_40 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] strategyqa_177 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] strategyqa_619 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] strategyqa_241 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] strategyqa_179 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] strategyqa_328 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] strategyqa_191 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] strategyqa_240 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/strategyqa_seed43: data/debate_logs/gen/E_frontier/strategyqa_seed43.jsonl
+[2026-09-03 03:11:57] <<< DONE E_frontier/strategyqa_seed43
+[2026-09-03 03:11:57] >>> (13/16) E_frontier/gsm8k_seed44
+[gen ] E_frontier/gsm8k_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [1/100] gsm8k_588 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [2/100] gsm8k_1214 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [3/100] gsm8k_57 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [4/100] gsm8k_906 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [5/100] gsm8k_1252 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [6/100] gsm8k_618 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [7/100] gsm8k_599 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [8/100] gsm8k_289 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [9/100] gsm8k_608 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [10/100] gsm8k_400 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [11/100] gsm8k_237 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [12/100] gsm8k_616 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [13/100] gsm8k_672 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [14/100] gsm8k_1132 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [15/100] gsm8k_463 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [16/100] gsm8k_222 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [17/100] gsm8k_945 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [18/100] gsm8k_238 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [19/100] gsm8k_730 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [20/100] gsm8k_55 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [21/100] gsm8k_772 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [22/100] gsm8k_176 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [23/100] gsm8k_15 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [24/100] gsm8k_66 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [25/100] gsm8k_479 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [26/100] gsm8k_896 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [27/100] gsm8k_1122 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [28/100] gsm8k_1005 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [29/100] gsm8k_480 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [30/100] gsm8k_187 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [31/100] gsm8k_275 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [32/100] gsm8k_868 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [33/100] gsm8k_921 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [34/100] gsm8k_562 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [35/100] gsm8k_1082 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [36/100] gsm8k_172 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [37/100] gsm8k_770 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [38/100] gsm8k_1191 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [39/100] gsm8k_413 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [40/100] gsm8k_537 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [41/100] gsm8k_1154 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [42/100] gsm8k_1308 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [43/100] gsm8k_454 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [44/100] gsm8k_280 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [45/100] gsm8k_177 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [46/100] gsm8k_923 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [47/100] gsm8k_677 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [48/100] gsm8k_1176 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [49/100] gsm8k_21 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [50/100] gsm8k_970 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [51/100] gsm8k_356 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [52/100] gsm8k_100 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [53/100] gsm8k_132 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [54/100] gsm8k_364 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [55/100] gsm8k_969 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [56/100] gsm8k_1273 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [57/100] gsm8k_143 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [58/100] gsm8k_442 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [59/100] gsm8k_464 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [60/100] gsm8k_1089 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [61/100] gsm8k_259 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [62/100] gsm8k_90 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [63/100] gsm8k_998 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [64/100] gsm8k_989 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [65/100] gsm8k_22 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [66/100] gsm8k_586 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [67/100] gsm8k_756 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [68/100] gsm8k_1261 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [69/100] gsm8k_296 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [70/100] gsm8k_383 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [71/100] gsm8k_709 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [72/100] gsm8k_1069 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [73/100] gsm8k_1141 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [74/100] gsm8k_179 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [75/100] gsm8k_731 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [76/100] gsm8k_1241 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [77/100] gsm8k_371 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [78/100] gsm8k_107 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [79/100] gsm8k_1115 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [80/100] gsm8k_851 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [81/100] gsm8k_303 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [82/100] gsm8k_535 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [83/100] gsm8k_544 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [84/100] gsm8k_374 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [85/100] gsm8k_387 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [86/100] gsm8k_434 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [87/100] gsm8k_706 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [88/100] gsm8k_347 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [89/100] gsm8k_811 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [90/100] gsm8k_35 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [91/100] gsm8k_892 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [92/100] gsm8k_314 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] gsm8k_2 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] gsm8k_944 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] gsm8k_687 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] gsm8k_1184 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] gsm8k_297 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] gsm8k_1068 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] gsm8k_792 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] gsm8k_932 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/gsm8k_seed44: data/debate_logs/gen/E_frontier/gsm8k_seed44.jsonl
+[2026-09-03 03:30:58] <<< DONE E_frontier/gsm8k_seed44
+[2026-09-03 03:30:58] >>> (14/16) E_frontier/commonsenseqa_seed44
+[gen ] E_frontier/commonsenseqa_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [1/100] commonsenseqa_489 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [2/100] commonsenseqa_624 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [3/100] commonsenseqa_991 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [4/100] commonsenseqa_893 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [5/100] commonsenseqa_627 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [6/100] commonsenseqa_1019 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [7/100] commonsenseqa_746 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [8/100] commonsenseqa_385 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [9/100] commonsenseqa_651 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [10/100] commonsenseqa_1126 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [11/100] commonsenseqa_1024 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [12/100] commonsenseqa_728 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [13/100] commonsenseqa_1207 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [14/100] commonsenseqa_1216 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [15/100] commonsenseqa_831 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [16/100] commonsenseqa_1154 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [17/100] commonsenseqa_314 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [18/100] commonsenseqa_870 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [19/100] commonsenseqa_628 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [20/100] commonsenseqa_1040 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [21/100] commonsenseqa_672 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [22/100] commonsenseqa_32 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [23/100] commonsenseqa_949 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [24/100] commonsenseqa_899 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [25/100] commonsenseqa_1074 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [26/100] commonsenseqa_1094 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [27/100] commonsenseqa_921 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [28/100] commonsenseqa_684 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [29/100] commonsenseqa_917 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [30/100] commonsenseqa_1139 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [31/100] commonsenseqa_736 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [32/100] commonsenseqa_470 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [33/100] commonsenseqa_420 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [34/100] commonsenseqa_835 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [35/100] commonsenseqa_933 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [36/100] commonsenseqa_300 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [37/100] commonsenseqa_1206 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [38/100] commonsenseqa_1132 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [39/100] commonsenseqa_854 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [40/100] commonsenseqa_66 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [41/100] commonsenseqa_709 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [42/100] commonsenseqa_900 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [43/100] commonsenseqa_986 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [44/100] commonsenseqa_81 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [45/100] commonsenseqa_632 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [46/100] commonsenseqa_980 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [47/100] commonsenseqa_200 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [48/100] commonsenseqa_975 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [49/100] commonsenseqa_164 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [50/100] commonsenseqa_730 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [51/100] commonsenseqa_969 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [52/100] commonsenseqa_912 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [53/100] commonsenseqa_762 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [54/100] commonsenseqa_294 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [55/100] commonsenseqa_1109 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [56/100] commonsenseqa_749 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [57/100] commonsenseqa_192 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [58/100] commonsenseqa_763 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [59/100] commonsenseqa_729 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [60/100] commonsenseqa_829 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [61/100] commonsenseqa_580 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [62/100] commonsenseqa_723 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [63/100] commonsenseqa_983 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [64/100] commonsenseqa_55 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [65/100] commonsenseqa_11 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [66/100] commonsenseqa_337 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [67/100] commonsenseqa_774 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [68/100] commonsenseqa_461 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [69/100] commonsenseqa_404 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [70/100] commonsenseqa_1200 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [71/100] commonsenseqa_380 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [72/100] commonsenseqa_148 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [73/100] commonsenseqa_107 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [74/100] commonsenseqa_579 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [75/100] commonsenseqa_795 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [76/100] commonsenseqa_524 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [77/100] commonsenseqa_872 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [78/100] commonsenseqa_1182 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [79/100] commonsenseqa_320 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [80/100] commonsenseqa_390 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [81/100] commonsenseqa_584 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [82/100] commonsenseqa_202 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [83/100] commonsenseqa_349 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [84/100] commonsenseqa_522 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [85/100] commonsenseqa_791 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [86/100] commonsenseqa_18 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [87/100] commonsenseqa_304 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [88/100] commonsenseqa_121 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [89/100] commonsenseqa_67 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [90/100] commonsenseqa_880 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [91/100] commonsenseqa_56 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [92/100] commonsenseqa_12 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] commonsenseqa_1178 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] commonsenseqa_886 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] commonsenseqa_1029 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] commonsenseqa_286 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] commonsenseqa_4 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] commonsenseqa_849 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] commonsenseqa_540 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] commonsenseqa_1065 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/commonsenseqa_seed44: data/debate_logs/gen/E_frontier/commonsenseqa_seed44.jsonl
+[2026-09-03 03:49:59] <<< DONE E_frontier/commonsenseqa_seed44
+[2026-09-03 03:49:59] >>> (15/16) E_frontier/bbh_seed44
+[gen ] E_frontier/bbh_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [1/100] bbh_hyperbaton_235 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [2/100] bbh_hyperbaton_200 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [3/100] bbh_reasoning_about_colored_objects_201 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [4/100] bbh_logical_deduction_five_objects_31 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [5/100] bbh_date_understanding_15 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [6/100] bbh_date_understanding_228 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [7/100] bbh_tracking_shuffled_objects_three_objects_218 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [8/100] bbh_logical_deduction_five_objects_177 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [9/100] bbh_tracking_shuffled_objects_seven_objects_197 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [10/100] bbh_salient_translation_error_detection_116 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [11/100] bbh_temporal_sequences_216 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [12/100] bbh_tracking_shuffled_objects_three_objects_83 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [13/100] bbh_reasoning_about_colored_objects_246 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [14/100] bbh_penguins_in_a_table_129 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [15/100] bbh_date_understanding_49 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [16/100] bbh_geometric_shapes_224 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [17/100] bbh_ruin_names_184 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [18/100] bbh_logical_deduction_three_objects_153 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [19/100] bbh_logical_deduction_seven_objects_215 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [20/100] bbh_temporal_sequences_219 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [21/100] bbh_tracking_shuffled_objects_three_objects_211 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [22/100] bbh_geometric_shapes_52 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [23/100] bbh_date_understanding_112 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [24/100] bbh_salient_translation_error_detection_135 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [25/100] bbh_penguins_in_a_table_127 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [26/100] bbh_geometric_shapes_232 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [27/100] bbh_ruin_names_152 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [28/100] bbh_penguins_in_a_table_69 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [29/100] bbh_ruin_names_76 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [30/100] bbh_tracking_shuffled_objects_three_objects_29 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [31/100] bbh_tracking_shuffled_objects_seven_objects_117 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [32/100] bbh_temporal_sequences_26 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [33/100] bbh_logical_deduction_seven_objects_185 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [34/100] bbh_geometric_shapes_199 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [35/100] bbh_hyperbaton_143 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [36/100] bbh_reasoning_about_colored_objects_185 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [37/100] bbh_tracking_shuffled_objects_five_objects_155 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [38/100] bbh_logical_deduction_seven_objects_180 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [39/100] bbh_geometric_shapes_202 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [40/100] bbh_reasoning_about_colored_objects_130 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [41/100] bbh_reasoning_about_colored_objects_86 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [42/100] bbh_tracking_shuffled_objects_three_objects_224 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [43/100] bbh_geometric_shapes_30 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [44/100] bbh_logical_deduction_seven_objects_51 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [45/100] bbh_movie_recommendation_32 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [46/100] bbh_ruin_names_148 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [47/100] bbh_temporal_sequences_72 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [48/100] bbh_logical_deduction_three_objects_82 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [49/100] bbh_geometric_shapes_167 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [50/100] bbh_logical_deduction_three_objects_146 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [51/100] bbh_tracking_shuffled_objects_three_objects_75 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [52/100] bbh_tracking_shuffled_objects_seven_objects_67 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [53/100] bbh_tracking_shuffled_objects_seven_objects_114 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [54/100] bbh_tracking_shuffled_objects_seven_objects_227 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [55/100] bbh_tracking_shuffled_objects_three_objects_167 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [56/100] bbh_tracking_shuffled_objects_three_objects_124 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [57/100] bbh_tracking_shuffled_objects_three_objects_235 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [58/100] bbh_geometric_shapes_44 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [59/100] bbh_ruin_names_243 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [60/100] bbh_logical_deduction_seven_objects_176 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [61/100] bbh_snarks_114 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [62/100] bbh_movie_recommendation_229 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [63/100] bbh_tracking_shuffled_objects_five_objects_185 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [64/100] bbh_temporal_sequences_81 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [65/100] bbh_tracking_shuffled_objects_three_objects_13 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [66/100] bbh_hyperbaton_93 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [67/100] bbh_geometric_shapes_20 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [68/100] bbh_penguins_in_a_table_66 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [69/100] bbh_date_understanding_55 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [70/100] bbh_salient_translation_error_detection_134 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [71/100] bbh_ruin_names_190 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [72/100] bbh_disambiguation_qa_154 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [73/100] bbh_hyperbaton_31 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [74/100] bbh_ruin_names_147 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [75/100] bbh_hyperbaton_71 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [76/100] bbh_logical_deduction_seven_objects_189 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [77/100] bbh_geometric_shapes_184 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [78/100] bbh_reasoning_about_colored_objects_192 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [79/100] bbh_salient_translation_error_detection_171 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [80/100] bbh_reasoning_about_colored_objects_98 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [81/100] bbh_tracking_shuffled_objects_five_objects_209 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [82/100] bbh_tracking_shuffled_objects_five_objects_57 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [83/100] bbh_ruin_names_93 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [84/100] bbh_reasoning_about_colored_objects_31 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [85/100] bbh_date_understanding_236 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [86/100] bbh_logical_deduction_three_objects_37 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [87/100] bbh_movie_recommendation_106 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [88/100] bbh_temporal_sequences_212 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [89/100] bbh_tracking_shuffled_objects_seven_objects_109 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [90/100] bbh_temporal_sequences_209 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [91/100] bbh_logical_deduction_five_objects_84 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [92/100] bbh_salient_translation_error_detection_119 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] bbh_logical_deduction_seven_objects_223 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] bbh_temporal_sequences_28 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] bbh_temporal_sequences_237 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] bbh_salient_translation_error_detection_51 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] bbh_disambiguation_qa_116 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] bbh_salient_translation_error_detection_230 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] bbh_tracking_shuffled_objects_three_objects_26 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] bbh_date_understanding_194 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/bbh_seed44: data/debate_logs/gen/E_frontier/bbh_seed44.jsonl
+[2026-09-03 04:09:00] <<< DONE E_frontier/bbh_seed44
+[2026-09-03 04:09:00] >>> (16/16) E_frontier/strategyqa_seed44
+[gen ] E_frontier/strategyqa_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+  [1/100] strategyqa_8 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [2/100] strategyqa_366 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [3/100] strategyqa_427 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [4/100] strategyqa_495 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [5/100] strategyqa_623 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [6/100] strategyqa_74 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [7/100] strategyqa_420 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [8/100] strategyqa_115 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [9/100] strategyqa_162 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [10/100] strategyqa_417 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [11/100] strategyqa_280 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [12/100] strategyqa_2 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [13/100] strategyqa_518 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [14/100] strategyqa_265 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [15/100] strategyqa_629 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [16/100] strategyqa_251 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [17/100] strategyqa_39 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [18/100] strategyqa_256 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [19/100] strategyqa_237 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [20/100] strategyqa_69 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [21/100] strategyqa_550 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [22/100] strategyqa_212 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [23/100] strategyqa_5 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [24/100] strategyqa_584 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [25/100] strategyqa_404 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [26/100] strategyqa_290 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [27/100] strategyqa_399 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [28/100] strategyqa_612 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [29/100] strategyqa_491 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [30/100] strategyqa_530 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [31/100] strategyqa_100 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [32/100] strategyqa_213 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [33/100] strategyqa_380 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [34/100] strategyqa_423 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [35/100] strategyqa_386 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [36/100] strategyqa_14 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [37/100] strategyqa_200 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [38/100] strategyqa_174 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [39/100] strategyqa_355 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [40/100] strategyqa_302 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [41/100] strategyqa_514 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [42/100] strategyqa_548 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [43/100] strategyqa_422 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [44/100] strategyqa_143 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [45/100] strategyqa_306 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [46/100] strategyqa_544 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [47/100] strategyqa_617 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [48/100] strategyqa_227 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [49/100] strategyqa_307 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [50/100] strategyqa_369 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [51/100] strategyqa_24 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [52/100] strategyqa_118 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [53/100] strategyqa_515 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [54/100] strategyqa_503 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [55/100] strategyqa_631 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [56/100] strategyqa_415 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [57/100] strategyqa_649 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [58/100] strategyqa_312 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [59/100] strategyqa_542 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [60/100] strategyqa_303 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [61/100] strategyqa_501 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [62/100] strategyqa_504 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [63/100] strategyqa_593 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [64/100] strategyqa_138 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [65/100] strategyqa_477 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [66/100] strategyqa_475 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [67/100] strategyqa_538 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [68/100] strategyqa_149 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [69/100] strategyqa_509 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [70/100] strategyqa_92 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [71/100] strategyqa_42 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [72/100] strategyqa_377 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [73/100] strategyqa_571 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [74/100] strategyqa_492 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [75/100] strategyqa_365 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [76/100] strategyqa_536 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [77/100] strategyqa_180 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [78/100] strategyqa_419 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [79/100] strategyqa_132 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [80/100] strategyqa_105 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [81/100] strategyqa_606 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [82/100] strategyqa_101 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [83/100] strategyqa_33 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [84/100] strategyqa_86 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [85/100] strategyqa_325 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [86/100] strategyqa_339 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [87/100] strategyqa_193 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [88/100] strategyqa_528 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [89/100] strategyqa_176 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [90/100] strategyqa_64 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [91/100] strategyqa_638 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [92/100] strategyqa_547 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [93/100] strategyqa_40 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [94/100] strategyqa_177 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [95/100] strategyqa_619 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [96/100] strategyqa_241 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [97/100] strategyqa_179 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [98/100] strategyqa_328 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [99/100] strategyqa_191 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+  [100/100] strategyqa_240 FAILED: 402 Client Error: Payment Required for url: https://api.deepseek.com/chat/completions
+[ok  ] E_frontier/strategyqa_seed44: data/debate_logs/gen/E_frontier/strategyqa_seed44.jsonl
+[2026-09-03 04:28:01] <<< DONE E_frontier/strategyqa_seed44
+[2026-09-03 04:28:01] === ALL E_frontier GEN DONE ===

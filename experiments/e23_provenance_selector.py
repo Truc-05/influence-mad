@@ -23,7 +23,7 @@ PRIMARY: ΔAcc = Acc_selector − Acc_final_majority, cluster-bootstrap by qid, 
 SECONDARY: % of the oracle ceiling captured = (Acc − final_maj)/(CR_history − final_maj).
 GO iff a provenance selector beats final_majority pooled (CI excludes 0) AND ≥3/5 benches same sign.
 ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e23_provenance_selector.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e23_provenance_selector.py
 """
 import os, sys, glob, json
 from collections import Counter, defaultdict

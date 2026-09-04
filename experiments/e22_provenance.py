@@ -17,7 +17,7 @@ Candidate = one distinct answer-bucket in a debate's history pool (rounds 0..F).
 correctness as every prior experiment (e3.prep_log). "Independent" = round 0 (agents' first answer,
 pre-revision; matches the independent_answers field). Correlations within a debate are handled by
 clustering the bootstrap on qid. ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e22_provenance.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e22_provenance.py
 """
 import os, sys, glob, json
 from collections import defaultdict

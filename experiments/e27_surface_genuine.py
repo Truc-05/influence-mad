@@ -19,7 +19,7 @@ round r, residualize by baseline; genuine iff residual > 0 (reasoning overlap be
 average), else surface. Same candidate grid as E26 (5 ensembles x 8 benchmarks, MATH removed); clustered
 bootstrap on config|bench|qid.
 
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e27_surface_genuine.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e27_surface_genuine.py
 """
 import os, sys, glob, json
 from collections import defaultdict, Counter

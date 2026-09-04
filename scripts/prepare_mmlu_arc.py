@@ -6,7 +6,7 @@ paper/E25_newbench_prereg.md). Deterministic seed-42 shuffle so the first-N slic
 (gen_cell reads [:n]) is a representative mix, not one MMLU subject.
 
 Run (offline, uses local HF cache):
-  HF_DATASETS_OFFLINE=1 HF_HUB_OFFLINE=1 /home/alex/venvs/env/bin/python scripts/prepare_mmlu_arc.py
+  HF_DATASETS_OFFLINE=1 HF_HUB_OFFLINE=1 python scripts/prepare_mmlu_arc.py
 """
 import json, os, random
 from datasets import load_dataset

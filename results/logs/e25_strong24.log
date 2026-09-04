@@ -1,0 +1,66 @@
+[2026-09-02 19:50:52] === E25 E_strong24 gen: 16 cells (stage1=8, stage2=8), n=100, url=http://localhost:11436 ===
+[2026-09-02 19:50:52] >>> (1/16) E_strong24/gsm8k_seed42
+[gen ] E_strong24/gsm8k_seed42: 2 done, 98 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/gsm8k_seed42: data/debate_logs/gen/E_strong24/gsm8k_seed42.jsonl
+[2026-09-02 22:11:27] <<< DONE E_strong24/gsm8k_seed42
+[2026-09-02 22:11:27] >>> (2/16) E_strong24/commonsenseqa_seed42
+[gen ] E_strong24/commonsenseqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/commonsenseqa_seed42: data/debate_logs/gen/E_strong24/commonsenseqa_seed42.jsonl
+[2026-09-03 00:40:05] <<< DONE E_strong24/commonsenseqa_seed42
+[2026-09-03 00:40:05] >>> (3/16) E_strong24/bbh_seed42
+[gen ] E_strong24/bbh_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/bbh_seed42: data/debate_logs/gen/E_strong24/bbh_seed42.jsonl
+[2026-09-03 03:05:41] <<< DONE E_strong24/bbh_seed42
+[2026-09-03 03:05:41] >>> (4/16) E_strong24/strategyqa_seed42
+[gen ] E_strong24/strategyqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/strategyqa_seed42: data/debate_logs/gen/E_strong24/strategyqa_seed42.jsonl
+[2026-09-03 05:17:17] <<< DONE E_strong24/strategyqa_seed42
+[2026-09-03 05:17:17] >>> (5/16) E_strong24/truthfulqa_seed42
+[gen ] E_strong24/truthfulqa_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/truthfulqa_seed42: data/debate_logs/gen/E_strong24/truthfulqa_seed42.jsonl
+[2026-09-03 07:25:03] <<< DONE E_strong24/truthfulqa_seed42
+[2026-09-03 07:25:03] >>> (6/16) E_strong24/aqua_seed42
+[gen ] E_strong24/aqua_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/aqua_seed42: data/debate_logs/gen/E_strong24/aqua_seed42.jsonl
+[2026-09-03 10:00:15] <<< DONE E_strong24/aqua_seed42
+[2026-09-03 10:00:15] >>> (7/16) E_strong24/arc_seed42
+[gen ] E_strong24/arc_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/arc_seed42: data/debate_logs/gen/E_strong24/arc_seed42.jsonl
+[2026-09-03 12:08:54] <<< DONE E_strong24/arc_seed42
+[2026-09-03 12:08:54] >>> (8/16) E_strong24/mmlu_seed42
+[gen ] E_strong24/mmlu_seed42: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/mmlu_seed42: data/debate_logs/gen/E_strong24/mmlu_seed42.jsonl
+[2026-09-03 14:30:14] <<< DONE E_strong24/mmlu_seed42
+[2026-09-03 14:30:14] >>> (9/16) E_strong24/gsm8k_seed43
+[gen ] E_strong24/gsm8k_seed43: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/gsm8k_seed43: data/debate_logs/gen/E_strong24/gsm8k_seed43.jsonl
+[2026-09-03 16:30:51] <<< DONE E_strong24/gsm8k_seed43
+[2026-09-03 16:30:51] >>> (10/16) E_strong24/commonsenseqa_seed43
+[gen ] E_strong24/commonsenseqa_seed43: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/commonsenseqa_seed43: data/debate_logs/gen/E_strong24/commonsenseqa_seed43.jsonl
+[2026-09-03 18:39:20] <<< DONE E_strong24/commonsenseqa_seed43
+[2026-09-03 18:39:20] >>> (11/16) E_strong24/bbh_seed43
+[gen ] E_strong24/bbh_seed43: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/bbh_seed43: data/debate_logs/gen/E_strong24/bbh_seed43.jsonl
+[2026-09-03 21:04:29] <<< DONE E_strong24/bbh_seed43
+[2026-09-03 21:04:29] >>> (12/16) E_strong24/strategyqa_seed43
+[gen ] E_strong24/strategyqa_seed43: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/strategyqa_seed43: data/debate_logs/gen/E_strong24/strategyqa_seed43.jsonl
+[2026-09-03 23:10:58] <<< DONE E_strong24/strategyqa_seed43
+[2026-09-03 23:10:58] >>> (13/16) E_strong24/gsm8k_seed44
+[gen ] E_strong24/gsm8k_seed44: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/gsm8k_seed44: data/debate_logs/gen/E_strong24/gsm8k_seed44.jsonl
+[2026-09-04 01:08:57] <<< DONE E_strong24/gsm8k_seed44
+[2026-09-04 01:08:57] >>> (14/16) E_strong24/commonsenseqa_seed44
+[gen ] E_strong24/commonsenseqa_seed44: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/commonsenseqa_seed44: data/debate_logs/gen/E_strong24/commonsenseqa_seed44.jsonl
+[2026-09-04 03:16:43] <<< DONE E_strong24/commonsenseqa_seed44
+[2026-09-04 03:16:43] >>> (15/16) E_strong24/bbh_seed44
+[gen ] E_strong24/bbh_seed44: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/bbh_seed44: data/debate_logs/gen/E_strong24/bbh_seed44.jsonl
+[2026-09-04 05:37:20] <<< DONE E_strong24/bbh_seed44
+[2026-09-04 05:37:20] >>> (16/16) E_strong24/strategyqa_seed44
+[gen ] E_strong24/strategyqa_seed44: 0 done, 100 remaining (backend=ollama, url=http://localhost:11436)
+[ok  ] E_strong24/strategyqa_seed44: data/debate_logs/gen/E_strong24/strategyqa_seed44.jsonl
+[2026-09-04 07:48:55] <<< DONE E_strong24/strategyqa_seed44
+[2026-09-04 07:48:55] === ALL E_strong24 GEN DONE ===

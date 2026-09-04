@@ -24,6 +24,8 @@ def _build_agents(config):
             max_tokens=debate_cfg.get("max_tokens", 512),
             timeout=debate_cfg.get("timeout_seconds", 180),
             persona=spec.get("persona", "careful"),
+            backend=debate_cfg.get("backend", "ollama"),
+            api_key_env=debate_cfg.get("api_key_env", "DEEPSEEK_API_KEY"),
         )
     return agents
 

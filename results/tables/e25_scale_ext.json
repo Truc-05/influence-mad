@@ -1,0 +1,1005 @@
+{
+  "labels": [
+    "E_strong24",
+    "E_frontier"
+  ],
+  "benches": [
+    "gsm8k",
+    "strategyqa",
+    "commonsenseqa",
+    "bbh",
+    "truthfulqa",
+    "aqua",
+    "arc",
+    "mmlu"
+  ],
+  "cells": {
+    "E_strong24": {
+      "gsm8k": {
+        "label": "E_strong24",
+        "bench": "gsm8k",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.121,
+        "_cen": [
+          109,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.8833333333333333,
+          "CR_history": 0.9633333333333334,
+          "dCR": 0.08000000000000007,
+          "dCR_ci": [
+            0.046666666666666745,
+            0.1166666666666667
+          ],
+          "maj_acc": 0.8333333333333334,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 637,
+          "base_rate": 0.45368916797488223,
+          "n_independent": {
+            "dir_auc": 0.9337390128465178,
+            "dir_ci": [
+              0.9070804117771846,
+              0.9558965640120654
+            ],
+            "monotone": false
+          },
+          "combo_auc": 0.9155729228811199,
+          "pass": true
+        },
+        "H3": {
+          "n": 300,
+          "final_majority": 0.8333333333333334,
+          "CR_history": 0.9633333333333334,
+          "prov_equalweight": {
+            "acc": 0.8966666666666666,
+            "delta": 0.06333333333333324,
+            "ci": [
+              0.033333333333333326,
+              0.09666666666666668
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.9,
+            "delta": 0.06666666666666665,
+            "ci": [
+              0.036666666666666625,
+              0.09999999999999998
+            ]
+          },
+          "pass": true
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "strategyqa": {
+        "label": "E_strong24",
+        "bench": "strategyqa",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.013,
+        "_cen": [
+          12,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.78,
+          "CR_history": 0.9266666666666666,
+          "dCR": 0.1466666666666666,
+          "dCR_ci": [
+            0.09666666666666668,
+            0.20333333333333337
+          ],
+          "maj_acc": 0.6133333333333333,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 497,
+          "base_rate": 0.5593561368209256,
+          "n_independent": {
+            "dir_auc": 0.6811537071712492,
+            "dir_ci": [
+              0.5873373755845112,
+              0.7671971176123062
+            ],
+            "monotone": false
+          },
+          "combo_auc": 0.6809401793633587,
+          "pass": true
+        },
+        "H3": {
+          "n": 300,
+          "final_majority": 0.6133333333333333,
+          "CR_history": 0.9266666666666666,
+          "prov_equalweight": {
+            "acc": 0.6433333333333333,
+            "delta": 0.030000000000000027,
+            "ci": [
+              -0.010000000000000009,
+              0.07000000000000006
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.64,
+            "delta": 0.026666666666666727,
+            "ci": [
+              -0.033333333333333326,
+              0.08666666666666667
+            ]
+          },
+          "pass": false
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "commonsenseqa": {
+        "label": "E_strong24",
+        "bench": "commonsenseqa",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.033,
+        "_cen": [
+          30,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.8033333333333333,
+          "CR_history": 0.9366666666666666,
+          "dCR": 0.1333333333333333,
+          "dCR_ci": [
+            0.08999999999999997,
+            0.18000000000000005
+          ],
+          "maj_acc": 0.6333333333333333,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 661,
+          "base_rate": 0.42511346444780634,
+          "n_independent": {
+            "dir_auc": 0.8587610039333209,
+            "dir_ci": [
+              0.8124589186220994,
+              0.9047091472617705
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.8387432103390149,
+          "pass": true
+        },
+        "H3": {
+          "n": 300,
+          "final_majority": 0.6566666666666666,
+          "CR_history": 0.9366666666666666,
+          "prov_equalweight": {
+            "acc": 0.73,
+            "delta": 0.07333333333333336,
+            "ci": [
+              0.026666666666666724,
+              0.1233333333333333
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.75,
+            "delta": 0.09333333333333338,
+            "ci": [
+              0.036666666666666736,
+              0.15333333333333332
+            ]
+          },
+          "pass": true
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "bbh": {
+        "label": "E_strong24",
+        "bench": "bbh",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.098,
+        "_cen": [
+          88,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.7333333333333333,
+          "CR_history": 0.8766666666666667,
+          "dCR": 0.14333333333333342,
+          "dCR_ci": [
+            0.09999999999999998,
+            0.19333333333333336
+          ],
+          "maj_acc": 0.5933333333333334,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 800,
+          "base_rate": 0.32875,
+          "n_independent": {
+            "dir_auc": 0.8220468594005566,
+            "dir_ci": [
+              0.7817884028350632,
+              0.8571836489191578
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.8575418994413408,
+          "pass": true
+        },
+        "H3": {
+          "n": 300,
+          "final_majority": 0.6266666666666667,
+          "CR_history": 0.8766666666666667,
+          "prov_equalweight": {
+            "acc": 0.7033333333333334,
+            "delta": 0.07666666666666666,
+            "ci": [
+              0.033333333333333326,
+              0.12
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.7066666666666667,
+            "delta": 0.07999999999999996,
+            "ci": [
+              0.03333333333333344,
+              0.1266666666666667
+            ]
+          },
+          "pass": true
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "truthfulqa": {
+        "label": "E_strong24",
+        "bench": "truthfulqa",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.013,
+        "_cen": [
+          4,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.26,
+          "CR_history": 0.36,
+          "dCR": 0.09999999999999998,
+          "dCR_ci": [
+            0.04999999999999999,
+            0.16000000000000003
+          ],
+          "maj_acc": 0.17,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 568,
+          "base_rate": 0.09154929577464789,
+          "n_independent": {
+            "dir_auc": 0.7049604949314252,
+            "dir_ci": [
+              0.6276590026593363,
+              0.7892979691876749
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.7459004174120454,
+          "pass": true
+        },
+        "H3": {
+          "n": 100,
+          "final_majority": 0.2,
+          "CR_history": 0.36,
+          "prov_equalweight": {
+            "acc": 0.23,
+            "delta": 0.03,
+            "ci": [
+              0.0,
+              0.06999999999999998
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.22,
+            "delta": 0.01999999999999999,
+            "ci": [
+              -0.01999999999999999,
+              0.06
+            ]
+          },
+          "pass": false
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "aqua": {
+        "label": "E_strong24",
+        "bench": "aqua",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.163,
+        "_cen": [
+          49,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.79,
+          "CR_history": 0.93,
+          "dCR": 0.14,
+          "dCR_ci": [
+            0.07000000000000006,
+            0.21999999999999997
+          ],
+          "maj_acc": 0.68,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 256,
+          "base_rate": 0.36328125,
+          "n_independent": {
+            "dir_auc": 0.8559271719770434,
+            "dir_ci": [
+              0.8096814262032891,
+              0.8991000946226899
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.8530905732568111,
+          "pass": true
+        },
+        "H3": {
+          "n": 100,
+          "final_majority": 0.72,
+          "CR_history": 0.93,
+          "prov_equalweight": {
+            "acc": 0.76,
+            "delta": 0.040000000000000036,
+            "ci": [
+              0.0,
+              0.08999999999999997
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.75,
+            "delta": 0.030000000000000027,
+            "ci": [
+              -0.010000000000000009,
+              0.07999999999999996
+            ]
+          },
+          "pass": false
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.16>0.15"
+      },
+      "arc": {
+        "label": "E_strong24",
+        "bench": "arc",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.033,
+        "_cen": [
+          10,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.97,
+          "CR_history": 1.0,
+          "dCR": 0.030000000000000027,
+          "dCR_ci": [
+            0.0,
+            0.06999999999999995
+          ],
+          "maj_acc": 0.89,
+          "pass": false
+        },
+        "H2": {
+          "n_candidates": 316,
+          "base_rate": 0.6582278481012658,
+          "n_independent": {
+            "dir_auc": 0.784633190883191,
+            "dir_ci": [
+              0.7333641163288857,
+              0.8357615043795903
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.8205573361823363,
+          "pass": true
+        },
+        "H3": {
+          "n": 100,
+          "final_majority": 0.9,
+          "CR_history": 1.0,
+          "prov_equalweight": {
+            "acc": 0.95,
+            "delta": 0.04999999999999993,
+            "ci": [
+              0.010000000000000009,
+              0.09999999999999998
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.94,
+            "delta": 0.039999999999999925,
+            "ci": [
+              0.0,
+              0.08999999999999997
+            ]
+          },
+          "pass": true
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "mmlu": {
+        "label": "E_strong24",
+        "bench": "mmlu",
+        "logdir": "data/debate_logs/gen/E_strong24",
+        "censored_rate": 0.027,
+        "_cen": [
+          8,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.8,
+          "CR_history": 0.98,
+          "dCR": 0.17999999999999994,
+          "dCR_ci": [
+            0.10999999999999999,
+            0.26
+          ],
+          "maj_acc": 0.66,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 232,
+          "base_rate": 0.4224137931034483,
+          "n_independent": {
+            "dir_auc": 0.8695552848004873,
+            "dir_ci": [
+              0.8094578226196301,
+              0.9207077555609193
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.8619402985074627,
+          "pass": true
+        },
+        "H3": {
+          "n": 100,
+          "final_majority": 0.68,
+          "CR_history": 0.98,
+          "prov_equalweight": {
+            "acc": 0.75,
+            "delta": 0.06999999999999995,
+            "ci": [
+              0.009999999999999898,
+              0.14
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.79,
+            "delta": 0.10999999999999999,
+            "ci": [
+              0.030000000000000027,
+              0.19999999999999996
+            ]
+          },
+          "pass": true
+        },
+        "valid": true,
+        "invalid_reason": ""
+      }
+    },
+    "E_frontier": {
+      "gsm8k": {
+        "label": "E_frontier",
+        "bench": "gsm8k",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.163,
+        "_cen": [
+          147,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.86,
+          "CR_history": 0.9266666666666666,
+          "dCR": 0.06666666666666665,
+          "dCR_ci": [
+            0.036666666666666736,
+            0.09999999999999998
+          ],
+          "maj_acc": 0.8533333333333334,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 337,
+          "base_rate": 0.8249258160237388,
+          "n_independent": {
+            "dir_auc": 0.952780148762346,
+            "dir_ci": [
+              0.884972587166438,
+              0.9902319007746638
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.9416839409828068,
+          "pass": true
+        },
+        "H3": {
+          "n": 287,
+          "final_majority": 0.8989547038327527,
+          "CR_history": 0.9686411149825784,
+          "prov_equalweight": {
+            "acc": 0.9547038327526133,
+            "delta": 0.05574912891986061,
+            "ci": [
+              0.027679274549576405,
+              0.08935354543103133
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.9512195121951219,
+            "delta": 0.05226480836236924,
+            "ci": [
+              0.024388126693766853,
+              0.08510638297872342
+            ]
+          },
+          "pass": true
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.16>0.15"
+      },
+      "strategyqa": {
+        "label": "E_frontier",
+        "bench": "strategyqa",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.152,
+        "_cen": [
+          137,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.7366666666666667,
+          "CR_history": 0.8166666666666667,
+          "dCR": 0.07999999999999996,
+          "dCR_ci": [
+            0.043333333333333335,
+            0.1166666666666667
+          ],
+          "maj_acc": 0.7233333333333334,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 327,
+          "base_rate": 0.7492354740061162,
+          "n_independent": {
+            "dir_auc": 0.7268790443006471,
+            "dir_ci": [
+              0.6597163907689871,
+              0.8075471881060117
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.6904927824788452,
+          "pass": true
+        },
+        "H3": {
+          "n": 275,
+          "final_majority": 0.7854545454545454,
+          "CR_history": 0.8909090909090909,
+          "prov_equalweight": {
+            "acc": 0.7890909090909091,
+            "delta": 0.0036363636363636598,
+            "ci": [
+              -0.017987234760927718,
+              0.025547445255474477
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.8145454545454546,
+            "delta": 0.029090909090909167,
+            "ci": [
+              -0.003559036603965418,
+              0.06406265887137777
+            ]
+          },
+          "pass": false
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.15>0.15"
+      },
+      "commonsenseqa": {
+        "label": "E_frontier",
+        "bench": "commonsenseqa",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.208,
+        "_cen": [
+          187,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.74,
+          "CR_history": 0.8133333333333334,
+          "dCR": 0.07333333333333336,
+          "dCR_ci": [
+            0.043250000000000004,
+            0.10999999999999999
+          ],
+          "maj_acc": 0.74,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 309,
+          "base_rate": 0.7896440129449838,
+          "n_independent": {
+            "dir_auc": 0.7480138713745271,
+            "dir_ci": [
+              0.6724252533101082,
+              0.8319522464966389
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.7115384615384616,
+          "pass": true
+        },
+        "H3": {
+          "n": 279,
+          "final_majority": 0.7956989247311828,
+          "CR_history": 0.8745519713261649,
+          "prov_equalweight": {
+            "acc": 0.8530465949820788,
+            "delta": 0.05734767025089604,
+            "ci": [
+              0.028266062807943044,
+              0.08823529411764697
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.8494623655913979,
+            "delta": 0.05376344086021512,
+            "ci": [
+              0.02500000000000002,
+              0.08455882352941169
+            ]
+          },
+          "pass": true
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.21>0.15"
+      },
+      "bbh": {
+        "label": "E_frontier",
+        "bench": "bbh",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.11,
+        "_cen": [
+          99,
+          900
+        ],
+        "H1": {
+          "n": 300,
+          "CR_final": 0.87,
+          "CR_history": 0.9133333333333333,
+          "dCR": 0.043333333333333335,
+          "dCR_ci": [
+            0.020000000000000018,
+            0.07000000000000006
+          ],
+          "maj_acc": 0.8533333333333334,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 337,
+          "base_rate": 0.8130563798219584,
+          "n_independent": {
+            "dir_auc": 0.8589966400185378,
+            "dir_ci": [
+              0.7888681836517658,
+              0.9277428853644502
+            ],
+            "monotone": false
+          },
+          "combo_auc": 0.8267002664812884,
+          "pass": true
+        },
+        "H3": {
+          "n": 286,
+          "final_majority": 0.8986013986013986,
+          "CR_history": 0.958041958041958,
+          "prov_equalweight": {
+            "acc": 0.9055944055944056,
+            "delta": 0.006993006993006978,
+            "ci": [
+              -0.01403632320237217,
+              0.028070175438596467
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.9055944055944056,
+            "delta": 0.006993006993006978,
+            "ci": [
+              -0.017362623403019792,
+              0.031034482758620644
+            ]
+          },
+          "pass": false
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "truthfulqa": {
+        "label": "E_frontier",
+        "bench": "truthfulqa",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.523,
+        "_cen": [
+          157,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.13,
+          "CR_history": 0.19,
+          "dCR": 0.06,
+          "dCR_ci": [
+            0.01999999999999999,
+            0.10999999999999999
+          ],
+          "maj_acc": 0.11,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 318,
+          "base_rate": 0.09433962264150944,
+          "n_independent": {
+            "dir_auc": 0.6493634259259259,
+            "dir_ci": [
+              0.5358752971758718,
+              0.8066712636032088
+            ],
+            "monotone": false
+          },
+          "combo_auc": 0.6114583333333333,
+          "pass": true
+        },
+        "H3": {
+          "n": 79,
+          "final_majority": 0.1518987341772152,
+          "CR_history": 0.24050632911392406,
+          "prov_equalweight": {
+            "acc": 0.189873417721519,
+            "delta": 0.037974683544303806,
+            "ci": [
+              0.0,
+              0.08860759493670886
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.20253164556962025,
+            "delta": 0.050632911392405056,
+            "ci": [
+              0.01265822784810125,
+              0.10126582278481014
+            ]
+          },
+          "pass": true
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.52>0.15"
+      },
+      "aqua": {
+        "label": "E_frontier",
+        "bench": "aqua",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.287,
+        "_cen": [
+          86,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.73,
+          "CR_history": 0.81,
+          "dCR": 0.08000000000000007,
+          "dCR_ci": [
+            0.030000000000000027,
+            0.14
+          ],
+          "maj_acc": 0.7,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 127,
+          "base_rate": 0.6377952755905512,
+          "n_independent": {
+            "dir_auc": 0.8843263553408481,
+            "dir_ci": [
+              0.8070548666306872,
+              0.9499178107779958
+            ],
+            "monotone": true
+          },
+          "combo_auc": 0.9204240472356414,
+          "pass": true
+        },
+        "H3": {
+          "n": 86,
+          "final_majority": 0.8372093023255814,
+          "CR_history": 0.9418604651162791,
+          "prov_equalweight": {
+            "acc": 0.872093023255814,
+            "delta": 0.03488372093023251,
+            "ci": [
+              -0.03488372093023251,
+              0.10465116279069764
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.8837209302325582,
+            "delta": 0.046511627906976716,
+            "ci": [
+              0.0,
+              0.10465116279069764
+            ]
+          },
+          "pass": false
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.29>0.15"
+      },
+      "arc": {
+        "label": "E_frontier",
+        "bench": "arc",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.093,
+        "_cen": [
+          28,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.93,
+          "CR_history": 0.99,
+          "dCR": 0.05999999999999994,
+          "dCR_ci": [
+            0.020000000000000018,
+            0.10999999999999999
+          ],
+          "maj_acc": 0.93,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 138,
+          "base_rate": 0.9565217391304348,
+          "n_independent": {
+            "dir_auc": 0.7676767676767677,
+            "dir_ci": [
+              0.4303552971576228,
+              0.9817518248175183
+            ],
+            "monotone": false
+          },
+          "combo_auc": 0.7752525252525252,
+          "pass": false
+        },
+        "H3": {
+          "n": 100,
+          "final_majority": 0.93,
+          "CR_history": 0.99,
+          "prov_equalweight": {
+            "acc": 0.97,
+            "delta": 0.039999999999999925,
+            "ci": [
+              -0.0002499999999999122,
+              0.08999999999999997
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.97,
+            "delta": 0.039999999999999925,
+            "ci": [
+              -0.0002499999999999122,
+              0.08999999999999997
+            ]
+          },
+          "pass": false
+        },
+        "valid": true,
+        "invalid_reason": ""
+      },
+      "mmlu": {
+        "label": "E_frontier",
+        "bench": "mmlu",
+        "logdir": "data/debate_logs/gen/E_frontier",
+        "censored_rate": 0.323,
+        "_cen": [
+          97,
+          300
+        ],
+        "H1": {
+          "n": 100,
+          "CR_final": 0.76,
+          "CR_history": 0.81,
+          "dCR": 0.050000000000000044,
+          "dCR_ci": [
+            0.010000000000000009,
+            0.09999999999999998
+          ],
+          "maj_acc": 0.74,
+          "pass": true
+        },
+        "H2": {
+          "n_candidates": 94,
+          "base_rate": 0.8617021276595744,
+          "n_independent": {
+            "dir_auc": 0.9069325735992403,
+            "dir_ci": [
+              0.7992371900875606,
+              0.9839361148296891
+            ],
+            "monotone": null
+          },
+          "combo_auc": 0.9002849002849002,
+          "pass": true
+        },
+        "H3": {
+          "n": 84,
+          "final_majority": 0.8928571428571429,
+          "CR_history": 0.9642857142857143,
+          "prov_equalweight": {
+            "acc": 0.9523809523809523,
+            "delta": 0.05952380952380942,
+            "ci": [
+              0.011904761904761973,
+              0.1071428571428572
+            ]
+          },
+          "prov_logistic_xfit": {
+            "acc": 0.9523809523809523,
+            "delta": 0.05952380952380942,
+            "ci": [
+              0.011904761904761973,
+              0.1071428571428572
+            ]
+          },
+          "pass": true
+        },
+        "valid": false,
+        "invalid_reason": "censored 0.32>0.15"
+      }
+    }
+  },
+  "summary": {
+    "E_strong24": {
+      "n_cells": 8,
+      "n_valid": 7,
+      "H1": "7/8",
+      "H2": "8/8",
+      "H3": "5/7"
+    },
+    "E_frontier": {
+      "n_cells": 8,
+      "n_valid": 2,
+      "H1": "8/8",
+      "H2": "7/8",
+      "H3": "0/2"
+    },
+    "pooled": {
+      "valid": "9/16",
+      "H1": "15/16",
+      "H2": "15/16",
+      "H3": "5/9"
+    }
+  },
+  "prereg": "paper/E25_newbench_prereg.md (ADDENDUM)"
+}

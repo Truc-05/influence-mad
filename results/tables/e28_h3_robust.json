@@ -1,0 +1,158 @@
+{
+  "n_candidates": 27139,
+  "base_rate": 0.32038763403220455,
+  "corr_ind_adopt": 0.21180778889827329,
+  "true_decomposition": {
+    "n_independent": {
+      "beta": 0.9203228248511313,
+      "lo": 0.8480295491444965,
+      "hi": 0.9928011025459055,
+      "p_le0": 0.0
+    },
+    "n_adopt": {
+      "beta": -0.03990933076488856,
+      "lo": -0.08965049459898104,
+      "hi": 0.005713931752414537,
+      "p_le0": 0.954
+    },
+    "n_persist": {
+      "beta": 0.8307453191731465,
+      "lo": 0.7753867251145519,
+      "hi": 0.8909273171717114,
+      "p_le0": 0.0
+    },
+    "contrast_ind_minus_adopt": {
+      "beta": 0.9602321556160198,
+      "lo": 0.8849081947483549,
+      "hi": 1.0450248611345554,
+      "p_le0": 0.0
+    }
+  },
+  "two_term_ind_adopt": {
+    "n_independent": {
+      "beta": 1.2941779137147151,
+      "lo": 1.2204838816816435,
+      "hi": 1.3683500439903589,
+      "p_le0": 0.0
+    },
+    "n_adopt": {
+      "beta": 0.38299663498475855,
+      "lo": 0.33858400404794514,
+      "hi": 0.42825025781274656,
+      "p_le0": 0.0
+    },
+    "contrast_ind_minus_adopt": {
+      "beta": 0.9111812787299566,
+      "lo": 0.8334266617584715,
+      "hi": 0.999857813748516,
+      "p_le0": 0.0
+    }
+  },
+  "within_question_condlogit_ctrl_support": {
+    "n_independent": {
+      "beta": 0.47372229897379214,
+      "lo": 0.41897152357670947,
+      "hi": 0.5284730743708748,
+      "p": 1.6718396661490162e-64
+    },
+    "n_support": {
+      "beta": 0.31673526994028645,
+      "lo": 0.29544484425673745,
+      "hi": 0.33802569562383544,
+      "p": 6.582747074662311e-187
+    },
+    "_n_informative_questions": 2946
+  },
+  "within_question_condlogit_ctrl_adopt_persist": {
+    "n_independent": {
+      "beta": 0.7529888988188019,
+      "lo": 0.7063277733462272,
+      "hi": 0.7996500242913767,
+      "p": 1.4883826779019518e-219
+    },
+    "n_adopt": {
+      "beta": 0.186703106340017,
+      "lo": 0.12982534251438815,
+      "hi": 0.24358087016564584,
+      "p": 1.245792985683781e-10
+    },
+    "n_persist": {
+      "beta": 0.6760286954717796,
+      "lo": 0.612164391094921,
+      "hi": 0.7398929998486381,
+      "p": 1.3051863374081323e-95
+    },
+    "_n_informative_questions": 2946
+  },
+  "within_question_concordance_all": {
+    "concordance": 0.7468422996429891,
+    "lo": 0.7334965697920947,
+    "hi": 0.7598812395044018,
+    "n_clusters": 2946,
+    "n_pairs": 40615
+  },
+  "within_question_concordance_matched_support": {
+    "concordance": 0.5710096355257646,
+    "lo": 0.5494548540994756,
+    "hi": 0.593473190267704,
+    "n_clusters": 1032,
+    "n_pairs": 4774
+  },
+  "within_question_concordance_matched_final": {
+    "concordance": 0.7019140989729225,
+    "lo": 0.6846344512516497,
+    "hi": 0.719952278722619,
+    "n_clusters": 1477,
+    "n_pairs": 8568
+  },
+  "robust_ctrl_final_support": {
+    "n_independent": {
+      "beta": 1.0286433301392313,
+      "lo": 0.9632156010439733,
+      "hi": 1.0952639439522445,
+      "p_le0": 0.0
+    },
+    "n_final": {
+      "beta": 0.5426303721339557,
+      "lo": 0.4956867943059653,
+      "hi": 0.5923303987672461,
+      "p_le0": 0.0
+    }
+  },
+  "robust_cluster_bench_qid": {
+    "n_independent": {
+      "beta": 0.58947460201428,
+      "lo": 0.4717949313257682,
+      "hi": 0.7065335526091352,
+      "p_le0": 0.0
+    },
+    "n_support": {
+      "beta": 0.35109536848418993,
+      "lo": 0.30785842696696425,
+      "hi": 0.3948307087661058,
+      "p_le0": 0.0
+    }
+  },
+  "robust_ctrl_rounds": {
+    "n_independent": {
+      "beta": 0.5310981305002443,
+      "lo": 0.44152149211691355,
+      "hi": 0.6057701039227382,
+      "p_le0": 0.0
+    },
+    "n_support": {
+      "beta": 0.36319348160009196,
+      "lo": 0.3322451625705937,
+      "hi": 0.3928504577658091,
+      "p_le0": 0.0
+    },
+    "n_rounds": {
+      "beta": -0.810633910966455,
+      "lo": -0.987285480700096,
+      "hi": -0.7256574682642665,
+      "p_le0": 1.0
+    }
+  },
+  "log_odds_ratio_ind_over_adopt": -23.060342211020313,
+  "_note": "H3 robustness. (1) TRUE decomposition replaces the flawed n_inherited residual with n_adopt=n_late_adopt (genuine social-adoption events): b_ind vs b_adopt is the clean independent-vs-inherited contrast. (2) within-question conditional logit + concordance condition question difficulty out exactly; b_ind / concordance staying positive locks the difficulty-confound objection. Report log-odds COEFFICIENT ratios, not 'value'."
+}

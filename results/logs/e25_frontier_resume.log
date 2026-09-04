@@ -1,0 +1,57 @@
+[2026-09-03 10:28:41] === E25 E_frontier gen: 16 cells, model=deepseek-chat, url=https://api.deepseek.com ===
+[2026-09-03 10:28:41] >>> (1/16) E_frontier/gsm8k_seed42
+[done] E_frontier/gsm8k_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/gsm8k_seed42
+[2026-09-03 10:28:41] >>> (2/16) E_frontier/commonsenseqa_seed42
+[done] E_frontier/commonsenseqa_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/commonsenseqa_seed42
+[2026-09-03 10:28:41] >>> (3/16) E_frontier/bbh_seed42
+[done] E_frontier/bbh_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/bbh_seed42
+[2026-09-03 10:28:41] >>> (4/16) E_frontier/strategyqa_seed42
+[done] E_frontier/strategyqa_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/strategyqa_seed42
+[2026-09-03 10:28:41] >>> (5/16) E_frontier/truthfulqa_seed42
+[done] E_frontier/truthfulqa_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/truthfulqa_seed42
+[2026-09-03 10:28:41] >>> (6/16) E_frontier/aqua_seed42
+[done] E_frontier/aqua_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/aqua_seed42
+[2026-09-03 10:28:41] >>> (7/16) E_frontier/arc_seed42
+[done] E_frontier/arc_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/arc_seed42
+[2026-09-03 10:28:41] >>> (8/16) E_frontier/mmlu_seed42
+[done] E_frontier/mmlu_seed42: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/mmlu_seed42
+[2026-09-03 10:28:41] >>> (9/16) E_frontier/gsm8k_seed43
+[done] E_frontier/gsm8k_seed43: complete (100/100)
+[2026-09-03 10:28:41] <<< DONE E_frontier/gsm8k_seed43
+[2026-09-03 10:28:41] >>> (10/16) E_frontier/commonsenseqa_seed43
+[gen ] E_frontier/commonsenseqa_seed43: 91 done, 9 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/commonsenseqa_seed43: data/debate_logs/gen/E_frontier/commonsenseqa_seed43.jsonl
+[2026-09-03 10:30:16] <<< DONE E_frontier/commonsenseqa_seed43
+[2026-09-03 10:30:16] >>> (11/16) E_frontier/bbh_seed43
+[gen ] E_frontier/bbh_seed43: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/bbh_seed43: data/debate_logs/gen/E_frontier/bbh_seed43.jsonl
+[2026-09-03 10:49:00] <<< DONE E_frontier/bbh_seed43
+[2026-09-03 10:49:00] >>> (12/16) E_frontier/strategyqa_seed43
+[gen ] E_frontier/strategyqa_seed43: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/strategyqa_seed43: data/debate_logs/gen/E_frontier/strategyqa_seed43.jsonl
+[2026-09-03 11:24:26] <<< DONE E_frontier/strategyqa_seed43
+[2026-09-03 11:24:26] >>> (13/16) E_frontier/gsm8k_seed44
+[gen ] E_frontier/gsm8k_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/gsm8k_seed44: data/debate_logs/gen/E_frontier/gsm8k_seed44.jsonl
+[2026-09-03 11:41:43] <<< DONE E_frontier/gsm8k_seed44
+[2026-09-03 11:41:43] >>> (14/16) E_frontier/commonsenseqa_seed44
+[gen ] E_frontier/commonsenseqa_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/commonsenseqa_seed44: data/debate_logs/gen/E_frontier/commonsenseqa_seed44.jsonl
+[2026-09-03 12:00:01] <<< DONE E_frontier/commonsenseqa_seed44
+[2026-09-03 12:00:01] >>> (15/16) E_frontier/bbh_seed44
+[gen ] E_frontier/bbh_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/bbh_seed44: data/debate_logs/gen/E_frontier/bbh_seed44.jsonl
+[2026-09-03 12:16:59] <<< DONE E_frontier/bbh_seed44
+[2026-09-03 12:16:59] >>> (16/16) E_frontier/strategyqa_seed44
+[gen ] E_frontier/strategyqa_seed44: 0 done, 100 remaining (backend=deepseek, url=https://api.deepseek.com)
+[ok  ] E_frontier/strategyqa_seed44: data/debate_logs/gen/E_frontier/strategyqa_seed44.jsonl
+[2026-09-03 12:49:29] <<< DONE E_frontier/strategyqa_seed44
+[2026-09-03 12:49:29] === ALL E_frontier GEN DONE ===

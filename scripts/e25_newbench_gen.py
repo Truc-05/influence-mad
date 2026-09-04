@@ -6,7 +6,7 @@ new benchmarks under the 3 frozen ensembles, then the (separate) verdict reuses 
 GPU discipline ([[gpu-run-pinning]]): gpu1-pinned Ollama :11435 ONLY, gpu0 untouched. Resumable
 (gen_cell skips already-done question_ids). Ordered by ensemble to keep each ensemble's models hot.
 
-  /home/alex/venvs/env/bin/python scripts/e25_newbench_gen.py
+  python scripts/e25_newbench_gen.py
 """
 import os, sys, time
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

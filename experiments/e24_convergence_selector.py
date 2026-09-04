@@ -26,7 +26,7 @@ Selectors (gold-free, same e3.prep_log correctness):
 
 PRIMARY: ΔAcc vs **round0_majority** (and vs final_majority), cluster-boot qid, per-bench. Success =
 beat round0 pooled (CI>0) AND fix StrategyQA (Δ vs final_maj no longer negative). ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e24_convergence_selector.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e24_convergence_selector.py
 """
 import os, sys, glob, json
 from collections import Counter, defaultdict

@@ -28,7 +28,7 @@ toward/above 0 vs r=0 -> GO build the sequential controller. If r=0~r=1 stay at 
 r=2 improves alongside auc_predict_Y0 -> ~1 -> mechanical leak -> NO-GO, go generalization+submit.
 
 ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e17_trajectory_precheck.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e17_trajectory_precheck.py
 """
 import os, sys, glob, json
 

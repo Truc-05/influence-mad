@@ -24,7 +24,7 @@ hist_frequency / persistence / recency / antirecency select from the WHOLE pool,
 resurrect a forgotten-correct answer (the HP-MAD advantage); the two majority selectors cannot.
 Ties broken deterministically by (score, total-frequency, bucket-string). Cluster-boot CI on qid
 for each selector's Δ vs final_majority (paired). ZERO-GPU. Run:
-  CUDA_VISIBLE_DEVICES="" /home/alex/venvs/env/bin/python experiments/e19_selector_bakeoff.py
+  CUDA_VISIBLE_DEVICES="" python experiments/e19_selector_bakeoff.py
 """
 import os, sys, glob, json
 from collections import Counter, defaultdict
