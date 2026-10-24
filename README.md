@@ -1,5 +1,4 @@
-# Not All Consensus Is Equal
-### Epistemic Provenance of Agreement in Multi-Agent LLM Debate
+# The Origin of Consensus Shapes Reliability in Multi-Agent LLM Debate
 
 > Multi-agent debate (MAD) is widely used to make LLM answers more reliable. We show it routinely
 > **destroys** correct answers it already found — and that the *origin* of agreement carries correctness
